@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use Flash;
 use Lang;
 use App\Models\Topic;
@@ -18,6 +17,7 @@ class TopicController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('admin', ['only' => 'destory']);
     }
 
     public function index()
@@ -38,6 +38,7 @@ class TopicController extends Controller
         // Convert HTML topic content to markdown.
         $converter = new HtmlConverter();
         $markdown = $converter->convert($request->input('content'));
+        // Create topic and post.
         Topic::createWithInput([
             'node' => $request->input('node'),
             'title' => $request->input('title'),
@@ -73,27 +74,30 @@ class TopicController extends Controller
         $this->authorize('update', $topic);
         // Get user id.
         $user = Auth::user();
-        if ($user == $topic->user) {
-            // Convert HTML topic content to markdown.
-            $converter = new HtmlConverter();
-            $markdown = $converter->convert($request->input('content'));
-            $topic->updateWithInput([
-                'title' => $request->input('title'),
-                'content' => $markdown,
-            ]);
-            $topic->retag($request->input('tags'));
-            Flash::success('Item updated successfully.');
-        } else {
-            Flash::error('You don\'t have permission.');
-        }
+        // Convert HTML topic content to markdown.
+        $converter = new HtmlConverter();
+        $markdown = $converter->convert($request->input('content'));
+        // Update topic.
+        $topic->updateWithInput([
+            'title' => $request->input('title'),
+            'content' => $markdown,
+        ]);
+        // Update tags.
+        $topic->retag($request->input('tags'));
+        // Show messgae.
+        Flash::success('Item updated successfully.');
         return redirect()->route('topics.index');
     }
 
     public function destroy(Topic $topic)
     {
         $this->authorize('destroy', $topic);
-        $topic->update(['status' => -1]);
+        // Set status = -1 to delete.
+        $topic->status = -1;
+        $topic->save();
+        // Soft delete.
         $topic->delete();
+        // Show message.
         Flash::success('Item deleted successfully.');
         return redirect()->route('topics.index');
     }

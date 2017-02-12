@@ -9,6 +9,7 @@ use Session;
 use Socialite;
 use Storage;
 use URL;
+use Md\MDAvatars;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
@@ -73,24 +74,14 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'username' => $username,
-            'email' => $email,
-            'password' => bcrypt($password),
-            'type' => 0,
-            'status' => 0,
-            'points' => 20,
-            'notifications' => 0,
-            'regip' => $request->ip(),
+            'username' => $request->input('username'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
         ]);
     }
 
     public function postRegister(UserRequest $request)
-    {
-        //获取表单的值
-        $username = $request->input('username');
-        $email = $request->input('email');
-        $password = $request->input('password');
-        
+    {   
         //注册表单验证
         $validator = Validator::make($request->all(), [
             'username' => 'bail|required|min:5|max:30|unique:users',
@@ -107,10 +98,18 @@ class RegisterController extends Controller
             return back()->withInput();
         }
 
-        //创建用户
+        // Create user.
         $this->create($request->all());
+        User::points = 20;
+        User::regip = $request->ip();
+        User::save();
 
-        //Send mail...
+        // Save default avatar.
+        $avatar = new MDAvatars($request->input('username'), 512);
+        $avatar->Save(public_path('avatars/' . $user->id . '.png'), 256);
+        $avatar->Free();
+        
+        // Send email.
         Flash::success('注册用户成功，请在电子邮件中确认账号');
         return redirect()->intended();
     }
@@ -165,11 +164,10 @@ class RegisterController extends Controller
                 'username' => $user->name,
                 'email' => $user->email,
                 'password' => '',
-                'type' => 0,
-                'status' => 1,
-                'points' => 20,
-                'notifications' => 0,
             ]);
+            User::points = 20;
+            User::regip = $request->ip();
+            User::save();
             $userid = User::where('username', $user->name)->first()->id;
 
             //保存头像

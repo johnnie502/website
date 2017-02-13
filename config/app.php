@@ -187,6 +187,7 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,  // 
         \Cviebrock\EloquentTaggable\ServiceProvider::class,  // Tags manage
         Intervention\Image\ImageServiceProvider::class,  // Image
+        Junaidnasir\Larainvite\LaraInviteServiceProvider::class,  // Invite register
 
     ],
 
@@ -240,6 +241,7 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
         'Markdown' => Indal\Markdown\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Invite' => Junaidnasir\Larainvite\Facades\Invite::class,
 
     ],
 

@@ -56,36 +56,15 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postLogin(Request $request)
+    public function postLogin(UserRequest $request)
     {
         // Get number of attempts to login.
         if ($this->hasTooManyLoginAttempts($request)) {
             Flash::error(Lang::get('auth.throttle'));
             return back()->withInput();
         }
-
-        // Get the login request from form input.
-        $username = $request->input('username');
-        $password = $request->input('password');
-        $remeber = $request->input('remember');
         // Determine whether is email or username login.
         $type = filter_var($username, FILTER_VALIDATE_EMAIL ) ? 'email' : 'username';
-
-        // Manually validation the login request.
-        $validator = Validator::make($request->all(), [
-            'username' => 'bail|required|min:5|max:30',
-            'password' => 'bail|required|min:8|max:50',
-        ]);
-
-        // Validation failed.
-        if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            if (count($errors) > 0) {
-                Flash::error(implode('<br>', $errors));
-            }
-            return back()->withInput();
-        }
-
         // Login attempts.
         if ($type == 'email') {
             if (Auth::attempt(['email' => $username, 'password' => $password], $request->has('remember'))) {

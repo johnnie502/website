@@ -9,9 +9,9 @@ use Session;
 use Socialite;
 use Storage;
 use URL;
-use Md\MDAvatars;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserController;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -79,38 +79,11 @@ class RegisterController extends Controller
             'password' => bcrypt($request->input('password')),
         ]);
     }
-
     public function postRegister(UserRequest $request)
+
     {   
-        //注册表单验证
-        $validator = Validator::make($request->all(), [
-            'username' => 'bail|required|min:5|max:30|unique:users',
-            'email' => 'bail|required|email|min:5|max:30|unique:users',
-            'password' => 'bail|required|min:8|max:50',
-        ]);
-        
-        //表单验证失败提示
-        if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            if (count($errors) > 0) {
-                Flash::error(implode('<br>', $errors));
-            }
-            return back()->withInput();
-        }
-
-        // Create user.
-        $this->create($request->all());
-        User::points = 20;
-        User::regip = $request->ip();
-        User::save();
-
-        // Save default avatar.
-        $avatar = new MDAvatars($request->input('username'), 512);
-        $avatar->Save(public_path('avatars/' . $user->id . '.png'), 256);
-        $avatar->Free();
-        
-        // Send email.
-        Flash::success('注册用户成功，请在电子邮件中确认账号');
+        // Use UserController to store register user.
+        UserController::store($request);
         return redirect()->intended();
     }
 
@@ -142,7 +115,6 @@ class RegisterController extends Controller
         } else {
             return false;
         }
-
         //通过oauth登录
         $oauth = User::oauth($driver, $user->id);
         if (!$oauth) {

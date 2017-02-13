@@ -12,6 +12,9 @@ class UserRequest extends Request
             {
                 return [
                     // CREATE ROLES
+                    'username' => 'bail|required|min:5|max:30|unique:users',
+                    'email' => 'bail|required|email|min:5|max:30|unique:users',
+                    'password' => 'bail|required|min:8|max:50',
                 ];
             }
             case 'PUT':
@@ -19,6 +22,9 @@ class UserRequest extends Request
             {
                 return [
                     // UPDATE ROLES
+                    'username' => 'bail|required|min:5|max:30|unique:users',
+                    'email' => 'bail|required|email|min:5|max:30|unique:users',
+                    'password' => 'bail|required|min:8|max:50',
                 ];
             }
             case 'GET':

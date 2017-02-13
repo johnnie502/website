@@ -12,6 +12,8 @@ class NodeRequest extends Request
             {
                 return [
                     // CREATE ROLES
+                    'name' => 'bail|required',
+                    'slug' => 'bail|required',
                 ];
             }
             case 'PUT':
@@ -19,6 +21,8 @@ class NodeRequest extends Request
             {
                 return [
                     // UPDATE ROLES
+                    'name' => 'bail|required',
+                    'slug' => 'bail|required',
                 ];
             }
             case 'GET':

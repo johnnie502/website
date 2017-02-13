@@ -12,6 +12,7 @@ class FileRequest extends Request
             {
                 return [
                     // CREATE ROLES
+                    'name' => 'bail|required|min:5|max:50',
                 ];
             }
             case 'PUT':
@@ -19,6 +20,7 @@ class FileRequest extends Request
             {
                 return [
                     // UPDATE ROLES
+                    'name' => 'bail|required|min:5|max:50',
                 ];
             }
             case 'GET':
@@ -34,6 +36,6 @@ class FileRequest extends Request
     {
         return [
             // Validation messages
-        ];
+         ];
     }
 }

@@ -9,5 +9,5 @@ class File extends Model
     use Traits\FileOperation, softDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = ['name', 'description', 'path'];
+    protected $fillable = ['name', 'description'];
 }

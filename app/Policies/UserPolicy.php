@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\User;
 
 class UserPolicy extends Policy
 {

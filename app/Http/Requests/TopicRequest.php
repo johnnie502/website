@@ -12,6 +12,8 @@ class TopicRequest extends Request
             {
                 return [
                     // CREATE ROLES
+                    'title' => 'bail|required|min:10|max:80',
+                    'content' => 'bail|required|min:5|max:20000',
                 ];
             }
             case 'PUT':
@@ -19,6 +21,8 @@ class TopicRequest extends Request
             {
                 return [
                     // UPDATE ROLES
+                    'title' => 'bail|required|min:10|max:80',
+                    'content' => 'bail|required|min:5|max:20000',
                 ];
             }
             case 'GET':

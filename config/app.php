@@ -186,6 +186,7 @@ return [
         Hootlex\Moderation\ModerationServiceProvider::class,  // Audit contents
         Zizaco\Entrust\EntrustServiceProvider::class,  // 
         \Cviebrock\EloquentTaggable\ServiceProvider::class,  // Tags manage
+        Intervention\Image\ImageServiceProvider::class,  // Image
 
     ],
 
@@ -238,6 +239,7 @@ return [
         // Third Party
         'Flash' => Laracasts\Flash\Flash::class,
         'Markdown' => Indal\Markdown\Facade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

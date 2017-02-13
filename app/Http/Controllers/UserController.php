@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Flash;
+use Image;
 use Lang;
 use App\Models\User;
 use Md\MDAvatars;
+use Intervention\Image\ImageManager;
+use \Intervention\Image\AbstractFont as Font;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
@@ -14,7 +18,13 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        if (Auth::check()) {
+            // Only admin user can create or update users.
+            $this->middleware('admin', ['except' => ['index', 'show']]);
+        } else {
+            // Register user.
+            $this->middleware('guest', ['only' => 'create']);
+        }
     }
 
     public function index()
@@ -30,8 +40,12 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
+        // Create an image manager instance with favored driver.
+        //$manager = new ImageManager(['driver' => 'gd']);
+        // To finally create image instances.
+        //$img = $manager->canvas(800, 100, '#fff');
         // Create user.
-        User::createWithInput(
+        User::createWithInput([
             'username' => $request->input('username'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
@@ -43,9 +57,10 @@ class UserController extends Controller
         $avatar = new MDAvatars($request->input('username'), 512);
         $avatar->Save(public_path('avatars/' . $user->id . '.png'), 256);
         $avatar->Free();
+        // Send email.
         // Show message.
-        Flash::success('Item created successfully.');
-        return redirect()->route('users.index');
+        Flash::success('注册用户成功，请在电子邮件中确认账号');
+        return (Auth::check()) ? redirect()->route('users.index') : redirect()->intended();
     }
 
     public function show(User $user)
@@ -64,7 +79,7 @@ class UserController extends Controller
         // Update user.
         $user->updateWithInput($request->all());
         // Show messgae.
-        Flash::success('');
+        Flash::success('Item created successfully.');
         return redirect()->route('users.index');
     }
 

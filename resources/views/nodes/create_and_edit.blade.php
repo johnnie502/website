@@ -14,9 +14,6 @@
                 @endif
             </h1>
         </div>
-
-        @include('error')
-
         <div class="panel-body">
             @if($node->id)
                 <form action="{{ route('nodes.update', $node->id) }}" method="POST">

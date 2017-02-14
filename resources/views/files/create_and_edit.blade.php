@@ -14,9 +14,6 @@
                 @endif
             </h1>
         </div>
-
-        @include('error')
-
         <div class="panel-body">
             @if($file->id)
                 <form action="{{ route('files.update', $file->id) }}" method="POST">

@@ -34,7 +34,14 @@ $(document).ready(function(){
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="node-field">Node</label>
-                    <input class="form-control" type="text" name="node" id="node-field" value="{{ old('node', $topic->node) }}" />
+                    @if($topic->id)
+                        <input name="node" id="node-field" value="{{ $node->name }}" />
+                    @else
+                        <select name="node" id="node-field">
+                            @foreach $nodes as $node
+                            <option value="{{  $node->name . '/' . $node->slug) }}" />
+                        </select>
+                    @endif
                 </div> 
                 <div class="form-group">
                 	<label for="title-field">Title</label>
@@ -52,9 +59,9 @@ $(document).ready(function(){
                         </script>
                         <script type="text/javascript">
 	                    var ue = UE.getEditor('container');
-		            ue.ready(function() {
-		            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
-	                });
+		              ue.ready(function() {
+		                  ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
+	                    });
                         </script>
                 </div> 
                 <div class="well well-sm">

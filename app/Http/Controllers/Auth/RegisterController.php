@@ -130,16 +130,16 @@ class RegisterController extends Controller
             }
             
             //创建用户
-            User::create([
+            $user = User::create([
                 'driver' => $driver,
                 'oauth' => $user->id,
                 'username' => $user->name,
                 'email' => $user->email,
                 'password' => '',
             ]);
-            User::points = 20;
-            User::regip = $request->ip();
-            User::save();
+            $user->points = 20;
+            $user->regip = $request->ip();
+            $user->save();
             $userid = User::where('username', $user->name)->first()->id;
 
             //保存头像

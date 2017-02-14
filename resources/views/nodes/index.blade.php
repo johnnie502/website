@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
@@ -9,7 +8,6 @@
                 <a class="btn btn-success pull-right" href="{{ route('nodes.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
             </h1>
         </div>
-
         <div class="panel-body">
             @if($nodes->count())
                 <table class="table table-condensed table-striped">
@@ -20,7 +18,6 @@
                             <th class="text-right">OPTIONS</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         @foreach($nodes as $node)
                             <tr>
@@ -55,5 +52,4 @@
         </div>
     </div>
 </div>
-
 @endsection

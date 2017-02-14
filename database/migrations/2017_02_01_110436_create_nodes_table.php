@@ -5,9 +5,9 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateNodesTable extends Migration 
 {
-	public function up()
-	{
-		Schema::create('nodes', function(Blueprint $table) {
+    public function up()
+    {
+        Schema::create('nodes', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('slug');
@@ -15,13 +15,13 @@ class CreateNodesTable extends Migration
             $table->integer('parent')->unsigned()->nullable()->index();
             $table->text('description')->nullable();
             $table->integer('topics')->unsigned()->default(0);
-            $table->('');
             $table->timestamps();
-        });
-	}
+            $table->softDeletes();
+      });
+    }
 
-	public function down()
-	{
-		Schema::drop('nodes');
-	}
+    public function down()
+    {
+        Schema::drop('nodes');
+    }
 }

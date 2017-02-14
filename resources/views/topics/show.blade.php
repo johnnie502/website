@@ -22,13 +22,7 @@
                 </div>
             </div>
 
-      <label>Nodes</label>
-<p>
-	{{ $topic->nodes }}
-</p> <label>User</label>
-<p>
-	{{ $topic->user }}
-</p> <label>Title</label>
+ <label>Title</label>
 <p>
 	{{ $topic->title }}
 </p> <label>Content</label>
@@ -36,7 +30,7 @@
 	{{ $topic->content }}
 </p>
         </div>
-        
+        @yield('post')
     </div>
 </div>
 

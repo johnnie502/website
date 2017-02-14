@@ -45,14 +45,14 @@ class UserController extends Controller
         // To finally create image instances.
         //$img = $manager->canvas(800, 100, '#fff');
         // Create user.
-        User::createWithInput([
+        $user = User::createWithInput([
             'username' => $request->input('username'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
         ]);
-        User::points = 20;
-        User::regip = $request->ip();
-        User::save();
+        $user->points = 20;
+        $user->regip = $request->ip();
+        $user->save();
         // Save default avatar.
         $avatar = new MDAvatars($request->input('username'), 512);
         $avatar->Save(public_path('avatars/' . $user->id . '.png'), 256);

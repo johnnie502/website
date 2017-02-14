@@ -5,9 +5,9 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateFilesTable extends Migration 
 {
-	public function up()
-	{
-		Schema::create('files', function(Blueprint $table) {
+    public function up()
+    {
+        Schema::create('files', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('user')->unsigned()->index();
             $table->string('name');
@@ -17,11 +17,12 @@ class CreateFilesTable extends Migration
             $table->integer('type')->unsigned()->default(0)->index();
             $table->integer('ststus')->unsigned()->default(0)->index();
             $table->timestamps();
+            $table->softDeletes();
         });
-	}
+    }
 
-	public function down()
-	{
-		Schema::drop('files');
-	}
+    public function down()
+    {
+        Schema::drop('files');
+    }
 }

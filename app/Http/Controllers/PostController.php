@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use FLash;
 use Lang;
 use App\Models\Post;
+use App\Models\User;
 use League\HTMLToMarkdown\HtmlConverter;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -33,17 +34,25 @@ class PostController extends Controller
     {
         // Get user id.
         $user = Auth::user();
+        if ($user->point < 1) {
+            Flash::error('Your points are not enough');
+            return back()->withInput();
+        }
         // Convert HTML topic content to markdown.
         $converter = new HtmlConverter();
         $markdown = $converter->convert($request->input('content'));
         // Create post.
-        Post::createWithInput([
+        $post = Post::createWithInput([
             'title' => $request->input('title'),
             'content' => $markdown,
         ]);
-        Post::user = $user->id;
-        Post::post = 1;
-        Post::save();
+        $post->user = $user->id;
+        $post->post = 1;
+        $post->save();
+        // User statics
+        $user->point -= 21
+        $user->replies += 1;
+        $user->save();
         // Show message.
         Flash::success('Item created successfully.');
         return redirect()->route('posts.index');
@@ -80,6 +89,10 @@ class PostController extends Controller
         $post->save();
         // Soft delete.
         $post->delete();
+        // User statics.
+        $user =  User::find($topic->user);
+        $user->replies -= 1;
+        $user->save();
         // Show message.
         Flash::success('Item deleted successfully.');
         return redirect()->route('posts.index');

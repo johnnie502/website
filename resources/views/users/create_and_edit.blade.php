@@ -14,9 +14,6 @@
                 @endif
             </h1>
         </div>
-
-        @include('error')
-
         <div class="panel-body">
             @if($user->id)
                 <form action="{{ route('users.update', $user->id) }}" method="POST">

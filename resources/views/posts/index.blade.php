@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
@@ -16,7 +15,6 @@
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th>User</th> <th>Post</th> <th>Subpost</th> <th>Title</th> <th>Content</th> <th>Type</th> <th>Status</th> <th>Favicons</th> <th>Votes</th> <th>Moderated_at</th> <th>Moderated_by</th>
                             <th class="text-right">OPTIONS</th>
                         </tr>
                     </thead>

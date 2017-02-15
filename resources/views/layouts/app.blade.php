@@ -18,6 +18,9 @@ ______                            _              _                              
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Pjax -->
+    <!-- TitleBar for Chrome on Android -->
+    <meta name="theme-color" content="#BBC34A">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -29,6 +32,7 @@ ______                            _              _                              
     <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
@@ -59,8 +63,8 @@ ______                            _              _                              
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ route('topic.index') }}">Topic</a></li>
-                        <li><a href="{{ route('wiki.index') }}">Wiki</a></li>
+                        <li><a href="{{ url('/topics') }}">Topic</a></li>
+                        <li><a href="{{ url('/wiki') }}">Wiki</a></li>
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -107,7 +111,7 @@ ______                            _              _                              
                     </div>
                 @endif
                 @include('flash::message')
-                <!-- {!! Breadcrumbs::render(Route::currentRouteName()) !!} --> 
+                <!-- Breadcrumbs -->
                 <div class="main-content" id="pjax-container">
                     @yield('content')
                 </div>

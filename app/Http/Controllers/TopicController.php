@@ -31,7 +31,7 @@ class TopicController extends Controller
     {
         // Get nodes list.
         $nodes = Node::fetchAll();
-        return view('topics.create_and_edit', compact('topic', 'nodes');
+        return view('topics.create_and_edit', compact('topic', 'nodes'));
     }
 
     public function store(TopicRequest $request)
@@ -55,7 +55,7 @@ class TopicController extends Controller
         $post = Post::createWithInput([
             'title' => $request->input('title'),
             'content' => $markdown,
-        );
+        ]);
         $post->user = $user->id;
         $post->post = 1;
         $post->save();

@@ -50,7 +50,7 @@ class PostController extends Controller
         $post->post = 1;
         $post->save();
         // User statics
-        $user->point -= 21
+        $user->point -= 21;
         $user->replies += 1;
         $user->save();
         // Show message.

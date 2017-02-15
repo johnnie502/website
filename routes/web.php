@@ -18,6 +18,7 @@ Route::post('/register', 'Auth\RegisterController@postRegister');
 
 # ------------------ Topic ------------------------
 Route::resource('topics', 'TopicController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+
 Route::resource('posts', 'PostController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 # ------------------ User ------------------------
@@ -25,4 +26,5 @@ Route::resource('users', 'UserController', ['only' => ['index', 'show', 'create'
 
 
 Route::resource('nodes', 'NodeController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+
 Route::resource('files', 'FileController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);

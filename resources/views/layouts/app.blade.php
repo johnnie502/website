@@ -20,7 +20,7 @@ ______                            _              _                              
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Pjax -->
     <!-- TitleBar for Chrome on Android -->
-    <meta name="theme-color" content="#BBC34A">
+    <meta name="theme-color" content="#689F38">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>

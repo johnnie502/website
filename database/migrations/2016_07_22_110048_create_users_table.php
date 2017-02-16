@@ -26,12 +26,12 @@ class CreateUsersTable extends Migration
             $table->integer('notifications')->unsigned()->default(0);
             $table->string('regip')->nullable();
             $table->string('lastip')->nullable();
-            $table->integer('topics')=>unsigned()->default(0);
-            $table->integer('replies')=>unsigned()->default(0);
-            $table->integer('wiki')=>unsigned()->default(0);
-            $table->integer('follers')=>unsigned()->default(0);
-            $table->integer('follwing')=>unsigned()->default(0);
-            $table->integer('votes')=>unsigned()->default(0);
+            $table->integer('topics')->unsigned()->default(0);
+            $table->integer('replies')->unsigned()->default(0);
+            $table->integer('wiki')->unsigned()->default(0);
+            $table->integer('follers')->unsigned()->default(0);
+            $table->integer('follwing')->unsigned()->default(0);
+            $table->integer('votes')->unsigned()->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

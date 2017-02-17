@@ -14,7 +14,7 @@
                             <label for="username" class="col-md-4 control-label">{{ Lang::get('validation.attributes.username') }}</label>
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
+                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required placeholder="5~20个字符" autofocus>
                             </div>
                         </div>
 
@@ -22,7 +22,7 @@
                             <label for="email" class="col-md-4 control-label">{{ Lang::get('validation.attributes.email') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required placeholder="5~30个字符">
                             </div>
                         </div>
 
@@ -30,7 +30,7 @@
                             <label for="password" class="col-md-4 control-label">{{ Lang::get('validation.attributes.password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="password" class="form-control" name="password" required placeholder="8~50个字符，要求包含大小写字母，数字和符号">
                             </div>
                         </div>
 
@@ -38,7 +38,7 @@
                             <label for="password-confirm" class="col-md-4 control-label">{{ Lang::get('validation.attributes.password_confirmation') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="请再次输入密码">
                             </div>
                         </div>
 

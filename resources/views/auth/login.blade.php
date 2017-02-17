@@ -11,13 +11,13 @@
                         <div class="form-group">
                             <label for="email" class="col-md-4 control-label">{{ Lang::get('validation.attributes.username') }}</label>
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
+                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required placeholder="用户名或邮箱，5～30个字符" autofocus>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password" class="col-md-4 control-label">{{ Lang::get('validation.attributes.password') }}</label>
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="password" class="form-control" name="password" required placeholder="8~50个字符，要求包含大小写字母，数字和符号">
                             </div>
                         </div>
                         <div class="form-group">

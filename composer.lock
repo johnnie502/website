@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "62bd9c96ff76d8f25af57f43d6c826d6",
+    "content-hash": "220d1467a992ced7c8bb6dc30c17f589",
     "packages": [
         {
             "name": "andreasindal/laravel-markdown",
@@ -1631,6 +1631,56 @@
                 "uuid"
             ],
             "time": "2016-11-22T19:21:44+00:00"
+        },
+        {
+            "name": "schuppo/password-strength",
+            "version": "v1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schuppo/PasswordStrengthPackage.git",
+                "reference": "184d65517eb438651b491b116df8895238005b79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schuppo/PasswordStrengthPackage/zipball/184d65517eb438651b491b116df8895238005b79",
+                "reference": "184d65517eb438651b491b116df8895238005b79",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "illuminate/translation": "^5.1",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "illuminate/validation": "~5.0",
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Schuppo\\PasswordStrength": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Schupp",
+                    "email": "oliver.schupp@yahoo.de"
+                }
+            ],
+            "description": "This package provides a validator for ensuring strong passwords in Laravel 4 applications.",
+            "keywords": [
+                "laravel",
+                "laravel 5",
+                "laravel5",
+                "password",
+                "password strength",
+                "validation"
+            ],
+            "time": "2016-10-05T09:57:59+00:00"
         },
         {
             "name": "spatie/laravel-pjax",

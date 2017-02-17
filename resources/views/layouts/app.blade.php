@@ -23,7 +23,7 @@ ______                            _              _                              
     <meta name="theme-color" content="#689F38">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'mpcblab') }}</title>
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="/css/app.css" rel="stylesheet">
@@ -43,8 +43,10 @@ ______                            _              _                              
         });
     </script>
 </head>
+
 <body>
     <div id="app">
+        <header>
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -57,7 +59,7 @@ ______                            _              _                              
                     </button>
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name') }}
                     </a>
                 </div>
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -97,7 +99,7 @@ ______                            _              _                              
                 </div>
             </div>
         </nav>
-        <div class="header">
+        </header>
         <!-- Nav -->
         <div class="container">
             @if (Auth::check() && $user->status < 0)
@@ -107,7 +109,7 @@ ______                            _              _                              
             @else
                 @if (Auth::check() && $user->status == 0)
                     <div class="alert alert-warning">
-                        You email address yet.
+                        You have't confirm your email address yet.
                     </div>
                 @endif
                 @include('flash::message')
@@ -115,8 +117,6 @@ ______                            _              _                              
                 <div class="main-content" id="pjax-container">
                     @yield('content')
                 </div>
-                <div class="side-bar"
-            </div>
         @endif
     </div>
 </div>

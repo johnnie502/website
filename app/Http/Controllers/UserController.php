@@ -60,7 +60,7 @@ class UserController extends Controller
         // Send email.
         // Show message.
         Flash::success('注册用户成功，请在电子邮件中确认账号');
-        return (Auth::check()) ? redirect()->route('users.index') : redirect()->intended();
+        return redirect()->intended();
     }
 
     public function show(User $user)

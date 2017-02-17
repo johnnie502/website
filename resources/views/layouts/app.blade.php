@@ -65,6 +65,7 @@ ______                            _              _                              
                     <ul class="nav navbar-nav">
                         <li><a href="{{ url('/topics') }}">Topic</a></li>
                         <li><a href="{{ url('/wiki') }}">Wiki</a></li>
+                        <li><a href="{{ url('/about') }}">About</a></li>
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">

@@ -8,7 +8,7 @@
 <h1 id="toc_0">关于MPCBLAB</h1>
 <h2 id="toc_1">说明</h2>
 <p>数理化生实验室是积极向上的自然科学&理科学科讨论社区</p>
-<p>我们是一个公益组织, 致力于推动新技术, 新理念在中国的发展.</p>
+<p>我们是一个公益组织, 致力于推动新技术, 新理念的发展.</p>
 <p>在这里没有商业广告, 没有灌水, 没有千篇一律新手问答, 有的是关于新技术的讨论和分享. </p>
 <p>本项目基于 MIT Licence 开源, <a href="https://github.com/mpcblab/website">源代码在此 at Github</a>, 欢迎贡献代码, Feature Request 和 Bug Report <a href="https://github.com/mpcblab/website/issues">请到此发表</a>.</p>
 <p>在学习上遇到问题的时候, 请先 Google. </p>

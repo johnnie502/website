@@ -83,7 +83,8 @@ class RegisterController extends Controller
 
     {   
         // Use UserController to store register user.
-        UserController::store($request);
+        $UserController = new UserController();
+        $UserController->store($request);
         return redirect()->intended();
     }
 

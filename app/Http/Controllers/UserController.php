@@ -55,7 +55,7 @@ class UserController extends Controller
         $user->save();
         // Save default avatar.
         $avatar = new MDAvatars($request->input('username'), 512);
-        $avatar->Save(public_path('avatars/' . $user->id . '.png'), 256);
+        $avatar->Save(public_path('avatars/' . $user->id . '.png'), 512);
         $avatar->Free();
         // Send email.
         // Show message.

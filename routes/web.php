@@ -11,6 +11,9 @@
 |
 */
 
+# ------------------ Pages ------------------------
+Route::get('/about', 'PageController@about');
+
 # ------------------ Auth ------------------------
 Auth::routes();
 Route::post('/login', 'Auth\LoginController@postLogin');

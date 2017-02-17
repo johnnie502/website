@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'mpcblab',
 
     /*
     |--------------------------------------------------------------------------
@@ -188,6 +188,7 @@ return [
         \Cviebrock\EloquentTaggable\ServiceProvider::class,  // Tags manage
         Intervention\Image\ImageServiceProvider::class,  // Image
         Junaidnasir\Larainvite\LaraInviteServiceProvider::class,  // Invite register
+        \Schuppo\PasswordStrength\PasswordStrengthServiceProvider::class,  // Password strength
 
     ],
 

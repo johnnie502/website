@@ -39,48 +39,26 @@
                 </div> 
                 <div class="form-group">
                 	<label for="username-field">Username</label>
-                	<input class="form-control" type="text" name="username" id="username-field" value="{{ old('username', $user->username ) }}" />
+                	<input class="form-control" type="text" name="username" id="username-field" value="{{ old('username', $user->username ) }}" required placeholder="5~20个字符"/>
                 </div> 
                 <div class="form-group">
                 	<label for="email-field">Email</label>
-                	<input class="form-control" type="text" name="email" id="email-field" value="{{ old('email', $user->email ) }}" />
+                	<input class="form-control" type="email" name="email" id="email-field" value="{{ old('email', $user->email ) }}" required placeholder="5~30个字符"/>
                 </div> 
                 <div class="form-group">
                 	<label for="password-field">Password</label>
-                	<input class="form-control" type="text" name="password" id="password-field" value="{{ old('password', $user->password ) }}" />
+                	<input class="form-control" type="text" name="password" id="password-field" value="{{ old('password', $user->password ) }}" required placeholder="8~50个字符，要求包含大小写字母和数字"/>
                 </div> 
                 <div class="form-group">
                     <label for="type-field">Type</label>
                     <input class="form-control" type="text" name="type" id="type-field" value="{{ old('type', $user->type ) }}" />
                 </div> 
-                <div class="form-group">
-                    <label for="status-field">Status</label>
-                    <input class="form-control" type="text" name="status" id="status-field" value="{{ old('status', $user->status ) }}" />
-                </div> 
-                <div class="form-group">
-                    <label for="points-field">Points</label>
-                    <input class="form-control" type="text" name="points" id="points-field" value="{{ old('points', $user->points ) }}" />
-                </div> 
-                <div class="form-group">
-                    <label for="notifications-field">Notifications</label>
-                    <input class="form-control" type="text" name="notifications" id="notifications-field" value="{{ old('notifications', $user->notifications ) }}" />
-                </div> 
-                <div class="form-group">
-                	<label for="regip-field">Regip</label>
-                	<input class="form-control" type="text" name="regip" id="regip-field" value="{{ old('regip', $user->regip ) }}" />
-                </div> 
-                <div class="form-group">
-                	<label for="lastip-field">Lastip</label>
-                	<input class="form-control" type="text" name="lastip" id="lastip-field" value="{{ old('lastip', $user->lastip ) }}" />
-                </div>
-
                 <div class="well well-sm">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <a class="btn btn-link pull-right" href="{{ route('users.index') }}"><i class="glyphicon glyphicon-backward"></i>  Back</a>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-link pull-right" href="{{ route('users.index') }}"><i class="glyphicon glyphicon-backward"></i>Cancel</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
 @endsection

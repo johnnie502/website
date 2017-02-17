@@ -10,7 +10,7 @@ use Socialite;
 use Storage;
 use URL;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
+//use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -36,7 +36,6 @@ class LoginController extends Controller
      * @var string
      */
     //protected $redirectTo = '/home';
-    protected $loginView = 'auth.login';
     protected $maxLoginAttempts;
     protected $lockoutTime = 1800;
 
@@ -56,13 +55,22 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postLogin(UserRequest $request)
+    public function postLogin(Request $request)
     {
         // Get number of attempts to login.
         if ($this->hasTooManyLoginAttempts($request)) {
             Flash::error(Lang::get('auth.throttle'));
             return back()->withInput();
         }
+        // Get request.
+        $username = $request->input('username');
+        $password = $request->input('password');
+        $remeber = $request->input('remember');
+        // Manually validation login request.
+        $this->validate($request, [
+            'username' => 'bail|required|min:5|max:30',
+            'password' => 'bail|required|min:8|max:50|case_diff|numbers|letters|symbols',
+        ]);
         // Determine whether is email or username login.
         $type = filter_var($username, FILTER_VALIDATE_EMAIL ) ? 'email' : 'username';
         // Login attempts.

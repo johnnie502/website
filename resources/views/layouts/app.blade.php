@@ -114,6 +114,16 @@ ______                            _              _                              
                     </div>
                 @endif
                 @include('flash::message')
+                @if (isset($errors) && count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <p>There were some problems with your input.</p>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li><i class="glyphicon glyphicon-remove"></i> {{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <!-- Breadcrumbs -->
                 <div class="main-content" id="pjax-container">
                     @yield('content')

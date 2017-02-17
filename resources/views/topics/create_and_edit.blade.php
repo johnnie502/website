@@ -59,7 +59,11 @@ $(document).ready(function(){
                         </script>
                         <script type="text/javascript">
 	                    var ue = UE.getEditor('container');
-		              ue.ready(function() {
+		           <!-- 定制工具栏按钮 -->
+                          toolbars: [
+                            ['bold', 'italic', 'underline', 'superscript', 'subscript', 'spechars', 'blockquote', 'link', 'unlink', '|', 'undo', 'redo', 'selectall', 'pasteplain', 'removeformat', '|', 'fontfamily', 'fontsize', 'forecolor', '|', 'emotion', 'simpleupload']
+                          ]   
+                             ue.ready(function() {
 		                  ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
 	                    });
                         </script>

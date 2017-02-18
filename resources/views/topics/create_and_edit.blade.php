@@ -16,12 +16,7 @@ $(document).ready(function(){
     <div class="panel panel-default col-md-10 col-md-offset-1">
         <div class="panel-heading">
             <h1>
-                <i class="glyphicon glyphicon-edit"></i> Topic / 
-                @if($topic->id)
-                    Edit #{{$topic->id}}
-                @else
-                    Create 
-                @endif
+                {{ isset($topic->id) ? '编辑主题' : '发表主题' }}
             </h1>
         </div>
         <div class="panel-body">
@@ -35,7 +30,7 @@ $(document).ready(function(){
                 <div class="form-group">
                     <label for="node-field">Node</label>
                     @if($topic->id)
-                        <input class="form-control" name="node" id="node-field"  value="{{ $node->name }}" />
+                        {{ $node->name }}
                     @else
                         <select class="form-control" name="node" id="node-field" required placeholder="请选择一个节点">
                             @foreach ($nodes as $node)
@@ -50,18 +45,18 @@ $(document).ready(function(){
                 </div>
                 <div class="form-group">
                 	<label for="title-field">Tags</label>
-                	<input class="form-control" type="text" name="tags" id="tags" required placeholder="按Enter添加标签" value="{{ old('tags') }}">
+                	<input class="form-control" type="text" name="tags" id="tags" required placeholder="按Enter添加标签" value="{{ old('tags', $topic->tagList) }}">
                 </div>
                 <div class="form-group">
                 	<label for="content-field">Content</label>
                         @include('UEditor::head')
-                        <script id="container" name="content" type="text/plain">
-                        @markdown(old('content', $topic->content))
+                        <script id="ueditor" name="content" type="text/plain">
+                        {{ old('content', isset($post) ? $post->content : '' ) }}
                         </script>
                         <script type="text/javascript">
-	                    var ue = UE.getEditor('container', {
+	                    var ue = UE.getEditor('ueditor', {
                             toolbars: [
-                                ['bold', 'italic', 'underline', 'superscript', 'subscript', 'spechars', 'blockquote', 'link', 'unlink', '|', 'undo', 'redo', 'selectall', 'pasteplain', 'removeformat', '|', 'fontfamily', 'fontsize', 'forecolor', '|', 'emotion', 'simpleupload']
+                                ['bold', 'italic', 'underline', 'superscript', 'subscript', 'spechars', 'blockquote', 'link', 'unlink', '|', 'undo', 'redo', 'selectall', 'pasteplain', 'removeformat', '|', 'fontfamily', 'fontsize', 'forecolor', '|', 'emotion', 'simpleupload', '']
                                 ]
                             });
 		           <!-- 定制工具栏按钮 -->

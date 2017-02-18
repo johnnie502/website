@@ -32,7 +32,7 @@ class TopicController extends Controller
     {
         // Get nodes list.
         $nodes = Node::all();
-        return view('topics.create_and_edit', compact('topic', 'nodes'));
+        return view('topics.create_and_edit', compact('nodes', 'topic'));
     }
 
     public function store(TopicRequest $request)
@@ -57,7 +57,7 @@ class TopicController extends Controller
             'content' => $markdown,
         ]);
         $post->user = $user->id;
-        $post->post = 1;
+        $post->topic = $topic->id;
         $post->save();
         // User statics
         $user->points -= 2;
@@ -72,15 +72,22 @@ class TopicController extends Controller
 
     public function show(Topic $topic)
     {
-        return view('topics.show', compact('topic'));
+         // Get nodes from topic's node id.
+         // The view will display node's name and a link to slug.
+         $node = Node::findOrFail($topic->node);
+         // Get post content.
+         $post = Post::where('topic',  $topic->id)->first();
+        return view('topics.show', compact('node', 'topic', 'post'));
     }
 
     public function edit(Topic $topic)
     {
         // Get nodes from topic's node id.
-        // The view will display node's name and slug.
-        $node = Node::find($topic->node);
-        return view('topics.create_and_edit', compact('topic', 'node'));
+        // The view will display node's name and a link to slug.
+        $node = Node::findOrFail($topic->node);
+        // Get post content.
+        $post = Post::where('topic',  $topic->id)->first();
+        return view('topics.create_and_edit', compact('node', 'topic', 'post'));
     }
 
     public function update(TopicRequest $request, Topic $topic)
@@ -92,6 +99,11 @@ class TopicController extends Controller
         // Update topic.
         $topic->updateWithInput([
             'title' => $request->input('title'),
+            'content' => $markdown,
+        ]);
+        // Update post.
+        $post = Post::where('topic', $topic->id)->first();
+        $post->updateWithInput([
             'content' => $markdown,
         ]);
         // Update tags.

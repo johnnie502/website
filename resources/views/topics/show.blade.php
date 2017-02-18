@@ -5,7 +5,7 @@
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
         <div class="panel-heading">
-            <h1>Topic / Show #{{$topic->id}}</h1>
+            <h1>{{$topic->title}}</h1>
         </div>
 
         <div class="panel-body">
@@ -21,14 +21,7 @@
                     </div>
                 </div>
             </div>
-
- <label>Title</label>
-<p>
-	{{ $topic->title }}
-</p> <label>Content</label>
-<p>
-	{{ $topic->content }}
-</p>
+	@markdown($post->content)
         </div>
         @yield('post')
     </div>

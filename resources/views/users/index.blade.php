@@ -13,21 +13,11 @@
         <div class="panel-body">
             @if($users->count())
                 <table class="table table-condensed table-striped">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>Driver</th> <th>Oauth</th> <th>Unsigned</th> <th>Username</th> <th>Email</th> <th>Password</th> <th>Type</th> <th>Status</th> <th>Points</th> <th>Notifications</th> <th>Regip</th> <th>Lastip</th>
-                            <th class="text-right">OPTIONS</th>
-                        </tr>
-                    </thead>
-
                     <tbody>
                         @foreach($users as $user)
                             <tr>
                                 <td class="text-center"><strong>{{$user->id}}</strong></td>
 
-                                <td>{{$user->driver}}</td> <td>{{$user->oauth}}</td> <td>{{$user->unsigned}}</td> <td>{{$user->username}}</td> <td>{{$user->email}}</td> <td>{{$user->password}}</td> <td>{{$user->type}}</td> <td>{{$user->status}}</td> <td>{{$user->points}}</td> <td>{{$user->notifications}}</td> <td>{{$user->regip}}</td> <td>{{$user->lastip}}</td>
-                                
                                 <td class="text-right">
                                     <a class="btn btn-xs btn-primary" href="{{ route('users.show', $user->id) }}">
                                         <i class="glyphicon glyphicon-eye-open"></i> 

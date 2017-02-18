@@ -35,17 +35,18 @@ $(document).ready(function(){
                 <div class="form-group">
                     <label for="node-field">Node</label>
                     @if($topic->id)
-                        <input name="node" id="node-field" value="{{ $node->name }}" />
+                        <input class="form-control" name="node" id="node-field"  value="{{ $node->name }}" />
                     @else
-                        <select name="node" id="node-field">
-                            @foreach $nodes as $node
-                            <option value="{{  $node->name . '/' . $node->slug) }}" />
-                        </select>
+                        <select class="form-control" name="node" id="node-field" required placeholder="请选择一个节点">
+                            @foreach ($nodes as $node)
+                                <option value="{{ $node->id }}">{{ $node->name . '/' . $node->slug }}</option>
+                            @endforeach
+                       </select>
                     @endif
                 </div> 
                 <div class="form-group">
                 	<label for="title-field">Title</label>
-                	<input class="form-control" type="text" name="title" id="title-field" value="{{ old('title', $topic->title) }}" />
+                	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ old('title', $topic->title) }}" />
                 </div>
                 <div class="form-group">
                 	<label for="title-field">Tags</label>
@@ -58,11 +59,12 @@ $(document).ready(function(){
                         @markdown(old('content', $topic->content))
                         </script>
                         <script type="text/javascript">
-	                    var ue = UE.getEditor('container');
+	                    var ue = UE.getEditor('container', {
+                            toolbars: [
+                                ['bold', 'italic', 'underline', 'superscript', 'subscript', 'spechars', 'blockquote', 'link', 'unlink', '|', 'undo', 'redo', 'selectall', 'pasteplain', 'removeformat', '|', 'fontfamily', 'fontsize', 'forecolor', '|', 'emotion', 'simpleupload']
+                                ]
+                            });
 		           <!-- 定制工具栏按钮 -->
-                          toolbars: [
-                            ['bold', 'italic', 'underline', 'superscript', 'subscript', 'spechars', 'blockquote', 'link', 'unlink', '|', 'undo', 'redo', 'selectall', 'pasteplain', 'removeformat', '|', 'fontfamily', 'fontsize', 'forecolor', '|', 'emotion', 'simpleupload']
-                          ]   
                              ue.ready(function() {
 		                  ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
 	                    });

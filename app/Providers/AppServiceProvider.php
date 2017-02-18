@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,13 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Get user info.
-        if (Auth::check()) {
-            $user = Auth::user();
-            view()->composer('user', function(){
-                $view->with('user', $user);
-            }) ;  
-        }
+        //
     }
 
     /**

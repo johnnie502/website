@@ -9,5 +9,5 @@ class Post extends Model
     use Traits\PostOperation, SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['content'];
 }

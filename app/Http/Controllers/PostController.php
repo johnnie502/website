@@ -43,9 +43,9 @@ class PostController extends Controller
         $markdown = $converter->convert($request->input('content'));
         // Create post.
         $post = Post::createWithInput([
-            'title' => $request->input('title'),
             'content' => $markdown,
-        ]);
+            //'replyto' => $request->input('title'),
+         ]);
         $post->user = $user->id;
         $post->post = 1;
         $post->save();

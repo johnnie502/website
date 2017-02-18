@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Flash;
 use Lang;
 use App\Models\Topic;
@@ -30,7 +31,7 @@ class TopicController extends Controller
     public function create(Topic $topic)
     {
         // Get nodes list.
-        $nodes = Node::fetchAll();
+        $nodes = Node::all();
         return view('topics.create_and_edit', compact('topic', 'nodes'));
     }
 
@@ -38,7 +39,7 @@ class TopicController extends Controller
     {
         // Get user id.
         $user = Auth::user();
-        if ($user->point < 2) {
+        if ($user->points < 2) {
             Flash::error('Your points are not enough');
             return back()->withInput();
         }
@@ -53,18 +54,17 @@ class TopicController extends Controller
         $topic->user = $user->id;
         $topic->save();
         $post = Post::createWithInput([
-            'title' => $request->input('title'),
             'content' => $markdown,
         ]);
         $post->user = $user->id;
         $post->post = 1;
         $post->save();
         // User statics
-        $user->point -= 2;
+        $user->points -= 2;
         $user->topics += 1;
         $user->save();
         // Add tag.
-        Topic::tag($request->input('tags'));
+        $topic->tag($request->input('tags'));
         // Show message.
         Flash::success('Item created successfully.');
         return redirect()->route('topics.index');
@@ -80,7 +80,7 @@ class TopicController extends Controller
         // Get nodes from topic's node id.
         // The view will display node's name and slug.
         $node = Node::find($topic->node);
-        return view('topics.create_and_edit', compact('topic'));
+        return view('topics.create_and_edit', compact('topic', 'node'));
     }
 
     public function update(TopicRequest $request, Topic $topic)

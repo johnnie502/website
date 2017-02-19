@@ -16,6 +16,7 @@ class CreateNodesTable extends Migration
             $table->integer('parent')->unsigned()->nullable()->index();
             $table->text('description')->nullable();
             $table->integer('topics')->unsigned()->default(0);
+            $table->integer('wiki')->unsigned()->default(0);
             $table->timestamps();
             $table->softDeletes();
       });

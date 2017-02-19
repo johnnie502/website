@@ -9,8 +9,8 @@ use Session;
 use Socialite;
 use Storage;
 use URL;
+use App\Models\User;
 use App\Http\Controllers\Controller;
-//use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -76,6 +76,10 @@ class LoginController extends Controller
         // Login attempts.
         if ($type == 'email') {
             if (Auth::attempt(['email' => $username, 'password' => $password], $request->has('remember'))) {
+                // update logon IP.
+                $user = User:: where('email', $email)->first();
+                $user->lastip = $request->getClientIp();
+                $user->save();
                 Flash::success('登录成功');
                 return redirect()->intended();
             } else {
@@ -83,6 +87,10 @@ class LoginController extends Controller
                 return back()->withInput();
             }
         } else if (Auth::attempt(['username' => $username, 'password' => $password], $request->has('remember'))) {
+            // update logon IP.
+            $user = User:: where('email', $email)->first();
+            $user->lastip = $request->getClientIp();
+            $user->save();
             Flash::success('登录成功');
             return redirect()->intended();
         } else {

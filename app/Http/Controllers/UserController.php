@@ -51,7 +51,7 @@ class UserController extends Controller
             'password' => bcrypt($request->input('password')),
         ]);
         // Set trusted IP.
-        $request->setTrustedProxies(['127.0.0.1'])
+        $request->setTrustedProxies(['127.0.0.1']);
         $user->points = 20;
         $user->regip = $request->getClientIp();
         $user->save();

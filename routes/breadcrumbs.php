@@ -68,7 +68,7 @@ Breadcrumbs::register('wiki.edit', function($breadcrumbs)
 # ------------------ User ------------------------
 Breadcrumbs::register('users', function($breadcrumbs)
 {
-    $breadcrumbs->push('用户中心', route('users'));
+    $breadcrumbs->push('用户中心', route('users.index'));
 });
 
 # ------------------ Auth ------------------------

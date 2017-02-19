@@ -26,13 +26,13 @@ Route::resource('files', 'FileController', ['only' => ['index', 'show', 'create'
 
 # ------------------ Topic ------------------------
 Route::resource('topics', 'TopicController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::get('/tag/{slug}', 'TopicController@tags')->name('tag');
 
 # ------------------ Post ------------------------
 Route::resource('posts', 'PostController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
-# ------------------ Tags ------------------------
-Route::get('/tag/{slug}', 'TagsController@show')->name('tag');
+# ------------------ Wiki ------------------------
+Route::resource('wikis', 'WikiController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 # ------------------ User ------------------------
 Route::resource('users', 'UserController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
-Route::resource('wikis', 'WikiController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);

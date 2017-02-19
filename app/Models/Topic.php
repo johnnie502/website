@@ -11,4 +11,12 @@ class Topic extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['title'];
+
+    /*
+      * Get topic user.
+      */
+    public function user()
+    {
+    	return $this->belongsTo('App\Models\Topic', 'user');
+    }
 }

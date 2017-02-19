@@ -76,22 +76,22 @@ class LoginController extends Controller
         // Login attempts.
         if ($type == 'email') {
             if (Auth::attempt(['email' => $username, 'password' => $password], $request->has('remember'))) {
-                // update logon IP.
-                $user = User:: where('email', $email)->first();
+                // update logon ip.
+                $user = User:: where('email', $username)->first();
                 $user->lastip = $request->getClientIp();
                 $user->save();
-                Flash::success('登录成功');
+                Flash::success('Login successfully.');
                 return redirect()->intended();
             } else {
                 Flash::error(Lang::get('auth.failed'));
                 return back()->withInput();
             }
         } else if (Auth::attempt(['username' => $username, 'password' => $password], $request->has('remember'))) {
-            // update logon IP.
-            $user = User:: where('email', $email)->first();
+            // update login ip.
+            $user = User:: where('username', $username)->first();
             $user->lastip = $request->getClientIp();
             $user->save();
-            Flash::success('登录成功');
+            Flash::success('Login successfully.');
             return redirect()->intended();
         } else {
             Flash::error(Lang::get('auth.failed'));

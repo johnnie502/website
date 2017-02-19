@@ -80,6 +80,13 @@ class TopicController extends Controller
         return view('topics.show', compact('node', 'topic', 'post'));
     }
 
+    public function tags($slug)
+    {
+        // Display all topic of this slug.
+        $topics = Topic::withAllTags($slug);
+        return view('topics.tags', compact('topics'));
+    }
+
     public function edit(Topic $topic)
     {
         // Get nodes from topic's node id.

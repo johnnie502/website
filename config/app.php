@@ -190,6 +190,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,  // Image
         Junaidnasir\Larainvite\LaraInviteServiceProvider::class,  // Invite register
         \Schuppo\PasswordStrength\PasswordStrengthServiceProvider::class,  // Password strength
+        zgldh\UploadManager\UploadManagerServiceProvider::class,  // Upload file mamager
 
     ],
 

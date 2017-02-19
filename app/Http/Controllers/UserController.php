@@ -61,7 +61,7 @@ class UserController extends Controller
         $avatar->Free();
         // Send email.
         // Show message.
-        Flash::success('注册用户成功，请在电子邮件中确认账号');
+        Flash::success('Register user successfully, please confirm your email.');
         return redirect()->intended();
     }
 

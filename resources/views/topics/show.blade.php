@@ -5,14 +5,16 @@
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
         <div class="panel-heading">
-            <h1>Topic / Show #{{$topic->id}}</h1>
+            <h1>{{$topic->title}}</h1>
         </div>
 
         <div class="panel-body">
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-md-6">
-                        <a class="btn btn-link" href="{{ route('topics.index') }}"><i class="glyphicon glyphicon-backward"></i> Back</a>
+                        @foreach ($topic->tags as $tag)
+                            <a href="{{ route('tag', $tag->name) }}">{{ $tag->name }}</a>
+                        @endforeach
                     </div>
                     <div class="col-md-6">
                          <a class="btn btn-sm btn-warning pull-right" href="{{ route('topics.edit', $topic->id) }}">
@@ -21,14 +23,7 @@
                     </div>
                 </div>
             </div>
-
- <label>Title</label>
-<p>
-	{{ $topic->title }}
-</p> <label>Content</label>
-<p>
-	{{ $topic->content }}
-</p>
+	@markdown($post->content)
         </div>
         @yield('post')
     </div>

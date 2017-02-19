@@ -13,7 +13,7 @@ class CreateTopicsTable extends Migration
                 $table->integer('node')->unsigned()->default(0)->index();
                 $table->string('title');
                 $table->integer('type')->unsigned()->default(0)->index();
-                $table->integer('status')->unsigned()->default(0)->index();
+                $table->integer('status')->default(0)->index();
                 $table->integer('views')->unsigned()->default(0);
                 $table->integer('replies')->unsigned()->default(0);
                 $table->integer('lastreply')->unsigned()->default(0)->nullable();

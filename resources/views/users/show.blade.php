@@ -7,7 +7,6 @@
         <div class="panel-heading">
             <h1>User / Show #{{$user->id}}</h1>
         </div>
-
         <div class="panel-body">
             <div class="well well-sm">
                 <div class="row">
@@ -22,43 +21,16 @@
                 </div>
             </div>
 
-            <label>Driver</label>
-<p>
-	{{ $user->driver }}
-</p> <label>Oauth</label>
-<p>
-	{{ $user->oauth }}
-</p> <label>Unsigned</label>
-<p>
-	{{ $user->unsigned }}
-</p> <label>Username</label>
+<label>Username</label>
 <p>
 	{{ $user->username }}
 </p> <label>Email</label>
 <p>
 	{{ $user->email }}
-</p> <label>Password</label>
-<p>
-	{{ $user->password }}
-</p> <label>Type</label>
-<p>
-	{{ $user->type }}
-</p> <label>Status</label>
-<p>
-	{{ $user->status }}
-</p> <label>Points</label>
+</p><label>Points</label>
 <p>
 	{{ $user->points }}
-</p> <label>Notifications</label>
-<p>
-	{{ $user->notifications }}
-</p> <label>Regip</label>
-<p>
-	{{ $user->regip }}
-</p> <label>Lastip</label>
-<p>
-	{{ $user->lastip }}
-</p>
+</p> 
         </div>
         
     </div>

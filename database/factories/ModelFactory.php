@@ -52,3 +52,9 @@ $factory->define(App\Models\File::class, function (Faker\Generator $faker) {
         // 'name' => $faker->name,
     ];
 });
+
+$factory->define(App\Models\Wiki::class, function (Faker\Generator $faker) {
+    return [
+        // 'name' => $faker->name,
+    ];
+});

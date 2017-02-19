@@ -47,7 +47,7 @@ class PostController extends Controller
             //'replyto' => $request->input('title'),
          ]);
         $post->user = $user->id;
-        $post->post = 1;
+        $post->topic = ;
         $post->save();
         // User statics
         $user->point -= 21;

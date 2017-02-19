@@ -14,7 +14,7 @@ class CreatePostsTable extends Migration
                 $table->integer('subpost')->unsigned()->default(0);
                 $table->longText('content');
                 $table->integer('type')->unsigned()->default(0)->index();
-                $table->integer('status')->unsigned()->default(0)->index();
+                $table->integer('status')->default(0)->index();
                 $table->integer('replyto')->unsigned()->default(0)->index();
                 $table->integer('favicons')->unsigned()->default(0);
                 $table->integer('votes')->unsigned()->default(0);

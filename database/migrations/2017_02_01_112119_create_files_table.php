@@ -15,7 +15,7 @@ class CreateFilesTable extends Migration
             $table->string('path');
             $table->float('size');
             $table->integer('type')->unsigned()->default(0)->index();
-            $table->integer('ststus')->unsigned()->default(0)->index();
+            $table->integer('ststus')->default(0)->index();
             $table->timestamps();
             $table->softDeletes();
         });

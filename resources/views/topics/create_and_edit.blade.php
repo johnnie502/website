@@ -51,7 +51,6 @@ $(document).ready(function(){
                 	<label for="content-field">Content</label>
                         @include('UEditor::head')
                         <script id="ueditor" name="content" type="text/plain">
-                        {!! Markdown::parse(old('content', isset($post) ? $post->content : '' )) !!}
                         </script>
                         <script type="text/javascript">
                             var ue = UE.getEditor('ueditor', {
@@ -62,7 +61,7 @@ $(document).ready(function(){
                               });
                             ue.ready(function() {
                                 ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
-                                //ue.setcontent();
+                                ue.setContent('@markdown(old('content', isset($post) ? $post->content : '' ))');
                             });
                         </script>
                  </div> 

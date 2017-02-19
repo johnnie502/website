@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Policies\WikiPolicy;
+use App\Models\Wiki;
 use App\Policies\FilePolicy;
 use App\Models\File;
 use App\Policies\NodePolicy;
@@ -23,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+		 Wiki::class => WikiPolicy::class,
 		 File::class => FilePolicy::class,
 		 Node::class => NodePolicy::class,
 		 Post::class => PostPolicy::class,

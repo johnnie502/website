@@ -41,6 +41,7 @@ ______                            _              _                              
         // 阻止超时导致链接跳转事件发生
             event.preventDefault()
         });
+        $('#flash-overlay-modal').modal();
     </script>
 </head>
 

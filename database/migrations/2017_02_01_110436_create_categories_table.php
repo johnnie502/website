@@ -3,11 +3,11 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNodesTable extends Migration 
+class CreateCategoriesTable extends Migration 
 {
     public function up()
     {
-        Schema::create('nodes', function(Blueprint $table) {
+        Schema::create('categroies', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('slug');
@@ -15,7 +15,7 @@ class CreateNodesTable extends Migration
             $table->integer('status')->default(0)->index();
             $table->integer('parent')->unsigned()->nullable()->index();
             $table->text('description')->nullable();
-            $table->integer('topics')->unsigned()->default(0);
+            $table->integer('wiki')->unsigned()->default(0);
             $table->timestamps();
             $table->softDeletes();
       });
@@ -23,6 +23,6 @@ class CreateNodesTable extends Migration
 
     public function down()
     {
-        Schema::drop('nodes');
+        Schema::drop('categories');
     }
 }

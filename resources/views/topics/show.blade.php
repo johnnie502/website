@@ -12,7 +12,9 @@
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-md-6">
-                        <a class="btn btn-link" href="{{ route('topics.index') }}"><i class="glyphicon glyphicon-backward"></i> Back</a>
+                        @foreach ($topic->tags as $tag)
+                            <a href="{{ route('tag', $tag->name) }}">{{ $tag->name }}</a>
+                        @endforeach
                     </div>
                     <div class="col-md-6">
                          <a class="btn btn-sm btn-warning pull-right" href="{{ route('topics.edit', $topic->id) }}">

@@ -19,15 +19,20 @@ Auth::routes();
 Route::post('/login', 'Auth\LoginController@postLogin');
 Route::post('/register', 'Auth\RegisterController@postRegister');
 
-# ------------------ Topic ------------------------
-Route::resource('topics', 'TopicController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
-
-Route::resource('posts', 'PostController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
-
-# ------------------ User ------------------------
-Route::resource('users', 'UserController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
-
-
+# ------------------ Node ------------------------
 Route::resource('nodes', 'NodeController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 Route::resource('files', 'FileController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+
+# ------------------ Topic ------------------------
+Route::resource('topics', 'TopicController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+
+# ------------------ Post ------------------------
+Route::resource('posts', 'PostController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+
+# ------------------ Tags ------------------------
+Route::get('/tag/{slug}', 'TagsController@show')->name('tag');
+
+# ------------------ User ------------------------
+Route::resource('users', 'UserController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('wikis', 'WikiController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);

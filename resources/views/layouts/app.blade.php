@@ -41,7 +41,9 @@ ______                            _              _                              
         // 阻止超时导致链接跳转事件发生
             event.preventDefault()
         });
+        // Flash
         $('#flash-overlay-modal').modal();
+        $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
     </script>
 </head>
 
@@ -113,19 +115,20 @@ ______                            _              _                              
                         You have't confirm your email address yet.
                     </div>
                 @endif
-                @include('flash::message')
-                @if (isset($errors) && count($errors) > 0)
-                    <div class="alert alert-danger">
-                        <p>There were some problems with your input.</p>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li><i class="glyphicon glyphicon-remove"></i> {{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                <!-- Breadcrumbs -->
                 <div class="main-content" id="pjax-container">
+                    @include('flash::message')
+                    @if (isset($errors) && count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <p>There were some problems with your input.</p>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li><i class="glyphicon glyphicon-remove"></i> {{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <!-- Breadcrumbs -->
+                    {!! Breadcrumbs::render() !!}
                     @yield('content')
                 </div>
         @endif

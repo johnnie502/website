@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "47a75a87d7b31b133a3c9d06216817f1",
+    "content-hash": "c1b2dfd920a7580ceacb43ccfda90052",
     "packages": [
         {
             "name": "andreasindal/laravel-markdown",
@@ -2714,6 +2714,60 @@
                 "environment"
             ],
             "time": "2016-09-01T10:05:43+00:00"
+        },
+        {
+            "name": "yajra/laravel-breadcrumbs",
+            "version": "v4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yajra/laravel-breadcrumbs.git",
+                "reference": "a487d98f4da77f45a2a725f9cc3837d551c35bf7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/yajra/laravel-breadcrumbs/a487d98f4da77f45a2a725f9cc3837d551c35bf7.zip",
+                "reference": "a487d98f4da77f45a2a725f9cc3837d551c35bf7",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.4.*",
+                "illuminate/view": "5.4.*",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "orchestra/testbench": "3.2.*|3.3.*|3.4.*",
+                "phpunit/phpunit": "5.*",
+                "satooshi/php-coveralls": "0.6.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yajra\\Breadcrumbs\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT License"
+            ],
+            "authors": [
+                {
+                    "name": "Dave James Miller",
+                    "email": "dave@davejamesmiller.com",
+                    "homepage": "https://davejamesmiller.com/"
+                },
+                {
+                    "name": "Arjay Angeles",
+                    "email": "aqangeles@gmail.com",
+                    "homepage": "https://yajrabox.com/"
+                }
+            ],
+            "description": "A simple Laravel-style way to create breadcrumbs in Laravel 5.4+.",
+            "homepage": "https://laravel-breadcrumbs.readthedocs.io/",
+            "keywords": [
+                "laravel"
+            ],
+            "time": "2017-01-29T03:38:55+00:00"
         },
         {
             "name": "zgldh/laravel-upload-manager",

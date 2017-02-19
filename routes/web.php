@@ -12,7 +12,8 @@
 */
 
 # ------------------ Pages ------------------------
-Route::get('/about', 'PageController@about');
+Route::get('/', 'PageController@index')->name('index');
+Route::get('/about', 'PageController@about')->name('about');
 
 # ------------------ Auth ------------------------
 Auth::routes();
@@ -22,8 +23,6 @@ Route::post('/register', 'Auth\RegisterController@postRegister');
 # ------------------ Node ------------------------
 Route::resource('nodes', 'NodeController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
-Route::resource('files', 'FileController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
-
 # ------------------ Topic ------------------------
 Route::resource('topics', 'TopicController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 Route::get('/tag/{slug}', 'TopicController@tags')->name('tag');
@@ -32,7 +31,7 @@ Route::get('/tag/{slug}', 'TopicController@tags')->name('tag');
 Route::resource('posts', 'PostController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 # ------------------ Wiki ------------------------
-Route::resource('wikis', 'WikiController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('wiki', 'WikiController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 # ------------------ User ------------------------
 Route::resource('users', 'UserController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);

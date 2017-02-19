@@ -117,7 +117,7 @@ class TopicController extends Controller
         $topic->retag($request->input('tags'));
         // Show messgae.
         Flash::success('Item updated successfully.');
-        return redirect()->route('topics.index');
+        return redirect()->route('topics.show', $topic->id);
     }
 
     public function destroy(Topic $topic)

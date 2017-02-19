@@ -16,29 +16,29 @@ class WikiController extends Controller
 
 	public function index()
 	{
-		$wikis = Wiki::paginate();
-		return view('wikis.index', compact('wikis'));
+		$wikis = Wiki::paginate(20);
+		return view('wiki.index', compact('wikis'));
 	}
 
 	public function create(Wiki $wiki)
 	{
-		return view('wikis.create_and_edit', compact('wiki'));
+		return view('wiki.create_and_edit', compact('wiki'));
 	}
 
 	public function store(WikiRequest $request)
 	{
 		Wiki::createWithInput($request->all());
-		return redirect()->route('wikis.index')->with('message', 'Item created successfully.');
+		return redirect()->route('wiki.index')->with('message', 'Item created successfully.');
 	}
 
 	public function show(Wiki $wiki)
 	{
-		return view('wikis.show', compact('wiki'));
+		return view('wiki.show', compact('wiki'));
 	}
 
 	public function edit(Wiki $wiki)
 	{
-		return view('wikis.create_and_edit', compact('wiki'));
+		return view('wiki.create_and_edit', compact('wiki'));
 	}
 
 	public function update(WikiRequest $request, Wiki $wiki)
@@ -46,7 +46,7 @@ class WikiController extends Controller
 		$this->authorize('update', $wiki);
 		$wiki->updateWithInput($request->all());
 
-		return redirect()->route('wikis.index')->with('message', 'Item updated successfully.');
+		return redirect()->route('wiki.index')->with('message', 'Item updated successfully.');
 	}
 
 	public function destroy(Wiki $wiki)
@@ -54,6 +54,6 @@ class WikiController extends Controller
 		$this->authorize('destroy', $wiki);
 		$wiki->delete();
 
-		return redirect()->route('wikis.index')->with('message', 'Item deleted successfully.');
+		return redirect()->route('wiki.index')->with('message', 'Item deleted successfully.');
 	}
 }

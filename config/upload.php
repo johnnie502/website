@@ -16,7 +16,7 @@ return [
     /**
     * 对应的数据模型类
     **/
-    'upload_model'      => App\Upload::class,
+    'upload_model'      => App\Models\Upload::class,
     
     /**
     * 上传策略类
@@ -32,7 +32,7 @@ return [
             * 请参考 http://laravel.com/docs/5.1/validation
             **/
             'min' => 0,  //kilobytes    
-            'max' => 4096,  //kilobytes
+            'max' => 20480,  //kilobytes
         ],
         'image'  => [
             'max'   => 8192,  //kilobytes

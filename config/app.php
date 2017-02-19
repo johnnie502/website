@@ -191,6 +191,7 @@ return [
         Junaidnasir\Larainvite\LaraInviteServiceProvider::class,  // Invite register
         \Schuppo\PasswordStrength\PasswordStrengthServiceProvider::class,  // Password strength
         zgldh\UploadManager\UploadManagerServiceProvider::class,  // Upload file mamager
+        Yajra\Breadcrumbs\ServiceProvider::class,  //Breadcrumbs
 
     ],
 
@@ -245,6 +246,7 @@ return [
         'Markdown' => Indal\Markdown\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Invite' => Junaidnasir\Larainvite\Facades\Invite::class,
+        'Breadcrumbs' => Yajra\Breadcrumbs\Facade::class,
 
     ],
 

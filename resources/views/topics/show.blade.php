@@ -7,7 +7,6 @@
         <div class="panel-heading">
             <h1>{{$topic->title}}</h1>
         </div>
-
         <div class="panel-body">
             <div class="well well-sm">
                 <div class="row">
@@ -28,5 +27,4 @@
         @yield('post')
     </div>
 </div>
-
 @endsection

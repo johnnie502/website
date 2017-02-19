@@ -50,8 +50,10 @@ class UserController extends Controller
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
         ]);
+        // Set trusted IP.
+        $request->setTrustedProxies(['127.0.0.1'])
         $user->points = 20;
-        $user->regip = $request->ip();
+        $user->regip = $request->getClientIp();
         $user->save();
         // Save default avatar.
         $avatar = new MDAvatars($request->input('username'), 512);

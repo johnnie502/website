@@ -1,7 +1,7 @@
 <?php
 
 return [
-# ---------- global ----------#
+# ---------- general ----------#
 	'mpcblab' => '数理化生实验室',
 	'community' => '社区',
 	'wiki' => '百科',
@@ -14,9 +14,12 @@ return [
 	'forgot_password' => '忘记密码',
 	'reset_password' => '重置密码',
 	'send_password_reset_link' => '发送密码重置链接',
+	'user_banned' => '用户已被封禁',
+	'404_not_found' => '您来到了一个未知的领域',
 # ---------- Flash messages ----------#
 	'operation_successfully' => '操作成功',
 	'register_successfully' => '注册成功，请在邮件中确认',
 	'login_successfully' => '登录成功',
 	'logout_successfully' => '注销成功',
+	'confirm_email_request' => '您还没有验证邮箱地址',
 ];

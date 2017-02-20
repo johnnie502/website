@@ -35,3 +35,6 @@ Route::resource('wiki', 'WikiController', ['only' => ['index', 'show', 'create',
 
 # ------------------ User ------------------------
 Route::resource('users', 'UserController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+
+//Fix ueditor server
+Route::any('/laravel-ueditor/server', '\Stevenyangecho\UEditor\Controller@server');

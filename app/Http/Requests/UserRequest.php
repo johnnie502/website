@@ -12,7 +12,7 @@ class UserRequest extends Request
             {
                 return [
                     // CREATE ROLES
-                    'username' => 'bail|required|min:5|max:20|unique:users',
+                    'username' => 'bail|required|min:3|max:20|unique:users',
                     'email' => 'sometimes|bail|required|email|min:5|max:30|unique:users',
                     'password' => 'bail|required|min:8|max:50|case_diff|numbers|letters|symbols|confirmed',
                 ];
@@ -22,7 +22,7 @@ class UserRequest extends Request
             {
                 return [
                     // UPDATE ROLES
-                    'username' => 'bail|required|min:5|max:20|unique:users',
+                    'username' => 'bail|required|min:3|max:20|unique:users',
                     'email' => 'sometimes|bail|required|email|min:5|max:30|unique:users',
                     'password' => 'bail|required|min:8|max:50|case_diff|numbers|letters|symbols',
                 ];

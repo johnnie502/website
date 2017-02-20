@@ -80,7 +80,7 @@ class LoginController extends Controller
                 $user = User:: where('email', $username)->first();
                 $user->lastip = $request->getClientIp();
                 $user->save();
-                Flash::success(Lang::get('global.login_successfully.'));
+                Flash::success(Lang::get('global.login_successfully'));
                 return redirect()->intended();
             } else {
                 Flash::error(Lang::get('auth.failed'));
@@ -91,7 +91,7 @@ class LoginController extends Controller
             $user = User:: where('username', $username)->first();
             $user->lastip = $request->getClientIp();
             $user->save();
-            Flash::success(Lang::get('global.login_successfully.'));
+            Flash::success(Lang::get('global.login_successfully'));
             return redirect()->intended();
         } else {
             Flash::error(Lang::get('auth.failed'));

@@ -11,7 +11,7 @@
                         <div class="form-group">
                             <label for="email" class="col-md-4 control-label">@lang('validation.attributes.username')</label>
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required placeholder="用户名或邮箱，5～30个字符" autofocus>
+                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required placeholder="用户名或邮箱，3～30个字符" autofocus>
                             </div>
                         </div>
                         <div class="form-group">

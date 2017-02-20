@@ -11,6 +11,11 @@ class Post extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = ['content'];
 
+    public function topic()
+    {
+        return $this->belongsTo('App\Models\Topic', 'topic');
+    }
+
     /*
       * Get topic user.
       */

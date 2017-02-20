@@ -11,7 +11,7 @@
                         <div class="form-group">
                             <label for="username" class="col-md-4 control-label">@lang('validation.attributes.username')</label>
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required placeholder="5~20个字符" autofocus>
+                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required placeholder="3~20个字符" autofocus>
                             </div>
                         </div>
                         <div class="form-group">

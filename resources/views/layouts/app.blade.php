@@ -89,7 +89,7 @@ ______                            _              _                              
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            @lang('global.logout')
                                         </a>
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
@@ -107,12 +107,12 @@ ______                            _              _                              
         <div class="container">
             @if (Auth::check() && $user->status < 0)
             <div class="alert alert-danger">
-                Your account was banned.
+                @lang('global.user_banned')
             </div>
             @else
                 @if (Auth::check() && $user->status == 0)
                     <div class="alert alert-warning">
-                        You have't confirm your email address yet.
+                        @lang('global.confirm_email_request')
                     </div>
                 @endif
                 <div class="main-content" id="pjax-container">

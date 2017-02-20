@@ -20,7 +20,9 @@
                     </div>
                 </div>
             </div>
-	@markdown($post->content)
+            <img alt="" src="/avatars/{{ App\Models\User::find($topic->user)->id }}.png" width="128" height="128" />
+            {{ App\Models\User::find($topic->user)->username }}
+	    @markdown($post->content)
         </div>
         @yield('post')
     </div>

@@ -1,17 +1,7 @@
+@extends(topics.show')
 @section('post')
-<div class="container">
-    <div class="panel panel-default col-md-10 col-md-offset-1">
-        <div class="panel-heading">
-            <h1>
-                <i class="glyphicon glyphicon-edit"></i> Post / 
-                @if($post->id)
-                    Edit #{{$post->id}}
-                @else
-                    Create 
-                @endif
-            </h1>
-        </div>
-        <div class="panel-body">
+    <div class="panel-body">
+        @if (Auth::check())
             @if($post->id)
                 <form action="{{ route('posts.update', $post->id) }}" method="POST">
                     <input type="hidden" name="_method" value="PUT">
@@ -44,6 +34,8 @@
                 </div>
             </form>
         </div>
-    </div>
+    @else
+        Login
+    @endif
 </div>
 @endsection

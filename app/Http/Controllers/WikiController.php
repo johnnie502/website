@@ -28,7 +28,8 @@ class WikiController extends Controller
 	public function store(WikiRequest $request)
 	{
 		Wiki::createWithInput($request->all());
-		return redirect()->route('wiki.index')->with('message', 'Item created successfully.');
+		Flash::success(Lang::get('global.operation_successfully'));
+        		return redirect()->route('wiki.index');
 	}
 
 	public function show(Wiki $wiki)
@@ -45,15 +46,15 @@ class WikiController extends Controller
 	{
 		$this->authorize('update', $wiki);
 		$wiki->updateWithInput($request->all());
-
-		return redirect()->route('wiki.index')->with('message', 'Item updated successfully.');
+		Flash::success(Lang::get('global.operation_successfully'));
+        		return redirect()->route('wiki.index');
 	}
 
 	public function destroy(Wiki $wiki)
 	{
 		$this->authorize('destroy', $wiki);
 		$wiki->delete();
-
-		return redirect()->route('wiki.index')->with('message', 'Item deleted successfully.');
+		Flash::success(Lang::get('global.operation_successfully'));
+        		return redirect()->route('wiki.index');
 	}
 }

@@ -6,20 +6,20 @@
 # ------------------ Page ------------------------
 Breadcrumbs::register('index', function($breadcrumbs)
 {
-    $breadcrumbs->push('主页', route('index'));
+    $breadcrumbs->push(Lang::get('global.home'), route('index'));
 });
 
 Breadcrumbs::register('about', function($breadcrumbs)
 {
     $breadcrumbs->parent('index');
-    $breadcrumbs->push('关于', route('about'));
+    $breadcrumbs->push(Lang::get('global.about'), route('about'));
 });
 
 # ------------------ Topic ------------------------
 Breadcrumbs::register('topics.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('index');
-    $breadcrumbs->push('社区', route('topics.index'));
+    $breadcrumbs->push(Lang::get('global.community'), route('topics.index'));
 });
 
 Breadcrumbs::register('topics.create', function($breadcrumbs)
@@ -28,23 +28,23 @@ Breadcrumbs::register('topics.create', function($breadcrumbs)
     $breadcrumbs->push('发表主题', route('topics.create'));
 });
 
-Breadcrumbs::register('topics.show', function($breadcrumbs)
+Breadcrumbs::register('topics.show', function($breadcrumbs, $topic)
 {
     $breadcrumbs->parent('topics.index');
-    $breadcrumbs->push('查看主题', route('topics.show'));
+    $breadcrumbs->push('查看主题: ' . $topic->title, route('topics.show', $topic->id));
 });
 
-Breadcrumbs::register('topics.edit', function($breadcrumbs)
+Breadcrumbs::register('topics.edit', function($breadcrumbs, $topic)
 {
     $breadcrumbs->parent('topics.index');
-    $breadcrumbs->push('编辑主题', route('topics.edit'));
+    $breadcrumbs->push('编辑主题: ' . $topic->title, route('topics.edit', $topic));
 });
 
 # ------------------ Wiki ------------------------
 Breadcrumbs::register('wiki.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('index');
-    $breadcrumbs->push('百科', route('wiki.index'));
+    $breadcrumbs->push(Lang::get('global.wiki'), route('wiki.index'));
 });
 
 Breadcrumbs::register('wiki.create', function($breadcrumbs)
@@ -53,33 +53,39 @@ Breadcrumbs::register('wiki.create', function($breadcrumbs)
     $breadcrumbs->push('创建条目', route('wiki.create'));
 });
 
-Breadcrumbs::register('wiki.show', function($breadcrumbs)
+Breadcrumbs::register('wiki.show', function($breadcrumbs, $wiki)
 {
     $breadcrumbs->parent('wiki.index');
-    $breadcrumbs->push('查看条目', route('wiki.show'));
+    $breadcrumbs->push('查看条目:' . $wiki->title, route('wiki.show', $wiki));
 });
 
-Breadcrumbs::register('wiki.edit', function($breadcrumbs)
+Breadcrumbs::register('wiki.edit', function($breadcrumbs, $wiki)
 {
     $breadcrumbs->parent('wiki.index');
-    $breadcrumbs->push('编辑条目', route('wiki.edit'));
+    $breadcrumbs->push('编辑条目:' . $wiki, route('wiki.edit', $wiki));
 });
 
 # ------------------ User ------------------------
 Breadcrumbs::register('users', function($breadcrumbs)
 {
-    $breadcrumbs->push('用户中心', route('users.index'));
+    $breadcrumbs->push(Lang::get('global.users'), route('users.index'));
 });
 
 # ------------------ Auth ------------------------
 Breadcrumbs::register('login', function($breadcrumbs)
 {
-    $breadcrumbs->parent('users');
-    $breadcrumbs->push('登录', route('login'));
+    $breadcrumbs->parent('index');
+    $breadcrumbs->push(Lang::get('global.login'), route('login'));
 });
 
 Breadcrumbs::register('register', function($breadcrumbs)
 {
-    $breadcrumbs->parent('users');
-    $breadcrumbs->push('注册', route('register'));
+    $breadcrumbs->parent('index');
+    $breadcrumbs->push(Lang::get('global.register'), route('register'));
+});
+
+Breadcrumbs::register('password.request', function($breadcrumbs)
+{
+    $breadcrumbs->parent('index');
+    $breadcrumbs->push(Lang::get('global.reset_password'), route('password.request'));
 });

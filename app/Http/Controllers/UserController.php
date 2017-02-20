@@ -61,7 +61,7 @@ class UserController extends Controller
         $avatar->Free();
         // Send email.
         // Show message.
-        Flash::success('Register user successfully, please confirm your email.');
+        Flash::success(Lang::get('global.register_successfully'));
         return redirect()->intended();
     }
 
@@ -81,7 +81,7 @@ class UserController extends Controller
         // Update user.
         $user->updateWithInput($request->all());
         // Show messgae.
-        Flash::success('Item created successfully.');
+        Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('users.index');
     }
 
@@ -94,7 +94,7 @@ class UserController extends Controller
         // Soft delete.
         $user->delete();
         // Show message.
-        Flash::success('Item deleted successfully.');
+        Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('users.index');
     }
 }

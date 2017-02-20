@@ -68,16 +68,16 @@ ______                            _              _                              
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ url('/topics') }}">Topic</a></li>
-                        <li><a href="{{ url('/wiki') }}">Wiki</a></li>
-                        <li><a href="{{ url('/about') }}">About</a></li>
+                        <li><a href="{{ url('/topics') }}">@lang('global.community')</a></li>
+                        <li><a href="{{ url('/wiki') }}">@lang('global.wiki')</a></li>
+                        <li><a href="{{ url('/about') }}">@lang('global.about')</a></li>
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
+                            <li><a href="{{ url('/login') }}">@lang('global.login')</a></li>
+                            <li><a href="{{ url('/register') }}">@lang('global.register')</a></li>
                         @else
                             <img alt="avatar" src="/avatars/{{ $user->id }}.png" width="32" height="32" />
                             <li class="dropdown">

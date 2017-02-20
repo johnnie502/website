@@ -54,7 +54,7 @@ class PostController extends Controller
         $user->replies += 1;
         $user->save();
         // Show message.
-        Flash::success('Item created successfully.');
+        Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('posts.index');
     }
 
@@ -77,7 +77,7 @@ class PostController extends Controller
         // Update post.
         $post->updateWithInput($request->input('content'));
         // Show message.
-        Flash::success('Item updated successfully.');
+        Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('posts.index');
     }
 
@@ -94,7 +94,7 @@ class PostController extends Controller
         $user->replies -= 1;
         $user->save();
         // Show message.
-        Flash::success('Item deleted successfully.');
+        Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('posts.index');
     }
 }

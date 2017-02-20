@@ -66,7 +66,7 @@ class TopicController extends Controller
         // Add tag.
         $topic->tag($request->input('tags'));
         // Show message.
-        Flash::success('Item created successfully.');
+        Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('topics.index');
     }
 
@@ -116,7 +116,7 @@ class TopicController extends Controller
         // Update tags.
         $topic->retag($request->input('tags'));
         // Show messgae.
-        Flash::success('Item updated successfully.');
+        Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('topics.show', $topic->id);
     }
 
@@ -137,7 +137,7 @@ class TopicController extends Controller
         $node->topics -= 1;
         $node->save();
         // Show message.
-        Flash::success('Item deleted successfully.');
+        Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('topics.index');
     }
 }

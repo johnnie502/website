@@ -32,7 +32,7 @@ class NodeController extends Controller
         // Create node.
         Node::createWithInput($request->all());
         // Show message.
-        Flash::success('Item created successfully.');
+        Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('nodes.index');
     }
 
@@ -52,7 +52,7 @@ class NodeController extends Controller
         // Update node.
         $node->updateWithInput($request->all());
         // Show messgae.
-        Flash::success('Item updated successfully.');
+        Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('nodes.index');
     }
 
@@ -65,7 +65,7 @@ class NodeController extends Controller
         // Soft delete.
         $node->delete();
         // Show message.
-        Flash::success('Item deleted successfully.');
+        Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('nodes.index');
     }
 }

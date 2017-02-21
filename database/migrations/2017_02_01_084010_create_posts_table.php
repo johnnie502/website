@@ -11,7 +11,6 @@ class CreatePostsTable extends Migration
                 $table->increments('id');
                 $table->integer('user')->unsigned()->default(0)->index();
                 $table->integer('post')->unsigned()->default(0)->index();
-                $table->integer('subpost')->unsigned()->default(0);
                 $table->longText('content');
                 $table->integer('type')->unsigned()->default(0)->index();
                 $table->integer('status')->default(0)->index();

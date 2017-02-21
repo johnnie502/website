@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use Traits\PostOperation, SoftDeletes;
+    use Traits\PostOperation, SoftDeletes, Searchable;
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['content'];

@@ -24,7 +24,7 @@
             {{ App\Models\User::find($topic->user)->username }}
 	    @markdown($post->content)
         </div>
-        @yield('post')
+        @include('posts.create_and_edit')
     </div>
 </div>
 @endsection

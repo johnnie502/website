@@ -9,12 +9,11 @@ class WikiPolicy extends Policy
 {
     public function update(User $user, Wiki $wiki)
     {
-        // return $wiki->user_id == $user->id;
-        return true;
+        return $user->status >= 0;
     }
 
     public function destroy(User $user, Wiki $wiki)
     {
-        return true;
+        return $user->type >= 4;
     }
 }

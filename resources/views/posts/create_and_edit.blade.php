@@ -1,5 +1,3 @@
-@extends(topics.show')
-@section('post')
     <div class="panel-body">
         @if (Auth::check())
             @if($post->id)
@@ -38,4 +36,3 @@
         Login
     @endif
 </div>
-@endsection

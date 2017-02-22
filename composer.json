@@ -9,6 +9,7 @@
         "andreasindal/laravel-markdown": "^1.1",
         "caouecs/laravel-lang": "^3.0",
         "cviebrock/eloquent-taggable": "^2.1",
+        "greggilbert/recaptcha": "dev-master",
         "hootlex/laravel-moderation": "^1.0",
         "intervention/image": "^2.3",
         "junaidnasir/larainvite": "^0.1.7",

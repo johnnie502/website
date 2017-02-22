@@ -194,6 +194,7 @@ return [
         zgldh\UploadManager\UploadManagerServiceProvider::class,  // Upload file mamager
         Yajra\Breadcrumbs\ServiceProvider::class,  //Breadcrumbs
         TomLingham\Searchy\SearchyServiceProvider::class,  // Search
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,  // reCaptcha
 
     ],
 
@@ -249,7 +250,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Invite' => Junaidnasir\Larainvite\Facades\Invite::class,
         'Breadcrumbs' => Yajra\Breadcrumbs\Facade::class,
-        'Searchy' => TomLingham\Searchy\Facades\Searchy::class
+        'Searchy' => TomLingham\Searchy\Facades\Searchy::class,
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
 
     ],
 

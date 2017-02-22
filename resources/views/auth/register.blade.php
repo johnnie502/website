@@ -32,6 +32,7 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="请再次输入密码">
                             </div>
                         </div>
+                        {!! Recaptcha::render() !!}
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

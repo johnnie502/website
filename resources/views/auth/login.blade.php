@@ -20,6 +20,7 @@
                                 <input id="password" type="password" class="form-control" name="password" required placeholder="8~50个字符，要求包含大小写字母，数字和符号">
                             </div>
                         </div>
+                        {!! Recaptcha::render() !!}
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <div class="checkbox">

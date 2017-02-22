@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Wiki extends Model
 {
-    use Traits\WikiOperation, Searchable;
+    use Traits\WikiOperation;
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['category', 'title', 'content', 'redirect'];

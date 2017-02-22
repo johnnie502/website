@@ -2,13 +2,13 @@
 
 namespace App\Models\Traits;
 
-use App\Models\Wiki;
+use App\Models\Comment;
 
-trait WikiOperation
+trait CommentOperation
 {
     public static function createWithInput($data)
     {
-        return Wiki::create($data);
+        return Comment::create($data);
     }
 
     public function updateWithInput($data)

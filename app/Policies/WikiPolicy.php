@@ -14,6 +14,6 @@ class WikiPolicy extends Policy
 
     public function destroy(User $user, Wiki $wiki)
     {
-        return $user->type >= 4;
+        return $user->type >= 3;
     }
 }

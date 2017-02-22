@@ -168,8 +168,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-        Laravel\Scout\ScoutServiceProvider::class,
-
+        
         /*
          * Application Service Providers...
          */
@@ -194,6 +193,7 @@ return [
         \Schuppo\PasswordStrength\PasswordStrengthServiceProvider::class,  // Password strength
         zgldh\UploadManager\UploadManagerServiceProvider::class,  // Upload file mamager
         Yajra\Breadcrumbs\ServiceProvider::class,  //Breadcrumbs
+        TomLingham\Searchy\SearchyServiceProvider::class,  // Search
 
     ],
 
@@ -249,6 +249,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Invite' => Junaidnasir\Larainvite\Facades\Invite::class,
         'Breadcrumbs' => Yajra\Breadcrumbs\Facade::class,
+        'Searchy' => TomLingham\Searchy\Facades\Searchy::class
 
     ],
 

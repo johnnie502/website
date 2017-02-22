@@ -5,6 +5,8 @@ namespace App\Providers;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Policies\CommentPolicy;
+use App\Models\Comment;
 use App\Policies\WikiPolicy;
 use App\Models\Wiki;
 use App\Policies\NodePolicy;
@@ -24,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+		 Comment::class => CommentPolicy::class,
 		 Wiki::class => WikiPolicy::class,
 		 File::class => FilePolicy::class,
 		 Node::class => NodePolicy::class,

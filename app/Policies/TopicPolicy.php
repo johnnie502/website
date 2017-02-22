@@ -9,11 +9,11 @@ class TopicPolicy extends Policy
 {
     public function update(User $user, Topic $topic)
     {
-        return $topic->user == $user->id or $user->type >= 4;
+        return $topic->user == $user->id or $user->type >= 3;
     }
 
     public function destroy(User $user, Topic $topic)
     {
-        return $user->type >= 4;
+        return $user->type >= 3;
     }
 }

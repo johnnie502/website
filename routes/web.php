@@ -38,3 +38,4 @@ Route::resource('users', 'UserController', ['only' => ['index', 'show', 'create'
 
 //Fix ueditor server
 Route::any('/laravel-ueditor/server', '\Stevenyangecho\UEditor\Controller@server');
+Route::resource('comments', 'CommentController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);

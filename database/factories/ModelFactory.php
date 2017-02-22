@@ -58,3 +58,9 @@ $factory->define(App\Models\Wiki::class, function (Faker\Generator $faker) {
         // 'name' => $faker->name,
     ];
 });
+
+$factory->define(App\Models\Comment::class, function (Faker\Generator $faker) {
+    return [
+        // 'name' => $faker->name,
+    ];
+});

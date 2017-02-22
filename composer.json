@@ -15,7 +15,6 @@
         "laracasts/flash": "^2.0",
         "laravel/framework": "5.4.*",
         "laravel/passport": "^2.0",
-        "laravel/scout": "^3.0",
         "laravel/tinker": "~1.0",
         "league/html-to-markdown": "^4.4",
         "lincanbin/material-design-avatars": "^1.3",
@@ -23,6 +22,7 @@
         "schuppo/password-strength": "~1.5",
         "spatie/laravel-pjax": "^1.3",
         "stevenyangecho/laravel-u-editor": "^1.4",
+        "tom-lingham/searchy": "^2.0",
         "yajra/laravel-breadcrumbs": "^4.0",
         "zgldh/laravel-upload-manager": "^0.4.4",
         "zizaco/entrust": "^1.7"

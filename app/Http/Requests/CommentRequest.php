@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class WikiRequest extends Request
+class CommentRequest extends Request
 {
     public function rules()
     {

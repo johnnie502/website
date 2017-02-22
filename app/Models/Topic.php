@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentTaggable\Taggable;
 
 class Topic extends Model
 {
-    use Traits\TopicOperation, SoftDeletes, Searchable, Taggable;
+    use Traits\TopicOperation, SoftDeletes, Taggable;
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['title'];
@@ -18,6 +17,14 @@ class Topic extends Model
       */
     public function user()
     {
-    	return $this->belongsTo('App\Models\Topic', 'user');
+    	return $this->belongsTo('App\Models\User', 'user');
     }
+
+    /*
+      * Get topic posts.
+      */
+    public function post()
+    {
+        return $this->hasMany('App\Models\Post', 'topic');
+    }    
 }

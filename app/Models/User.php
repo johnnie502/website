@@ -19,7 +19,7 @@ class User extends Model implements Authenticatable
     /*
       * Get user topics.
       */
-    public function topic()
+    public function topics()
     {
     	return $this->hasMany('App\Models\Topic', 'user');
     }
@@ -27,15 +27,15 @@ class User extends Model implements Authenticatable
     /*
       * Get user posts.
       */
-    public function post()
+    public function posts()
     {
     	return $this->hasMany('App\Models\Post', 'user');
     }
 
     /*
-      * Get user wiki.
+      * Get user wikis.
       */
-    public function wiki()
+    public function wikis()
     {
     	return $this->hasMany('App\Models\Wiki', 'user');
     }

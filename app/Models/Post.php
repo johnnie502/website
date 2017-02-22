@@ -11,20 +11,29 @@ class Post extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['content'];
+    protected $touches = ['topic'];
 
     /* 
-      * Get post assoc topic.
+      * Get post assoc topics.
       */
-    public function topic()
+    public function topics()
     {
         return $this->belongsTo('App\Models\Topic', 'topic');
     }
 
     /*
-      * Get post assoc user.
+      * Get post assoc users.
       */
-    public function user()
+    public function users()
     {
-    	return $this->belongsTo('App\Models\User, 'user');
+    	return $this->belongsTo('App\Models\User', 'user');
+    }
+
+    /**
+     * Get all of the post's comments.
+     */
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Comment', 'model');
     }
 }

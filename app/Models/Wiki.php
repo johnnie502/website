@@ -13,10 +13,18 @@ class Wiki extends Model
     protected $fillable = ['category', 'title', 'content', 'redirect'];
 
     /*
-      * Get wikiassco user.
+      * Get wikiassco users.
       */
-    public function user()
+    public function users()
     {
     	return $this->belongsTo('App\Models\Wiki', 'user');
+    }
+
+    /**
+     * Get all of the wiki's comments.
+     */
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Comment', 'model');
     }
 }

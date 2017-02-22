@@ -10,7 +10,7 @@
                     <tbody>
                         @foreach($topics as $topic)
                             <tr>
-                                <td><img alt="" src="/avatars/{{ App\Models\User::find($topic->user)->id }}.png" width="32" height="32" /></td><td><a href="{{ route('nodes.show', App\Models\Node::find($topic->node)->id) }}">{{ App\Models\Node::find($topic->node)->name }}</a></td> <td><a href="{{ route('topics.show', $topic->id) }}">{{ $topic->title }}</a></td> <td><a href="{{ route('users.show', App\Models\User::find($topic->user)->id) }}">{{ App\Models\User::find($topic->user)->username }}</a></td>
+                                <td><img alt="" src="/avatars/{{ $topic->user }}.png" width="32" height="32" /></td><td><a href="{{ route('nodes.show', $topic->nodes->id) }}">{{ $topic->nodes->name }}</a></td> <td><a href="{{ route('topics.show', $topic->id) }}">{{ $topic->title }}</a></td> <td><a href="{{ route('users.show', $topic->user) }}">{{ $topic->users->username }}</a></td>
                                 </td>
                             </tr>
                         @endforeach

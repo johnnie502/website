@@ -14,9 +14,17 @@ class Topic extends Model
     protected $fillable = ['title'];
 
     /*
+      * Get topic assoc node.
+      */
+    public function nodes()
+    {
+      return $this->belongsTo('App\Models\Node', 'node');
+    }
+
+    /*
       * Get topic assoc user.
       */
-    public function user()
+    public function users()
     {
     	return $this->belongsTo('App\Models\User', 'user');
     }
@@ -24,7 +32,7 @@ class Topic extends Model
     /*
       * Get topic assoc posts.
       */
-    public function post()
+    public function posts()
     {
         return $this->hasMany('App\Models\Post', 'topic');
     }    

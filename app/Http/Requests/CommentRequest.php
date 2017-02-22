@@ -12,6 +12,7 @@ class CommentRequest extends Request
             {
                 return [
                     // CREATE ROLES
+                    'content' => 'bail|required|min:10|max:20000',
                 ];
             }
             case 'PUT':
@@ -19,6 +20,7 @@ class CommentRequest extends Request
             {
                 return [
                     // UPDATE ROLES
+                    'content' => 'bail|required|min:10|max:20000',
                 ];
             }
             case 'GET':

@@ -136,6 +136,7 @@ ______                            _              _                              
 </div>
 <!-- Scripts -->
 <script src="/js/app.js"></script>
+<script src="https//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
 <footer>
     <div class="container small">
         <p class="pull-left">

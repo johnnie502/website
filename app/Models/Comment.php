@@ -11,4 +11,13 @@ class Comment extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['content'];
+    protected $touches = ['post'];
+
+    /**
+     * Get all of the owning commentable models.
+     */
+    public function model()
+    {
+        return $this->morphTo();
+    }
 }

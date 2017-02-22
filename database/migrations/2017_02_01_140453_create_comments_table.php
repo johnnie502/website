@@ -14,7 +14,8 @@ class CreateCommentsTable extends Migration
             $table->text('content');
             $table->integer('type')->unsigned()->default(0)->index();
             $table->integer('status')->default(0)->index();
-            $table->integer('model')->unsigned()->default(0)->index();
+            $table->integer('model_id')->unsigned()->default(0)->index();
+            $table->string('model_type');
             $table->datetime('moderated_at')->nullable();
             $table->integer('moderated_by')->nullable();
             $table->timestamps();

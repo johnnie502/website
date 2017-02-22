@@ -19,7 +19,7 @@ Breadcrumbs::register('about', function($breadcrumbs)
 Breadcrumbs::register('topics.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('index');
-    $breadcrumbs->push(Lang::get('global.community'), route('topics.index'));
+    $breadcrumbs->push(Lang::get('global.topics'), route('topics.index'));
 });
 
 Breadcrumbs::register('topics.create', function($breadcrumbs)

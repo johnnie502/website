@@ -12,7 +12,7 @@ class PostRequest extends Request
             {
                 return [
                     // CREATE ROLES
-                    'content' => 'bail|required|min:10|max:80',
+                    'content' => 'bail|required|min:10|max:20000',
                 ];
             }
             case 'PUT':
@@ -20,7 +20,7 @@ class PostRequest extends Request
             {
                 return [
                     // UPDATE ROLES
-                    'content => 'bail|required|min:10|max:80',
+                    'content' => 'bail|required|min:10|max:20000',
                 ];
             }
             case 'GET':

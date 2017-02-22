@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <img alt="" src="/avatars/{{ App\Models\User::find($topic->user)->id }}.png" width="128" height="128" />
+            <img alt="" src="/avatars/{{ $topic->user}}.png" width="128" height="128" />
             {{ App\Models\User::find($topic->user)->username }}
 	    @markdown($post->content)
         </div>

@@ -10,4 +10,13 @@ class Node extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['name', 'slug',  'description'];
+
+    /*
+      * Get node assoc topics.
+      */
+    public function topics()
+    {
+        return $this->hasMany('App\Models\Topic', 'node');
+    }    
+
 }

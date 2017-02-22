@@ -3,7 +3,7 @@
 return [
 # ---------- general ----------#
 	'mpcblab' => '数理化生实验室',
-	'community' => '社区',
+	'topics' => '社区',
 	'wiki' => '百科',
 	'about' => '关于',
 	'login' => '登录',

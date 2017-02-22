@@ -68,7 +68,7 @@ ______                            _              _                              
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ url('/topics') }}">@lang('global.community')</a></li>
+                        <li><a href="{{ url('/topics') }}">@lang('global.topics')</a></li>
                         <li><a href="{{ url('/wiki') }}">@lang('global.wiki')</a></li>
                         <li><a href="{{ url('/about') }}">@lang('global.about')</a></li>
                     </ul>
@@ -143,7 +143,7 @@ ______                            _              _                              
             <i class="fa fa-lightbulb-o"></i>Inspired by v2ex & phphub.
         </p>
         <p class="pull-right">
-            <i class="fa laravel"></i>Power By <a href="https://laravel.com/" title="Laravel 5" target="_blank"><img src="https://laravel.com/assets/img/laravel-logo.png" alt="Laravel 5"></a><br>
+            <i class="fa laravel"></i>Powered By <a href="https://laravel.com/" title="Laravel 5" target="_blank"><img src="https://laravel.com/assets/img/laravel-logo.png" alt="Laravel 5"></a><br>
             <i class="fa laravel"></i>由<a href="https://laravel.com/" title="Laravel 5" target="_blank">Laravel</a>强力驱动
         </p>
     </div>

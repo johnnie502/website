@@ -2,18 +2,19 @@
 
 namespace App\Models;
 
+use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentTaggable\Taggable;
 
 class Topic extends Model
 {
-    use Traits\TopicOperation, SoftDeletes, Taggable;
+    use Traits\TopicOperation, Moderatable, SoftDeletes, Taggable;
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['title'];
 
     /*
-      * Get topic user.
+      * Get topic assoc user.
       */
     public function user()
     {
@@ -21,7 +22,7 @@ class Topic extends Model
     }
 
     /*
-      * Get topic posts.
+      * Get topic assoc posts.
       */
     public function post()
     {

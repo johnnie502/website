@@ -52,12 +52,16 @@ class TopicController extends Controller
             'title' => $request->input('title'),
         ]);
         $topic->user = $user->id;
+        $topic->type = 1;
+        $topic->status = 1;
         $topic->save();
         $post = Post::createWithInput([
             'content' => $markdown,
         ]);
         $post->user = $user->id;
         $post->topic = $topic->id;
+        $post->type = 1;
+        $post->ststus = 1;
         $post->save();
         // User statics
         $user->points -= 2;

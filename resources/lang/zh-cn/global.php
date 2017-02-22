@@ -16,6 +16,9 @@ return [
 	'send_password_reset_link' => '发送密码重置链接',
 	'user_banned' => '用户已被封禁',
 	'404_not_found' => '您来到了一个未知的领域',
+	'login_request' => '您需要登录之后才能回复',
+	'submit' => '提交',
+	'back' => '返回',
 # ---------- Flash messages ----------#
 	'operation_successfully' => '操作成功',
 	'register_successfully' => '注册成功，请在邮件中确认',

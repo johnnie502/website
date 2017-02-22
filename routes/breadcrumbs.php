@@ -30,14 +30,18 @@ Breadcrumbs::register('topics.create', function($breadcrumbs)
 
 Breadcrumbs::register('topics.show', function($breadcrumbs, $topic)
 {
-    $breadcrumbs->parent('topics.index');
-    $breadcrumbs->push('查看主题: ' . $topic->title, route('topics.show', $topic->id));
+    if (isset($topic->id)) {
+        $breadcrumbs->parent('topics.index');
+        $breadcrumbs->push('查看主题: ' . $topic->title, route('topics.show', $topic->id));
+    }
 });
 
 Breadcrumbs::register('topics.edit', function($breadcrumbs, $topic)
 {
-    $breadcrumbs->parent('topics.index');
-    $breadcrumbs->push('编辑主题: ' . $topic->title, route('topics.edit', $topic));
+    if (isset($topic->id)) {
+        $breadcrumbs->parent('topics.index');
+        $breadcrumbs->push('编辑主题: ' . $topic->title, route('topics.edit', $topic));
+    }
 });
 
 # ------------------ Wiki ------------------------
@@ -55,14 +59,18 @@ Breadcrumbs::register('wiki.create', function($breadcrumbs)
 
 Breadcrumbs::register('wiki.show', function($breadcrumbs, $wiki)
 {
-    $breadcrumbs->parent('wiki.index');
-    $breadcrumbs->push('查看条目:' . $wiki->title, route('wiki.show', $wiki));
+    if (isset($wiki->id)) {
+        $breadcrumbs->parent('wiki.index');
+        $breadcrumbs->push('查看条目:' . $wiki->title, route('wiki.show', $wiki));
+    }
 });
 
 Breadcrumbs::register('wiki.edit', function($breadcrumbs, $wiki)
 {
-    $breadcrumbs->parent('wiki.index');
-    $breadcrumbs->push('编辑条目:' . $wiki, route('wiki.edit', $wiki));
+    if (isset($wiki->id)) {
+        $breadcrumbs->parent('wiki.index');
+        $breadcrumbs->push('编辑条目:' . $wiki, route('wiki.edit', $wiki));
+    }
 });
 
 # ------------------ User ------------------------

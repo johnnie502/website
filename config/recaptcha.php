@@ -46,7 +46,8 @@ return [
     |
     */
     'options'     => [
-
+     
+        'lang' => env('LOCALE', 'en');
         'curl_timeout' => 1,
 
     ],

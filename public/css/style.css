@@ -1,0 +1,92 @@
+/* Global */
+html {
+    padding: 0px;
+    margin: 0px;
+    background-color: #e4ffc9;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+    background-color: transparent;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 100%;
+    margin: 5px 0px 20px 0px;
+    padding: 0px;
+    word-wrap: break-word;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 100%;
+    margin: 20px 0px 20px 0px;
+    padding: 0px 0px 8px 0px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 100%;
+    margin: 5px 0px 20px 0px;
+    padding: 0px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    color: #e2e2e2;
+    background-color: #e2e2e2;
+    margin-bottom: 1em;
+}
+
+/* General */
+#pjax-container {
+    background-color: white;
+    opacity:  0.8;
+    -moz-opacity: 0.8;
+    -webkit-opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+}
+
+/* Links */
+a:link, a:visited {
+    color: #006600;
+    text-decoration:  none;
+    text-shadow:  1px 1px 3px;
+}
+
+a:hover {
+    color: #ffcc00;
+}
+
+a:active {
+    color: #fff000;
+}
+
+/* Bootstrap overflow */
+.navbar-default {
+    background-color: white;
+    opacity:  0.8;
+    -moz-opacity: 0.8;
+    -webkit-opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */    
+}
+
+.navbar-nav>li>a:focus, .navbar-nav>li>a:hover {
+    color: #006600;
+}
+
+.breadcrumb {
+    background-color:  white;
+   opacity:  0.8;
+    -moz-opacity: 0.8;
+    -webkit-opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+}

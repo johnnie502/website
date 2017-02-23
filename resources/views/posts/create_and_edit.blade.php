@@ -8,7 +8,6 @@
             @endif
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">                
                 <div class="form-group">
-                    <label for="title-field">Title</label>
                     <label for="content-field">Content</label>
                     @include('UEditor::head')
                         <script id="container" name="content" type="text/plain">

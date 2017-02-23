@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use FLash;
 use Lang;
 use App\Models\Post;
@@ -47,7 +48,7 @@ class PostController extends Controller
             //'replyto' => $request->input('title'),
          ]);
         $post->user = $user->id;
-        //$post->topic = ;
+        $post->topic = $topic->id;
         $post->type = 1;
         $post->status = 1;
         $post->save();

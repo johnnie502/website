@@ -15,7 +15,7 @@ class TopicRequest extends Request
                     'node' => 'bail|required|integer',
                     'title' => 'bail|required|min:8|max:80',
                     'tags' => 'bail|required',
-                    'content' => 'bail|required|min:5|max:20000',
+                    'content' => 'bail|required|min:5|max:20000',                    
                 ];
             }
             case 'PUT':

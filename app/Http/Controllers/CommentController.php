@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Flash;
+use Lang;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,6 +15,7 @@ class CommentController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('admin', ['only' => 'destory']);
     }
 
 	public function index()
@@ -27,8 +31,14 @@ class CommentController extends Controller
 
 	public function store(CommentRequest $request)
 	{
-		Comment::createWithInput($request->all());
-		return redirect()->route('comments.index')->with('message', 'Item created successfully.');
+		// Get user id.
+        $user = Auth::user();
+        if ($user->point < 1) {
+            Flash::error('Your points are not enough');
+            return back()->withInput();
+        }
+		$comment = Comment::createWithInput($request->all());
+		return redirect()->route('comments.index');
 	}
 
 	public function show(Comment $comment)
@@ -44,9 +54,11 @@ class CommentController extends Controller
 	public function update(CommentRequest $request, Comment $comment)
 	{
 		$this->authorize('update', $comment);
-		$comment->updateWithInput($request->all());
+		$comment->updateWithInput([
+		    'content' => $request->input('content')
+		]);
 
-		return redirect()->route('comments.index')->with('message', 'Item updated successfully.');
+		return redirect()->route('comments.index');
 	}
 
 	public function destroy(Comment $comment)
@@ -54,6 +66,6 @@ class CommentController extends Controller
 		$this->authorize('destroy', $comment);
 		$comment->delete();
 
-		return redirect()->route('comments.index')->with('message', 'Item deleted successfully.');
+		return redirect()->route('comments.index');
 	}
 }

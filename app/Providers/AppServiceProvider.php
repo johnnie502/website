@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Set Carbon global locale.
+        $locale = strtolower(App::getLocale());
+        if ($locale == 'zh-cn' || $locale == 'zh-tw') {
+            $locale = 'zh';
+        }
+        \Carbon\Carbon::setLocale($locale);
     }
 
     /**
@@ -24,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         if (app()->environment() == 'local' || app()->environment() == 'testing') {
-            $this->app->register(\Summerblue\Generator\GeneratorsServiceProvider::class);
+            //$this->app->register(\Summerblue\Generator\GeneratorsServiceProvider::class);
         }
     }
 }

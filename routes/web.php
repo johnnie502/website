@@ -20,22 +20,24 @@ Auth::routes();
 Route::post('/login', 'Auth\LoginController@postLogin');
 Route::post('/register', 'Auth\RegisterController@postRegister');
 
-# ------------------ Node ------------------------
+# ------------------ Nodes ------------------------
 Route::resource('nodes', 'NodeController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
-# ------------------ Topic ------------------------
+# ------------------ Topics ------------------------
 Route::resource('topics', 'TopicController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 Route::get('/tag/{slug}', 'TopicController@tags')->name('tag');
 
-# ------------------ Post ------------------------
+# ------------------ Posts ------------------------
 Route::resource('posts', 'PostController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+
+# ------------------ Comments ------------------------
+Route::resource('comments', 'CommentController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 # ------------------ Wiki ------------------------
 Route::resource('wiki', 'WikiController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
-# ------------------ User ------------------------
+# ------------------ Users ------------------------
 Route::resource('users', 'UserController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 //Fix ueditor server
 Route::any('/laravel-ueditor/server', '\Stevenyangecho\UEditor\Controller@server');
-Route::resource('comments', 'CommentController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);

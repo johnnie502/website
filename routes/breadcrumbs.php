@@ -3,7 +3,7 @@
   * Breadcrumbs for Laravel
    */
 
-# ------------------ Page ------------------------
+# ------------------ Pages ------------------------
 Breadcrumbs::register('index', function($breadcrumbs)
 {
     $breadcrumbs->push(Lang::get('global.home'), route('index'));
@@ -15,7 +15,36 @@ Breadcrumbs::register('about', function($breadcrumbs)
     $breadcrumbs->push(Lang::get('global.about'), route('about'));
 });
 
-# ------------------ Topic ------------------------
+# ------------------ Nodes ------------------------
+Breadcrumbs::register('nodes.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('index');
+    $breadcrumbs->push(Lang::get('global.nodes'), route('nodes.index'));
+});
+
+Breadcrumbs::register('nodes.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('nodes.index');
+    $breadcrumbs->push('新建节点', route('nodes.create'));
+});
+
+Breadcrumbs::register('nodes.show', function($breadcrumbs, $node)
+{
+    if (isset($topic->id)) {
+        $breadcrumbs->parent('nodes.index');
+        $breadcrumbs->push('查看节点: ' . $node->name, route('nodes.show', $node->id));
+    }
+});
+
+Breadcrumbs::register('nodes.edit', function($breadcrumbs, $node)
+{
+    if (isset($topic->id)) {
+        $breadcrumbs->parent('nodes.index');
+        $breadcrumbs->push('编辑节点: ' . $node->name, route('nodes.edit', $node));
+    }
+});
+
+# ------------------ Topics ------------------------
 Breadcrumbs::register('topics.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('index');
@@ -73,7 +102,7 @@ Breadcrumbs::register('wiki.edit', function($breadcrumbs, $wiki)
     }
 });
 
-# ------------------ User ------------------------
+# ------------------ Users ------------------------
 Breadcrumbs::register('users', function($breadcrumbs)
 {
     $breadcrumbs->push(Lang::get('global.users'), route('users.index'));

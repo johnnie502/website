@@ -25,4 +25,6 @@ return [
 	'login_successfully' => '登录成功',
 	'logout_successfully' => '注销成功',
 	'confirm_email_request' => '您还没有验证邮箱地址',
+# ----------Topics ----------#
+	'last_reply' => '最后回复来自',
 ];

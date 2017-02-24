@@ -110,10 +110,9 @@ class TopicController extends Controller
         // Update topic.
         $topic->updateWithInput([
             'title' => $request->input('title'),
-            'content' => $markdown,
         ]);
         // Update post.
-        $post = Post::where('topic', $topic->id)->first();
+        $post = $topic->posts->first();
         $post->updateWithInput([
             'content' => $markdown,
         ]);

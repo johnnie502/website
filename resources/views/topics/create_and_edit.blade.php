@@ -50,8 +50,7 @@ $(document).ready(function(){
                 <div class="form-group">
                 	<label for="content-field">Content</label>
                         @include('UEditor::head')
-                        <script id="ueditor" name="content" type="text/plain">
-                        </script>
+                        <script id="ueditor" name="content" type="text/plain">@markdown(old('content', isset($post) ? $post->content : '' ))</script>
                         <script type="text/javascript">
                             var ue = UE.getEditor('ueditor', {
                                 <!-- 定制工具栏按钮 -->
@@ -61,7 +60,6 @@ $(document).ready(function(){
                               });
                             ue.ready(function() {
                                 ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
-                                ue.setContent('@markdown(old('content', isset($post) ? $post->content : '' ))');
                             });
                         </script>
                  </div> 

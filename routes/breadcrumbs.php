@@ -32,7 +32,7 @@ Breadcrumbs::register('nodes.show', function($breadcrumbs, $node)
 {
     if (isset($topic->id)) {
         $breadcrumbs->parent('nodes.index');
-        $breadcrumbs->push('查看节点: ' . $node->name, route('nodes.show', $node->id));
+        $breadcrumbs->push('查看节点: ' . $node->name, route('nodes.show', $node->slug));
     }
 });
 

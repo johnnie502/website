@@ -20,10 +20,22 @@
                     </div>
                 </div>
             </div>
-            <img alt="" src="/avatars/{{ $topic->user}}.png" width="128" height="128" />
-            {{ App\Models\User::find($topic->user)->username }}
-	    @markdown($post->content)
+            <div class="pull-right">
+                <img alt="" src="/avatars/{{ $topic->user}}.png" width="128" height="128" /><br>
+                <a href="{{ route('users.show', $topic->users->id) }}">{{ $topic->users->username }}</a>
+            </div>
+             @markdown($post->content)
         </div>
+        <script type="text/javascript">
+                            var ue = UE.getEditor('container');
+                            <!-- 定制工具栏按钮 -->
+                          toolbars: [
+                            ['bold', 'italic', 'underline', 'superscript', 'subscript', 'spechars', 'blockquote', 'insertcode', 'link', 'unlink',  'inserttitle', 'paragraph', '|', 'undo', 'redo', 'selectall', 'pasteplain', 'removeformat', '|', 'fontfamily', 'fontsize', 'forecolor', '|', 'emotion', 'simpleupload', 'source']
+                          ]
+                            ue.ready(function() {
+                                ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
+                            });
+                        </script>
         @include('posts.create_and_edit')
     </div>
 </div>

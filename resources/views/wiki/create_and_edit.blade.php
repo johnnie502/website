@@ -67,7 +67,6 @@ $(document).ready(function(){
                  </div> 
                 <div class="well well-sm">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a class="btn btn-link pull-right" href="{{ route('topics.index') }}"><i class="glyphicon glyphicon-backward"></i>  Back</a>
                 </div>
             </form>
         </div>

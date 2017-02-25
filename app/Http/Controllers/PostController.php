@@ -58,11 +58,30 @@ class PostController extends Controller
         $user->replies += 1;
         $user->save();
         // Send notification.
-        Notifynder::category('user.reply')
-            ->from($user->username)
-            ->to($post->topics->users->username)
-            ->url(route('topics.show', $topic->id))
-            ->send();
+        if ($post->topics->user->id != $user->id) {
+            // Reply notification.
+            Notifynder::category('user.reply')
+                ->from($user->username)
+                ->to($post->topics->users->username)
+                ->url(route('topics.show', $post->topics->id))
+                ->send();            
+        }
+        // @ notification.
+        $atList = [];
+        preg_match_all('\@([a-zA-Z0-9\x80-\xff\-_]{3,20}) ', $content, $atList, PREG_PATTERN_ORDER);
+        $atList = array_unique($atList[1]);
+        // Get user list.
+        $userList = User::whereIn('username', $atList[])->get();
+        foreach ($userList as $at) {
+            // Don't at self.
+            if ($at != $user->username) {
+                Notifynder::category('user.at')
+                    ->from($user->username)
+                    ->to($at)
+                    ->url(route('topics.show', $post->topics->id))
+                    ->send();
+            }
+        }
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('posts.index');

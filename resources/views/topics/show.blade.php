@@ -6,7 +6,6 @@
             <h1>{{$topic->title}}</h1>
         </div>
         <div class="panel-body">
-            <div class="well well-sm">
                 <div class="row">
                     <div class="col-md-6">
                         @foreach ($topic->tags as $tag)
@@ -14,9 +13,10 @@
                         @endforeach
                     </div>
                     <div class="col-md-6">
-                         <a class="pull-right" href="{{ route('topics.edit', $topic->id) }}">Edit</a>
+                        @if (Auth::check() && ($topic->user == $user->id or $user->type >= 3))
+                             <a class="pull-right" href="{{ route('topics.edit', $topic->id) }}">Edit</a>
+                        @endif
                     </div>
-                </div>
             </div>
             <div class="pull-right">
                 <img alt="" src="/avatars/{{ $topic->user}}.png" width="128" height="128" /><br>
@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label for="content-field">Content</label>
                     @include('UEditor::head')
-                    <script id="ueditor" name="content" type="text/plain">@markdown(old('content', isset($post) ? $post->content : '' ))</script>
+                    <script id="ueditor" name="content" type="text/plain"></script>
                     <script type="text/javascript">
                         var ue = UE.getEditor('ueditor', {
                             <!-- 定制工具栏按钮 -->

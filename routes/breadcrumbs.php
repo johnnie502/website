@@ -115,9 +115,26 @@ Breadcrumbs::register('wiki.edit', function($breadcrumbs, $wiki)
 });
 
 # ------------------ Users ------------------------
-Breadcrumbs::register('users', function($breadcrumbs)
+Breadcrumbs::register('users.index', function($breadcrumbs)
 {
+    $breadcrumbs->parent('index');
     $breadcrumbs->push(Lang::get('global.users'), route('users.index'));
+});
+
+Breadcrumbs::register('users.show', function($breadcrumbs, $user)
+{
+    if (isset($user->id)) {
+        $breadcrumbs->parent('users.index');
+        $breadcrumbs->push('查看用户:' . $user->username, route('users.show', $user));
+    }
+});
+
+Breadcrumbs::register('users.edit', function($breadcrumbs, $user)
+{
+    if (isset($user->id)) {
+        $breadcrumbs->parent('users.index');
+        $breadcrumbs->push('编辑用户:' . $user->username, route('users.edit', $user));
+    }
 });
 
 # ------------------ Auth ------------------------

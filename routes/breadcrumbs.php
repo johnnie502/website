@@ -21,10 +21,10 @@ Breadcrumbs::register('search', function($breadcrumbs)
     $breadcrumbs->push(Lang::get('global.search'), route('search'));
 });
 
-Breadcrumbs::register('search.result', function($breadcrumbs)
+Breadcrumbs::register('search.result', function($breadcrumbs, $query)
 {
     $breadcrumbs->parent('search');
-    $breadcrumbs->push('搜索结果', route('search.result'));
+    $breadcrumbs->push('搜索结果:' . $query, route('search.result', $query));
 });
 
 # ------------------ Nodes ------------------------

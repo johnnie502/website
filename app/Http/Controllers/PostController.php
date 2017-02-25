@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use FLash;
 use Lang;
+use Notifynder;        
 use App\Models\Post;
 use App\Models\User;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -56,6 +57,12 @@ class PostController extends Controller
         $user->point -= 1;
         $user->replies += 1;
         $user->save();
+        // Send notification.
+        Notifynder::category('user.reply')
+            ->from($user->username)
+            ->to($post->topics->users->username)
+            ->url(route('topics.show', $topic->id))
+            ->send();
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('posts.index');

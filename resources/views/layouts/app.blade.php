@@ -137,6 +137,10 @@ ______                            _              _                              
                     <!-- Breadcrumbs -->
                     {!! Breadcrumbs::render() !!}
                     @yield('content')
+                    <!-- SideBar -->
+                    <!--<div class="pull-right">
+                        @include('layouts.sidebar')
+                    </div>-->
                 </div>
         @endif
     </div>

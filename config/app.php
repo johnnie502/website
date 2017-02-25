@@ -195,6 +195,7 @@ return [
         Yajra\Breadcrumbs\ServiceProvider::class,  //Breadcrumbs
         TomLingham\Searchy\SearchyServiceProvider::class,  // Search
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,  // reCaptcha
+        Fenos\Notifynder\NotifynderServiceProvider::class,  //Notifynder
 
     ],
 
@@ -252,6 +253,7 @@ return [
         'Breadcrumbs' => Yajra\Breadcrumbs\Facade::class,
         'Searchy' => TomLingham\Searchy\Facades\Searchy::class,
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
+        'Notifynder' => Fenos\Notifynder\Facades\Notifynder::class,
 
     ],
 

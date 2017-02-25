@@ -75,6 +75,12 @@ ______                            _              _                              
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+                        <!-- Search -->
+                        <li>
+                            <form action="{{ route('search') }}" class="form-inline" target="_blank">
+                                <input type="text" name="query" required class="form-control" placeholder="@lang('global.search')">
+                            </form>
+                        </li>
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">@lang('global.login')</a></li>

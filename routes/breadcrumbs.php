@@ -15,6 +15,18 @@ Breadcrumbs::register('about', function($breadcrumbs)
     $breadcrumbs->push(Lang::get('global.about'), route('about'));
 });
 
+Breadcrumbs::register('search', function($breadcrumbs)
+{
+    $breadcrumbs->parent('index');
+    $breadcrumbs->push(Lang::get('global.search'), route('search'));
+});
+
+Breadcrumbs::register('search.result', function($breadcrumbs)
+{
+    $breadcrumbs->parent('search');
+    $breadcrumbs->push('搜索结果', route('search.result'));
+});
+
 # ------------------ Nodes ------------------------
 Breadcrumbs::register('nodes.index', function($breadcrumbs)
 {

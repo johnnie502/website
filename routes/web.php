@@ -14,6 +14,9 @@
 # ------------------ Pages ------------------------
 Route::get('/', 'PageController@index')->name('index');
 Route::get('/about', 'PageController@about')->name('about');
+Route::get('/search', 'PageController@search')->name('search');
+Route::post('/search', 'PageController@postSearch');
+Route::get('/search/{$query}', 'PageController@searchResult')->name('search.result');
 
 # ------------------ Auth ------------------------
 Auth::routes();

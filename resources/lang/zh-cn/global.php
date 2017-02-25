@@ -6,6 +6,7 @@ return [
 	'topics' => '社区',
 	'wiki' => '百科',
 	'about' => '关于',
+	'search' => '搜索',
 	'login' => '登录',
 	'register' => '注册',
 	'home' => '主页',

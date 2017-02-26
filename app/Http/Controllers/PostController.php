@@ -7,6 +7,7 @@ use FLash;
 use Lang;
 use Notifynder;        
 use App\Models\Post;
+use App\Models\Topic;
 use App\Models\User;
 use League\HTMLToMarkdown\HtmlConverter;
 use Illuminate\Http\Request;
@@ -21,15 +22,15 @@ class PostController extends Controller
         $this->middleware('admin', ['only' => 'destory']);
     }
 
-    public function index()
+    public function index(Topic $topics)
     {
         $posts = Post::paginate(20);
-        return view('posts.index', compact('posts'));
+        return view('posts.index', compact('topics', 'posts'));
     }
 
-    public function create(Post $post)
+    public function create(Topic $topic, Post $post)
     {
-        return view('posts.create_and_edit', compact('post'));
+        return view('posts.create_and_edit', compact('topic', 'post'));
     }
 
     public function store(PostRequest $request)
@@ -58,12 +59,12 @@ class PostController extends Controller
         $user->replies += 1;
         $user->save();
         // Send notification.
-        if ($post->topics->user->id != $user->id) {
+        if ($topic->user->id != $user->id) {
             // Reply notification.
             Notifynder::category('user.reply')
                 ->from($user->username)
-                ->to($post->topics->users->username)
-                ->url(route('topics.show', $post->topics->id))
+                ->to($topic->users->username)
+                ->url(route('topics.show', $topic->id))
                 ->send();            
         }
         // @ notification.
@@ -81,26 +82,26 @@ class PostController extends Controller
                 Notifynder::category('user.at')
                     ->from($user->username)
                     ->to($at)
-                    ->url(route('topics.show', $post->topics->id))
+                    ->url(route('topics.show', $topic->id))
                     ->send();
             }
         }
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('posts.index');
+        return redirect()->route('topics.index');
     }
 
-    public function show(Post $post)
+    public function show(Topic $topic, Post $post)
     {
-        return view('posts.show', compact('post'));
+        return view('posts.show', compact('topic', 'post'));
     }
 
-    public function edit(Post $post)
+    public function edit(Topic $topic, Post $post)
     {
-        return view('posts.create_and_edit', compact('post'));
+        return view('posts.create_and_edit', compact('topic', 'post'));
     }
 
-    public function update(PostRequest $request, Post $post)
+    public function update(PostRequest $request, Topic $topic, Post $post)
     {
         $this->authorize('update', $post);
         // Convert HTML topic content to markdown.
@@ -110,7 +111,7 @@ class PostController extends Controller
         $post->updateWithInput($request->input('content'));
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('posts.index');
+        return redirect()->route('topics.show', $topic->id);
     }
 
     public function destroy(Post $post)
@@ -127,6 +128,6 @@ class PostController extends Controller
         $user->save();
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('posts.index');
+        return redirect()->route('topics.index');
     }
 }

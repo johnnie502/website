@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "eda2e221c0a4bdb62d06945bcaaf82e0",
+    "content-hash": "515156f6c96d73ef33675c20f3000b9a",
     "packages": [
         {
             "name": "andreasindal/laravel-markdown",
@@ -2659,6 +2659,60 @@
             "time": "2016-11-22T19:21:44+00:00"
         },
         {
+            "name": "recca0120/upload",
+            "version": "v1.5.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/recca0120/upload.git",
+                "reference": "135eaba5f4065bf29f5e6919b4bb05ad14515b2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/recca0120/upload/135eaba5f4065bf29f5e6919b4bb05ad14515b2c.zip",
+                "reference": "135eaba5f4065bf29f5e6919b4bb05ad14515b2c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "~5.1",
+                "illuminate/http": "~5.1",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "^1.6",
+                "mockery/mockery": "~0.9.4",
+                "nesbot/carbon": "~1.20",
+                "phpunit/phpunit": "~4.8|~5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Recca0120\\Upload\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "recca0120",
+                    "email": "recca0120@gmail.com"
+                }
+            ],
+            "description": "Ajax Upload Large File Support jQuery-File-Upload, FileApi, Plupload, Support framework Laravel 5",
+            "keywords": [
+                "ajax",
+                "chunk",
+                "fileapi",
+                "jquery-file-upload",
+                "jquery-fileapi",
+                "laravel",
+                "plupload",
+                "upload"
+            ],
+            "time": "2017-02-08T07:11:41+00:00"
+        },
+        {
             "name": "schuppo/password-strength",
             "version": "v1.9",
             "source": {
@@ -3949,50 +4003,6 @@
                 "psr-7"
             ],
             "time": "2017-01-23T04:53:24+00:00"
-        },
-        {
-            "name": "zgldh/laravel-upload-manager",
-            "version": "v0.4.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zgldh/laravel-upload-manager.git",
-                "reference": "0840514c1590bee273613fc7157e21f770f8f9fc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/zgldh/laravel-upload-manager/0840514c1590bee273613fc7157e21f770f8f9fc.zip",
-                "reference": "0840514c1590bee273613fc7157e21f770f8f9fc",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "^5.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "zgldh\\UploadManager\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "zgldh",
-                    "email": "zgldh@hotmail.com"
-                }
-            ],
-            "description": "Upload, validate, storage, manage by API for Laravel 5.1/5.2",
-            "keywords": [
-                "api",
-                "laravel",
-                "manage",
-                "storage",
-                "upload",
-                "validate"
-            ],
-            "time": "2016-12-13T14:06:27+00:00"
         },
         {
             "name": "zizaco/entrust",

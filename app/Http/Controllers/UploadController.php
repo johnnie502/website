@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use zgldh\UploadManager\UploadManager;
+use Recca0120\Upload\UploadManager;
 use Illuminate\Http\Request;
 
 class UploadController extends Controller

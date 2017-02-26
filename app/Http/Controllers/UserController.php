@@ -33,9 +33,9 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
-    public function create(User $user)
+    public function create(User $users)
     {
-        return view('users.create_and_edit', compact('user'));
+        return view('users.create_and_edit', compact('users'));
     }
 
     public function store(UserRequest $request)
@@ -65,19 +65,19 @@ class UserController extends Controller
         return redirect()->intended();
     }
 
-    public function show(User $user)
+    public function show(User $users)
     {
-        return view('users.show', compact('user'));
+        return view('users.show', compact('users'));
     }
 
-    public function edit(User $user)
+    public function edit(User $users)
     {
-        return view('users.create_and_edit', compact('user'));
+        return view('users.create_and_edit', compact('users'));
     }
 
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, User $users)
     {
-        $this->authorize('update', $user);
+        $this->authorize('update', $users);
         // Update user.
         $user->updateWithInput($request->all());
         // Show messgae.
@@ -85,14 +85,14 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function destroy(User $user)
+    public function destroy(User $users)
     {
-        $this->authorize('destroy', $user);
+        $this->authorize('destroy', $users);
         // Ban the user.
-        $user->status = -1;
-        $user->save();
+        $users->status = -1;
+        $users->save();
         // Soft delete.
-        $user->delete();
+        $users->delete();
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('users.index');

@@ -75,6 +75,9 @@ class PostController extends Controller
         foreach ($userList as $at) {
             // Don't at self.
             if ($at != $user->username) {
+                // Replace username to markdown links.
+                $at = str_replace($user->username, '[@' . $user->username . '](' . route('users.show', $user->id) . ')', $at);
+                // @ notification.
                 Notifynder::category('user.at')
                     ->from($user->username)
                     ->to($at)

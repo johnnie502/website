@@ -31,10 +31,11 @@ Route::resource('topics', 'TopicController', ['only' => ['index', 'show', 'creat
 Route::get('/tag/{slug}', 'TopicController@tags')->name('tag');
 
 # ------------------ Posts ------------------------
-Route::resource('posts', 'PostController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('topics/{$topic}/posts/{$post}', 'PostController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 # ------------------ Comments ------------------------
-Route::resource('comments', 'CommentController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('topics/{$topic}/posts/{$post}/comments/{comment}', 'CommentController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('wiki/{slug}/comments/{comment}', 'CommentController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 # ------------------ Wiki ------------------------
 Route::resource('wiki', 'WikiController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);

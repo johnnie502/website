@@ -7,6 +7,8 @@
     "require": {
         "php": ">=5.6.4",
         "andreasindal/laravel-markdown": "^1.1",
+        "backpack/base": "^0.7.16",
+        "backpack/crud": "^3.2",
         "caouecs/laravel-lang": "^3.0",
         "cviebrock/eloquent-taggable": "^2.1",
         "fenos/notifynder": "^4.1",

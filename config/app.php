@@ -195,7 +195,9 @@ return [
         Yajra\Breadcrumbs\ServiceProvider::class,  //Breadcrumbs
         TomLingham\Searchy\SearchyServiceProvider::class,  // Search
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,  // reCaptcha
-        Fenos\Notifynder\NotifynderServiceProvider::class,  //Notifynder
+        Fenos\Notifynder\NotifynderServiceProvider::class,  // Notifynder
+        Backpack\Base\BaseServiceProvider::class,  // Admin
+        Backpack\CRUD\CrudServiceProvider::class,. // CRUD
 
     ],
 

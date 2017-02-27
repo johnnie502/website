@@ -197,7 +197,11 @@ return [
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,  // reCaptcha
         Fenos\Notifynder\NotifynderServiceProvider::class,  // Notifynder
         Backpack\Base\BaseServiceProvider::class,  // Admin
-        Backpack\CRUD\CrudServiceProvider::class,. // CRUD
+        Backpack\CRUD\CrudServiceProvider::class, // CRUD
+        Spatie\Backup\BackupServiceProvider::class,  // Backup
+        Backpack\BackupManager\BackupManagerServiceProvider::class,  // Backup Manager
+        Backpack\LogManager\LogManagerServiceProvider::class,  // Log Manager
+        Backpack\Settings\SettingsServiceProvider::class,  // Settings
 
     ],
 

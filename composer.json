@@ -7,8 +7,11 @@
     "require": {
         "php": ">=5.6.4",
         "andreasindal/laravel-markdown": "^1.1",
+        "backpack/backupmanager": "^1.1",
         "backpack/base": "^0.7.16",
         "backpack/crud": "^3.2",
+        "backpack/logmanager": "^2.3",
+        "backpack/settings": "^2.0",
         "caouecs/laravel-lang": "^3.0",
         "cviebrock/eloquent-taggable": "^2.1",
         "fenos/notifynder": "^4.1",
@@ -32,10 +35,10 @@
         "zizaco/entrust": "^1.7"
     },
     "require-dev": {
+        "backpack/generators": "^1.1",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.0",
-        "summerblue/generator": "^0.4.3"
+        "phpunit/phpunit": "~5.0"
     },
     "autoload": {
         "classmap": [

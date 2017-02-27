@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
         <div class="panel-heading">
@@ -26,17 +24,6 @@
 
                 
                 <div class="form-group">
-                	<label for="driver-field">Driver</label>
-                	<input class="form-control" type="text" name="driver" id="driver-field" value="{{ old('driver', $user->driver ) }}" />
-                </div> 
-                <div class="form-group">
-                    <label for="oauth-field">Oauth</label>
-                    <input class="form-control" type="text" name="oauth" id="oauth-field" value="{{ old('oauth', $user->oauth ) }}" />
-                </div> 
-                <div class="form-group">
-                    <label for="unsigned-field">Unsigned</label>
-                    <input class="form-control" type="text" name="unsigned" id="unsigned-field" value="{{ old('unsigned', $user->unsigned ) }}" />
-                </div> 
                 <div class="form-group">
                 	<label for="username-field">Username</label>
                 	<input class="form-control" type="text" name="username" id="username-field" value="{{ old('username', $user->username ) }}" required placeholder="5~20个字符"/>
@@ -47,7 +34,7 @@
                 </div> 
                 <div class="form-group">
                 	<label for="password-field">Password</label>
-                	<input class="form-control" type="text" name="password" id="password-field" value="{{ old('password', $user->password ) }}" required placeholder="8~50个字符，要求包含大小写字母和数字"/>
+                	<input class="form-control" type="text" name="password" id="password-field" value="{{ old('password') }}" required placeholder="8~50个字符，要求包含大小写字母和数字"/>
                 </div> 
                 <div class="form-group">
                     <label for="type-field">Type</label>

@@ -9,13 +9,13 @@
                </div>
 <label>Username</label>
 <p>
-	{{ $users->username }}
+	{{ $user->username }}
 </p> <label>Email</label>
 <p>
-	{{ $users->email }}
+	{{ $user->email }}
 </p><label>Points</label>
 <p>
-	{{ $users->points }}
+	{{ $user->points }}
 </p> 
         </div>
     </div>

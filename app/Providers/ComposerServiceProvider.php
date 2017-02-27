@@ -15,7 +15,7 @@ class ComposerServiceProvider extends ServiceProvider
     {
         // Get user info.
         view()->composer('*', function($view) {
-            $view->with('user', \Auth::user());
+            $view->with('account', \Auth::user());
          });
     }
 

@@ -13,7 +13,7 @@
                         @endforeach
                     </div>
                     <div class="col-md-6">
-                        @if (Auth::check() && ($topic->user == $user->id or $user->type >= 3))
+                        @if (Auth::check() && ($topic->user == $account->id or $account->type >= 3))
                              <a class="pull-right" href="{{ route('topics.edit', $topic->id) }}">Edit</a>
                         @endif
                     </div>

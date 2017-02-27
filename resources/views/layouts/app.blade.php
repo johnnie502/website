@@ -86,10 +86,10 @@ ______                            _              _                              
                             <li><a href="{{ url('/login') }}">@lang('global.login')</a></li>
                             <li><a href="{{ url('/register') }}">@lang('global.register')</a></li>
                         @else
-                            <img alt="avatar" src="/avatars/{{ $user->id }}.png" width="32" height="32" />
+                            <img alt="avatar" src="/avatars/{{ $account->id }}.png" width="32" height="32" />
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ $user->username }} <span class="caret"></span>
+                                    {{ $account->username }} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
@@ -112,12 +112,12 @@ ______                            _              _                              
         </header>
         <!-- Nav -->
         <div class="container">
-            @if (Auth::check() && $user->status < 0)
+            @if (Auth::check() && $account->status < 0)
             <div class="alert alert-danger">
                 @lang('global.user_banned')
             </div>
             @else
-                @if (Auth::check() && $user->status == 0)
+                @if (Auth::check() && $account->status == 0)
                     <div class="alert alert-warning">
                         @lang('global.confirm_email_request')
                     </div>

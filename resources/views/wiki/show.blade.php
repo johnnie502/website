@@ -1,13 +1,10 @@
 @extends('layouts.app')
-
 @section('content')
-
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
         <div class="panel-heading">
             <h1>{{$wiki->title}}</h1>
         </div>
-
         <div class="panel-body">
             <div class="well well-sm">
                 <div class="row">
@@ -23,10 +20,8 @@
                     </div>
                 </div>
             </div>
-	@markdown($post->content)
+	@markdown($wiki->content)
         </div>
-        @yield('post')
     </div>
 </div>
-
 @endsection

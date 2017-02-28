@@ -64,7 +64,7 @@ return [
         'emptyTable'     => '此表中暂无数据',
         'info'           => '正在显示 _START_ 到 _END_ 共 _TOTAL_ 个条目',
         'infoEmpty'      => '正在显示 0 到 0 共 0 个条目',
-        'infoFiltered'   => '(已过滤从 _MAX_ 共 total 个条目)',
+        'infoFiltered'   => '(已从 _MAX_ 过滤共 total 个条目)',
         'infoPostFix'    => '',
         'thousands'      => ',',
         'lengthMenu'     => '_MENU_ 条记录每页',

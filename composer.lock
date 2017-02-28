@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3dab9106b2cdbd91b319971f6b8bf138",
+    "content-hash": "82aeb1fdb4c2dbcd625a878488eb4c37",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -270,6 +270,77 @@
                 "update"
             ],
             "time": "2017-02-14T09:24:09+00:00"
+        },
+        {
+            "name": "backpack/langfilemanager",
+            "version": "1.0.18",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Laravel-Backpack/LangFileManager.git",
+                "reference": "6d83aaaec4579ccc874e93c0df110bf9810f6a18"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/Laravel-Backpack/LangFileManager/6d83aaaec4579ccc874e93c0df110bf9810f6a18.zip",
+                "reference": "6d83aaaec4579ccc874e93c0df110bf9810f6a18",
+                "shasum": ""
+            },
+            "require": {
+                "backpack/crud": "^3.0.6",
+                "illuminate/support": "~5.1",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Backpack\\LangFileManager\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alin Ghitu",
+                    "email": "alin@updivision.com",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Cristian Tabacitu",
+                    "email": "hello@tabacitu.ro",
+                    "homepage": "http://www.tabacitu.ro",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "An interface to edit language files, for Laravel Backpack.",
+            "homepage": "https://github.com/laravel-backpack/langfilemanager",
+            "keywords": [
+                "admin panel",
+                "backpack",
+                "dick",
+                "dick admin",
+                "dick translationmanager",
+                "dickadmin",
+                "lang file manager",
+                "lang files",
+                "language",
+                "laravel",
+                "laravel backpack",
+                "tabacitu",
+                "translationmanager",
+                "updivision"
+            ],
+            "time": "2016-09-24T14:33:54+00:00"
         },
         {
             "name": "backpack/logmanager",

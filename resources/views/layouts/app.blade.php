@@ -135,7 +135,9 @@ ______                            _              _                              
                         </div>
                     @endif
                     <!-- Breadcrumbs -->
-                    {!! Breadcrumbs::render() !!}
+                    @if (Route::currentRouteName())
+                        {!! Breadcrumbs::render() !!}
+                    @endif
                     @yield('content')
                     <!-- SideBar -->
                     <!--<div class="pull-right">

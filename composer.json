@@ -10,6 +10,7 @@
         "backpack/backupmanager": "^1.1",
         "backpack/base": "^0.7.16",
         "backpack/crud": "^3.2",
+        "backpack/langfilemanager": "^1.0",
         "backpack/logmanager": "^2.3",
         "backpack/settings": "^2.0",
         "caouecs/laravel-lang": "^3.0",

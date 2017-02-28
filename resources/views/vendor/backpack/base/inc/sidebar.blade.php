@@ -20,6 +20,9 @@
           <!-- ==== Recommended place for admin menu items ==== -->
           <!-- ================================================ -->
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin').'/dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin').'/topics') }}"><i class="fa fa-dashboard"></i> <span>@lang('global.topic')</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin').'/users') }}"><i class="fa fa-dashboard"></i> <span>@lang('global.user')</span></a></li>
+          
 
 
           <!-- ======================================= -->

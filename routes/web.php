@@ -15,20 +15,20 @@
 Route::get('/', 'PageController@index')->name('index');
 Route::get('/about', 'PageController@about')->name('about');
 Route::get('/search', 'PageController@search')->name('search');
-Route::post('/search', 'PageController@postSearch');
-Route::get('/search/{$query}', 'PageController@searchResult')->name('search.result');
+Route::post('search', 'PageController@postSearch');
+Route::get('search/{$query}', 'PageController@searchResult')->name('search.result');
 
 # ------------------ Auth ------------------------
 Auth::routes();
-Route::post('/login', 'Auth\LoginController@postLogin');
-Route::post('/register', 'Auth\RegisterController@postRegister');
+Route::post('login', 'Auth\LoginController@postLogin');
+Route::post('register', 'Auth\RegisterController@postRegister');
 
 # ------------------ Nodes ------------------------
 Route::resource('nodes', 'NodeController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 # ------------------ Topics ------------------------
 Route::resource('topics', 'TopicController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
-Route::get('/tag/{slug}', 'TopicController@tags')->name('tag');
+Route::get('tag/{slug}', 'TopicController@tags')->name('tag');
 
 # ------------------ Posts ------------------------
 Route::resource('topics.posts', 'PostController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);

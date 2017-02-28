@@ -1,76 +1,41 @@
 @extends('backpack::layout')
-
 @section('content')
+<div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="box box-default">
-                <div class="box-header with-border">
-                    <div class="box-title">{{ trans('backpack::base.register') }}</div>
-                </div>
-                <div class="box-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url(config('backpack.base.route_prefix', 'admin').'/register') }}">
-                        {!! csrf_field() !!}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">{{ trans('backpack::base.name') }}</label>
-
+            <div class="panel panel-default">
+                <div class="panel-heading">@lang('global.register')</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label for="username" class="col-md-4 control-label">@lang('validation.attributes.username')</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
+                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required placeholder="3~20个字符" autofocus>
                             </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">{{ trans('backpack::base.email_address') }}</label>
-
+                        <div class="form-group">
+                            <label for="email" class="col-md-4 control-label">@lang('validation.attributes.email')</label>
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required placeholder="5~30个字符">
                             </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">{{ trans('backpack::base.password') }}</label>
-
+                        <div class="form-group">
+                            <label for="password" class="col-md-4 control-label"> @lang('validation.attributes.password')</label>
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                                <input id="password" type="password" class="form-control" name="password" required placeholder="8~50个字符，要求包含大小写字母，数字和符号">
                             </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">{{ trans('backpack::base.confirm_password') }}</label>
-
+                        <div class="form-group">
+                            <label for="password-confirm" class="col-md-4 control-label">@lang('validation.attributes.password_confirmation')</label>
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="password_confirmation">
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="请再次输入密码">
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> {{ trans('backpack::base.register') }}
+                                    @lang('global.register')
                                 </button>
                             </div>
                         </div>
@@ -79,4 +44,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

@@ -80,8 +80,8 @@ class TopicController extends Controller
          // The view will display node's name and a link to slug.
          $node = Node::findOrFail($topic->node);
          // Get post content.
-         $post = Post::where('topic',  $topic->id)->firstOrFail();
-        return view('topics.show', compact('node', 'topic', 'post'));
+         $posts = Post::where('topic',  $topic->id)->get();
+        return view('topics.show', compact('node', 'topic', 'posts'));
     }
 
     public function tags($slug)
@@ -113,7 +113,7 @@ class TopicController extends Controller
         ]);
         // Update post.
         $post = $topic->posts->first();
-        $post->updateWithInput([
+        $post->update([
             'content' => $markdown,
         ]);
         // Update tags.

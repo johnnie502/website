@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use FLash;
+use Flash;
 use Lang;
 use Notifynder;        
 use App\Models\Post;
@@ -33,11 +33,11 @@ class PostController extends Controller
         return view('posts.create_and_edit', compact('topic', 'post'));
     }
 
-    public function store(PostRequest $request)
+    public function store(PostRequest $request, Topic $topic)
     {
         // Get user id.
         $user = Auth::user();
-        if ($user->point < 1) {
+        if ($user->points < 1) {
             Flash::error('Your points are not enough');
             return back()->withInput();
         }
@@ -49,23 +49,31 @@ class PostController extends Controller
             'content' => $markdown,
             //'replyto' => $request->input('title'),
          ]);
+        // Topics
+        $topic->replies += 1;
+        $topic->save();
+        // Save post.
         $post->user = $user->id;
         $post->topic = $topic->id;
+        $post->post = $topic->replies;
         $post->type = 1;
         $post->status = 1;
         $post->save();
         // User statics
-        $user->point -= 1;
+        $user->points -= 1;
         $user->replies += 1;
         $user->save();
         // Send notification.
         if ($topic->user->id != $user->id) {
             // Reply notification.
+            $toUser = $topic->users->first();
             Notifynder::category('user.reply')
                 ->from($user->username)
-                ->to($topic->users->username)
+                ->to($toUser->username)
                 ->url(route('topics.show', $topic->id))
-                ->send();            
+                ->send(); 
+            $toUser->notifications += 1;
+            $toUser->save();
         }
         // @ notification.
         $atList = [];
@@ -77,13 +85,18 @@ class PostController extends Controller
             // Don't at self.
             if ($at != $user->username) {
                 // Replace username to markdown links.
-                $at = str_replace($user->username, '[@' . $user->username . '](' . route('users.show', $user->id) . ')', $at);
+                $content = str_replace($at, '[@' . $at . '](' . route('users.show', $user->id) . ')', $content);
                 // @ notification.
                 Notifynder::category('user.at')
                     ->from($user->username)
                     ->to($at)
                     ->url(route('topics.show', $topic->id))
                     ->send();
+                $atUser = User::where('username', $at)->first();
+                if ($atUser) {
+                    $atUser->notifications += 1;
+                    $atUser->save();
+                }
             }
         }
         // Show message.
@@ -93,7 +106,7 @@ class PostController extends Controller
 
     public function show(Topic $topic, Post $post)
     {
-        return view('posts.show', compact('topic', 'post'));
+        return view('topics.show', compact('topic', 'post'));
     }
 
     public function edit(Topic $topic, Post $post)
@@ -106,15 +119,17 @@ class PostController extends Controller
         $this->authorize('update', $post);
         // Convert HTML topic content to markdown.
         $converter = new HtmlConverter();
-        $markdown = $converter->convert($markdown);
+        $markdown = $converter->convert($request->input('content'));
         // Update post.
-        $post->updateWithInput($request->input('content'));
+        $post->updateWithInput([
+            'content' => $request->input('content')
+        ]);
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('topics.show', $topic->id);
     }
 
-    public function destroy(Post $post)
+    public function destroy(Topic $topic, Post $post)
     {
         $this->authorize('destroy', $post);
         // Set status = -1 to delete.
@@ -122,6 +137,9 @@ class PostController extends Controller
         $post->save();
         // Soft delete.
         $post->delete();
+        // Topic
+        $topic->replies -= 1;
+        $topic->save();
         // User statics.
         $user =  User::find($topic->user);
         $user->replies -= 1;

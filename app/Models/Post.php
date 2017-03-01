@@ -11,7 +11,7 @@ class Post extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['content'];
-    protected $touches = ['topic'];
+    protected $touches = ['topics'];
 
     /* 
       * Get post assoc topics.

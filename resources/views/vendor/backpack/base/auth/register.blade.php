@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">@lang('global.register')</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url(config('backpack.base.route_prefix').'/register') }}">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="username" class="col-md-4 control-label">@lang('validation.attributes.username')</label>

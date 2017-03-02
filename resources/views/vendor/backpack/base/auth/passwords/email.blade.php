@@ -11,7 +11,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url(config('backpack.base.route_prefix').'/password/email') }}">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="email" class="col-md-4 control-label">@lang('validation.attributes.email')</label>

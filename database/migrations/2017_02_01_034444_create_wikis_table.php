@@ -15,6 +15,7 @@ class CreateWikisTable extends Migration
             $table->longtext('content');
             $table->integer('type')->unsigned()->default(0)->index();
             $table->integer('status')->default(0)->index();
+            $table->integer('version')->default(0)->index();
             $table->integer('redirect')->unsigned()->default(0)->index();
             $table->integer('views')->unsigned()->default(0);
             $table->integer('edits')->unsigned()->default(0)->index();

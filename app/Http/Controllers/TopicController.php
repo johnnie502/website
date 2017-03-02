@@ -80,7 +80,7 @@ class TopicController extends Controller
          // The view will display node's name and a link to slug.
          $node = Node::findOrFail($topic->node);
          // Get post content.
-         $posts = Post::where('topic',  $topic->id)->get();
+         $posts = Post::where('topic',  $topic->id)->orderBy('created_at', 'desc')->get();
         return view('topics.show', compact('node', 'topic', 'posts'));
     }
 

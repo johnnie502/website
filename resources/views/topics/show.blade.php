@@ -25,20 +25,22 @@
              @markdown($posts->first()->content)
         </div>
         <!-- Posts -->
-        @if ($topic->replies > 0)
-            @foreach ($posts as $reply)
-                <div class="list-group"> 
-                    <ul>
-                    <li>
-                    {{ $reply->conetent }}
-                    </li>
-                    </ul>
-                </div>
+        @if ($topic->replies > 0 && count($posts) > 0)
+            @for ($posts as $reply)
+                @if ($posts->post > 0)
+                    <div class="list-group"> 
+                        <ul>
+                        <li>
+                        {{ $reply->conetent }}
+                        </li>
+                        </ul>
+                    </div>
+                @endif
             @endforeach
         @endif
         <!-- reply editor -->
         @if (Auth::check())
-            @if($posts->first()->id <= $topic->replies)
+            @if($posts->last()->post <= $topic->replies)
                 <form action="{{ route('topics.posts.update', [$topic->id, $topic->replies + 1]) }}" method="POST">
                     <input type="hidden" name="_method" value="PUT">
             @else

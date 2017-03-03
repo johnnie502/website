@@ -191,7 +191,6 @@ return [
         Intervention\Image\ImageServiceProvider::class,  // Image
         Junaidnasir\Larainvite\LaraInviteServiceProvider::class,  // Invite register
         \Schuppo\PasswordStrength\PasswordStrengthServiceProvider::class,  // Password strength
-        Recca0120\Upload\UploadServiceProvider::class,  // Upload file mamager
         Yajra\Breadcrumbs\ServiceProvider::class,  //Breadcrumbs
         TomLingham\Searchy\SearchyServiceProvider::class,  // Search
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,  // reCaptcha

@@ -39,6 +39,8 @@ Route::resource('wiki.comments', 'CommentController', ['only' => ['index', 'show
 
 # ------------------ Wiki ------------------------
 Route::resource('wiki', 'WikiController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::get('wiki/{name}/history', 'WikiController@history')->name('wiki.history');
+Route::get('wiki.new.old', 'WikiController@diff')->name('wiki.diff');
 
 # ------------------ Users ------------------------
 Route::resource('users', 'UserController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);

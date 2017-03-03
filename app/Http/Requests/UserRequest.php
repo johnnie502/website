@@ -14,7 +14,7 @@ class UserRequest extends Request
                     // CREATE ROLES
                     'username' => 'bail|required|min:3|max:20|unique:users',
                     'email' => 'sometimes|bail|required|email|min:5|max:30|unique:users',
-                    'password' => 'bail|required|min:8|max:50|case_diff|numbers|letters|symbols|confirmed',
+                    'password' => 'bail|required|min:8|max:50|case_diff|numbers|letters|confirmed',
                     'g-recaptcha-response' => 'sometimes|bail|required|recaptcha',
                 ];
             }
@@ -25,7 +25,7 @@ class UserRequest extends Request
                     // UPDATE ROLES
                     'username' => 'bail|required|min:3|max:20|unique:users',
                     'email' => 'sometimes|bail|required|email|min:5|max:30|unique:users',
-                    'password' => 'bail|required|min:8|max:50|case_diff|numbers|letters|symbols|confirmed',
+                    'password' => 'bail|required|min:8|max:50|case_diff|numbers|letters|confirmed',
                 ];
             }
             case 'GET':

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "82aeb1fdb4c2dbcd625a878488eb4c37",
+    "content-hash": "c5b3a3380b1090bfc7eb3cf7d9ac2889",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -3476,60 +3476,6 @@
             "time": "2016-11-22T19:21:44+00:00"
         },
         {
-            "name": "recca0120/upload",
-            "version": "v1.5.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/recca0120/upload.git",
-                "reference": "135eaba5f4065bf29f5e6919b4bb05ad14515b2c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/recca0120/upload/135eaba5f4065bf29f5e6919b4bb05ad14515b2c.zip",
-                "reference": "135eaba5f4065bf29f5e6919b4bb05ad14515b2c",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/filesystem": "~5.1",
-                "illuminate/http": "~5.1",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "mikey179/vfsstream": "^1.6",
-                "mockery/mockery": "~0.9.4",
-                "nesbot/carbon": "~1.20",
-                "phpunit/phpunit": "~4.8|~5.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Recca0120\\Upload\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "recca0120",
-                    "email": "recca0120@gmail.com"
-                }
-            ],
-            "description": "Ajax Upload Large File Support jQuery-File-Upload, FileApi, Plupload, Support framework Laravel 5",
-            "keywords": [
-                "ajax",
-                "chunk",
-                "fileapi",
-                "jquery-file-upload",
-                "jquery-fileapi",
-                "laravel",
-                "plupload",
-                "upload"
-            ],
-            "time": "2017-02-08T07:11:41+00:00"
-        },
-        {
             "name": "schuppo/password-strength",
             "version": "v1.9",
             "source": {
@@ -4885,6 +4831,48 @@
                 "revision"
             ],
             "time": "2016-08-02T02:32:00+00:00"
+        },
+        {
+            "name": "vi-kon/laravel-diff",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vi-kon/laravel-diff.git",
+                "reference": "936d23a2031c3629017f1a77622a67f712cfc530"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/vi-kon/laravel-diff/936d23a2031c3629017f1a77622a67f712cfc530.zip",
+                "reference": "936d23a2031c3629017f1a77622a67f712cfc530",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ViKon\\Diff\\": "src/ViKon/Diff"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kovács Vince",
+                    "email": "vincekovacs@hotmail.com"
+                }
+            ],
+            "description": "Diff tool for Laravel 5",
+            "homepage": "https://github.com/vi-kon/laravel-diff",
+            "keywords": [
+                "compare",
+                "diff",
+                "laravel"
+            ],
+            "time": "2016-01-09T22:37:51+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Hootlex\Moderation\Moderatable;
+use Cviebrock\EloquentTaggable\Taggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Wiki extends Model
 {
-    use Traits\WikiOperation, Moderatable, SoftDeletes;
+    use Traits\WikiOperation, Moderatable, SoftDeletes, Taggable;
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['category', 'title', 'content', 'redirect'];

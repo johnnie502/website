@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Node;
+use App\Models\User;
 use App\Models\Wiki;
 use League\HTMLToMarkdown\HtmlConverter;
+use ViKon\Diff\Diff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WikiRequest;
@@ -23,7 +26,9 @@ class WikiController extends Controller
 
     public function create(Wiki $wiki)
     {
-        return view('wiki.create_and_edit', compact('wiki'));
+        // Get nodes list.
+        $nodes = Node::all();
+        return view('wiki.create_and_edit', compact('nodes', 'wiki'));
     }
 
     public function store(WikiRequest $request)
@@ -38,7 +43,7 @@ class WikiController extends Controller
             'node' => $request->input('node'),
             'title' => $request->input('title'),
             'content' => $markdown,
-            'redirect' => $request->input('redirect');
+            'redirect' => $request->input('redirect'),
         ]);
         $wiki->user = $user->id;
         $wiki->type = 1;
@@ -49,15 +54,24 @@ class WikiController extends Controller
         $user->points += 10;
         $user->wikis += 1;
         $user->save();
+        // Add tag.
+        $wiki->tag($request->input('categories'));
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('wikis.index');
+        return redirect()->route('wiki.index');
     }
 
-    public function show(Wiki $wiki)
+    public function show(Wiki $wiki, $redirect = 0)
     {
         // Get wiki via name.
-        $wiki = Wiki::where('name', $wiki)->orderBy('version', 'desc')->firstOrFail();
+        $wiki = Wiki::where('name', $wiki->name)->orderBy('version', 'desc')->firstOrFail();
+        // Rediect
+        if ($redirect > 0) {
+        	    $wiki = Wiki::where('name', $wiki->name)
+        	    	->where('redirect', $redirect)
+        	    	->firstOrFail();
+        	    return redirect()->route('wiki.show', $wiki->name);
+        	}
         return view('wiki.show', compact('wiki'));
     }
 
@@ -74,16 +88,18 @@ class WikiController extends Controller
             'node' => $request->input('node'),
             'title' => $request->input('title'),
             'content' => $markdown,
-            'redirect' => $request->input('redirect');
+            'redirect' => $request->input('redirect'),
         ]);
         $wiki->user = $user->id;
         $wiki->type = 1;
         $wiki->status = 1;
         $wiki->version += 1;
         $wiki->save();
-            // Show messages.
+        // Update tag.
+        $wiki->retag($request->input('categories'));
+        // Show messages.
         Flash::success(Lang::get('global.operation_successfully'));
-                return redirect()->route('wiki.show', $wiki->name);
+        return redirect()->route('wiki.show', $wiki->name);
     }
 
     public function destroy(Wiki $wiki)
@@ -101,15 +117,28 @@ class WikiController extends Controller
         $user->save();
         // Get node from topic's node id.
         $node = Node::find($wiki->node);
-        $node->wikis -= 1;
+        $node->wiki -= 1;
         $node->save();
-        
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('wiki.index');
     }
 
-    public function diff()
+    public function history($name)
     {
+        // Get wiki via name.
+        $wiki = Wiki::where('name', $name)->orderBy('version', 'desc')->get();
+        return view('wiki.history', compact('wiki'));
+    }
 
+    public function diff(Wiki $wiki, $new, $old)
+    {
+    	$newContent = Wiki::where('name', $wiki)
+    		->where('version', $new)
+    		->firstOrFail();
+    	$oldContent = Wiki::where('name', $wiki)
+    		->where('version', $old)
+    		->firstOrFail();
+    	$diff = Diff::compare($oldContent, $newContent);
+    	return view('wiki.diff', compact('wiki', 'diff'));
     }
 }

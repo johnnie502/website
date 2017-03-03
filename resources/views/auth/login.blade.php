@@ -17,7 +17,7 @@
                         <div class="form-group">
                             <label for="password" class="col-md-4 control-label">@lang('validation.attributes.password')</label>
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required placeholder="8~50个字符，要求包含大小写字母，数字和符号">
+                                <input id="password" type="password" class="form-control" name="password" required placeholder="8~50个字符，要求包含大小写字母和数字">
                             </div>
                         </div>
                         {!! Recaptcha::render() !!}

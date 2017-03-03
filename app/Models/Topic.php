@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Hootlex\Moderation\Moderatable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentTaggable\Taggable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Topic extends Model
 {

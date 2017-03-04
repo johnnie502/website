@@ -44,6 +44,13 @@ Route::get('wiki.new.old', 'WikiController@diff')->name('wiki.diff');
 
 # ------------------ Users ------------------------
 Route::resource('users', 'UserController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::get('user/home', 'UserController@home')->name('user.home');
+Route::get('user/profiles', 'UserController@profile')->name('user.profile');
+Route::get('user/topics', 'UserController@topics')->name('user.topics');
+Route::get('user/replies', 'UserController@replies')-?name('user.replies');
+Route::get('user/nofitications', 'UserController@nofitications')-?name('user.nofitications');
+Route::get('user/followers', 'UserController@followers')->name('user.followers');
+Route::get('user/following', 'UserController@following')->name('user.following');
 
 //Fix ueditor server
 Route::any('/laravel-ueditor/server', '\Stevenyangecho\UEditor\Controller@server');

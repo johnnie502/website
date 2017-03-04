@@ -97,4 +97,39 @@ class UserController extends Controller
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('users.index');
     }
+
+    public function home(User $user)
+    {
+
+    }
+
+    public function profile(User $user)
+    {
+        
+    }
+
+    public function topics(User $user)
+    {
+        
+    }
+
+    public function replies(User $user)
+    {
+        
+    }
+
+    public function notifications(User $user)
+    {
+        
+    }
+
+    public function followers(User $user)
+    {
+        
+    }
+
+    public function followings(User $user)
+    {
+        
+    }
 }

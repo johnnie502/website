@@ -9,7 +9,7 @@ class UploadController extends Controller
     public function uploadAvatar(Request $request)
     {
     	// Update avatar.
-         $path = $request->file('avatar')->storeAs('avatars/', $request->user()->id);
-        return $path;
+         $path = $request->file('avatar')->storeAs('avatars/', $request->user()->id, 'public');
+         return $path;
     }
 }

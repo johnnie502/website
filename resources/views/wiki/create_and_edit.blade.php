@@ -1,6 +1,17 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
+<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+<script src="https://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('#categories').tagsinput({
+    tagClass: 'tag-primary',
+    maxTags: 5,
+    maxChars: 12,
+    trimValue: true
+  });
+});
+</script><div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
         <div class="panel-heading">
             <h1>
@@ -16,20 +27,12 @@
             @endif
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
-                    <label for="node-field">Node</label>
-                    @if($wiki->id)
-                        {{ $node->name }}
-                    @else
-                        <select class="form-control" name="node" id="node-field" required placeholder="请选择一个节点">
-                            @foreach ($nodes as $node)
-                                <option value="{{ $node->id }}">{{ $node->name . ' / ' . $node->slug }}</option>
-                            @endforeach
-                       </select>
-                    @endif
-                </div> 
-                <div class="form-group">
                 	<label for="title-field">Title</label>
                 	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ old('title', $wiki->title) }}" />
+                </div>
+                <div class="form-group">
+                    <label for="title-field">Categories</label>
+                    <input class="form-control" type="text" name="categories" id="categories" data-role="tagsinput" required placeholder="按Enter添加标签" value="{{ old('categories', $wiki->tagList) }}">
                 </div>
                 <div class="form-group">
                 	<label for="content-field">Content</label>

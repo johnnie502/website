@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Node;
 use App\Models\User;
 use App\Models\Wiki;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -26,9 +25,7 @@ class WikiController extends Controller
 
     public function create(Wiki $wiki)
     {
-        // Get nodes list.
-        $nodes = Node::all();
-        return view('wiki.create_and_edit', compact('nodes', 'wiki'));
+        return view('wiki.create_and_edit', compact('wiki'));
     }
 
     public function store(WikiRequest $request)
@@ -40,7 +37,6 @@ class WikiController extends Controller
         $markdown = $converter->convert($request->input('content'));
         // Create wiki.
         $wiki = Wiki::createWithInput([
-            'node' => $request->input('node'),
             'title' => $request->input('title'),
             'content' => $markdown,
             'redirect' => $request->input('redirect'),
@@ -85,7 +81,6 @@ class WikiController extends Controller
         $this->authorize('update', $wiki);
         // NOT update the wiki! save a new version.
         $wiki = Wiki::createWithInput([
-            'node' => $request->input('node'),
             'title' => $request->input('title'),
             'content' => $markdown,
             'redirect' => $request->input('redirect'),
@@ -115,10 +110,6 @@ class WikiController extends Controller
         $user =  User::find($wiki->user);
         $user->topics -= 1;
         $user->save();
-        // Get node from topic's node id.
-        $node = Node::find($wiki->node);
-        $node->wiki -= 1;
-        $node->save();
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('wiki.index');
     }

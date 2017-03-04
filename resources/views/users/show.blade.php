@@ -7,13 +7,13 @@
         <div class="panel-body">
                 <div class="row">
                </div>
-<label>Username</label>
+<label>@lang('global.username')</label>
 <p>
 	{{ $user->username }}
-</p> <label>Email</label>
+</p> <label>@lang('global.email')</label>
 <p>
 	{{ $user->email }}
-</p><label>Points</label>
+</p><label>@lang('global.points')</label>
 <p>
 	{{ $user->points }}
 </p> 

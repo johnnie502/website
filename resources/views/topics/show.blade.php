@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         @foreach ($topic->tags as $tag)
-                            <a href="{{ route('tag', $tag->name) }}">{{ $tag->name }}</a>
+                            <span class="label label-default"><a href="{{ route('tag', $tag->name) }}">{{ $tag->name }}</a></span>
                         @endforeach
                     </div>
                     <div class="col-md-6">
@@ -26,7 +26,7 @@
         </div>
         <!-- Posts -->
         @if ($topic->replies > 0 && count($posts) > 0)
-            @for ($posts as $reply)
+            @foreach ($posts as $reply)
                 @if ($posts->post > 0)
                     <div class="list-group"> 
                         <ul>

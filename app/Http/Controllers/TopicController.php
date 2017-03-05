@@ -18,7 +18,7 @@ class TopicController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['only' => ['create', 'edit']]);
         $this->middleware('admin', ['only' => 'destory']);
     }
 
@@ -80,14 +80,16 @@ class TopicController extends Controller
          // The view will display node's name and a link to slug.
          $node = Node::findOrFail($topic->node);
          // Get post content.
-         $posts = Post::where('topic',  $topic->id)->orderBy('created_at', 'desc')->get();
+         $posts = Post::where('topic',  $topic->id)
+                ->orderBy('post', 'desc')
+                ->get();
         return view('topics.show', compact('node', 'topic', 'posts'));
     }
 
     public function tags($slug)
     {
         // Display all topic of this slug.
-        $topics = Topic::withAllTags($slug);
+        $topics = Topic::withAllTags($slug)->get();
         return view('topics.tags', compact('topics'));
     }
 

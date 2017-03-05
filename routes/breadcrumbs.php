@@ -143,6 +143,15 @@ Breadcrumbs::register('wiki.edit', function($breadcrumbs, $wiki)
     }
 });
 
+# ------------------ Tags/Categories ------------------------
+Breadcrumbs::register('topics.tags', function($breadcrumbs, $topic)
+{
+    if (isset($topic->id)) {
+        $breadcrumbs->parent('topics.index');
+        $breadcrumbs->push('标签:' . $topic, route('topics.tags', $topic));
+    }
+});
+
 # ------------------ Users ------------------------
 Breadcrumbs::register('users.index', function($breadcrumbs)
 {

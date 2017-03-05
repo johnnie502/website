@@ -97,3 +97,9 @@ a:active {
     text-shadow: 1px 1px 3px;
     border:  0;
 }
+
+.label-primary {
+    background-color: #006600;
+    color: white;
+    text-shadow: none;
+}

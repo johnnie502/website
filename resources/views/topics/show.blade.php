@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         @foreach ($topic->tags as $tag)
-                            <span class="label label-default"><a href="{{ route('tag', $tag->name) }}">{{ $tag->name }}</a></span>
+                            <a href="{{ route('topics.tags', $tag->name) }}"><span class="label label-primary">{{ $tag->name }}</span></a>
                         @endforeach
                     </div>
                     <div class="col-md-6">
@@ -27,14 +27,10 @@
         <!-- Posts -->
         @if ($topic->replies > 0 && count($posts) > 0)
             @foreach ($posts as $reply)
-                @if ($posts->post > 0)
-                    <div class="list-group"> 
-                        <ul>
-                        <li>
-                        {{ $reply->conetent }}
-                        </li>
-                        </ul>
-                    </div>
+                @if ($reply->post > 0)
+                    <ul class="list-group"> 
+                        <li class="list-group-item"> {{ $reply->conetent }}</li>
+                    </ul>
                 @endif
             @endforeach
         @endif

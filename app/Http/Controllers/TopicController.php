@@ -81,7 +81,7 @@ class TopicController extends Controller
          $node = Node::findOrFail($topic->node);
          // Get post content.
          $posts = Post::where('topic',  $topic->id)
-                ->orderBy('post', 'desc')
+                ->orderBy('post')
                 ->get();
         return view('topics.show', compact('node', 'topic', 'posts'));
     }

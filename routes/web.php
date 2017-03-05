@@ -24,7 +24,10 @@ Route::post('login', 'Auth\LoginController@postLogin');
 Route::post('register', 'Auth\RegisterController@postRegister');
 
 # ------------------ Nodes ------------------------
-Route::resource('nodes', 'NodeController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('nodes', 'NodeController', [
+    'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']
+    'parameters' => ['node' => 'slug'],
+]);
 
 # ------------------ Topics ------------------------
 Route::resource('topics', 'TopicController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
@@ -38,14 +41,17 @@ Route::resource('topics.posts.comments', 'CommentController', ['only' => ['index
 Route::resource('wiki.comments', 'CommentController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 # ------------------ Wiki ------------------------
-Route::resource('wiki', 'WikiController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('wiki', 'WikiController', [
+    'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
+    'parameters' => ['wiki' => 'title'],
+]);
 Route::get('wiki/{name}/history', 'WikiController@history')->name('wiki.history');
 Route::get('wiki.new.old', 'WikiController@diff')->name('wiki.diff');
 
 # ------------------ Users ------------------------
 Route::resource('users', 'UserController', [
 	'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
-	'parameters' => ['user' => 'name']
+	'parameters' => ['user' => 'name'],
 ]);
 Route::get('user/{name?}/home', 'UserController@home')->name('user.home');
 Route::get('user/{name?}/profiles', 'UserController@profile')->name('user.profile');

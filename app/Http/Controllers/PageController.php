@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => 'sign']);
+    }
+
     public function index()
     {
     	return view('index');
@@ -37,5 +42,11 @@ class PageController extends Controller
     public function searchResult($query)
     {
         
+    }
+
+    public function sign()
+    {
+        $points = random_int(1, 10);
+        $sign = Sign::where('');
     }
 }

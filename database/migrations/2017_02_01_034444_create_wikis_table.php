@@ -10,7 +10,6 @@ class CreateWikisTable extends Migration
 		Schema::create('wikis', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('user')->unsigned()->default(0)->index();
-            $table->integer('node')->unsigned()->default(0)->index();
             $table->string('title');
             $table->longtext('content');
             $table->integer('type')->unsigned()->default(0)->index();

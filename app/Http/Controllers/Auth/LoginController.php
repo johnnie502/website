@@ -69,7 +69,7 @@ class LoginController extends Controller
         // Manually validation login request.
         $this->validate($request, [
             'username' => 'bail|required|min:5|max:30',
-            'password' => 'bail|required|min:8|max:50|case_diff|numbers|letters|symbols',
+            'password' => 'bail|required|min:8|max:50|case_diff|numbers|letters',
             //'g-recaptcha-response' => 'sometimes|bail|required|recaptcha',
         ]);
         // Determine whether is email or username login.

@@ -25,7 +25,7 @@ Route::post('register', 'Auth\RegisterController@postRegister');
 
 # ------------------ Nodes ------------------------
 Route::resource('nodes', 'NodeController', [
-    'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']
+    'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
     'parameters' => ['node' => 'slug'],
 ]);
 
@@ -51,7 +51,7 @@ Route::get('wiki.new.old', 'WikiController@diff')->name('wiki.diff');
 # ------------------ Users ------------------------
 Route::resource('users', 'UserController', [
 	'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
-	'parameters' => ['user' => 'name'],
+	'parameters' => ['user' => 'username'],
 ]);
 Route::get('user/{name?}/home', 'UserController@home')->name('user.home');
 Route::get('user/{name?}/profiles', 'UserController@profile')->name('user.profile');

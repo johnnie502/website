@@ -44,6 +44,30 @@ class PostController extends Controller
         // Convert HTML topic content to markdown.
         $converter = new HtmlConverter();
         $markdown = $converter->convert($request->input('content'));
+        // @ notification.
+        $atList = [];
+        preg_match_all('\@([a-zA-Z0-9\x80-\xff\-_]{3,20}) ', $markdown, $atList, PREG_PATTERN_ORDER);
+        $atList = array_unique($atList[1]);
+        // Get user list.
+        $userList = User::whereIn('username', $atList[])->get();
+        foreach ($userList as $at) {
+            // Don't at self.
+            if ($at != $user->username) {
+                // Replace username to markdown links.
+                $markdown = str_replace($at, '[@' . $at . '](' . route('users.show', $user->id) . ')', $markdown);
+                // @ notification.
+                Notifynder::category('user.at')
+                    ->from($user->username)
+                    ->to($at)
+                    ->url(route('topics.show', $topic->id))
+                    ->send();
+                $atUser = User::where('username', $at)->first();
+                if ($atUser) {
+                    $atUser->notifications += 1;
+                    $atUser->save();
+                }
+            }
+        }
         // Create post.
         $post = Post::createWithInput([
             'content' => $markdown,
@@ -64,7 +88,7 @@ class PostController extends Controller
         $user->replies += 1;
         $user->save();
         // Send notification.
-        if ($topic->user->id != $user->id) {
+        if ($topic->users->id != $user->id) {
             // Reply notification.
             $toUser = $topic->users->first();
             Notifynder::category('user.reply')
@@ -74,30 +98,6 @@ class PostController extends Controller
                 ->send(); 
             $toUser->notifications += 1;
             $toUser->save();
-        }
-        // @ notification.
-        $atList = [];
-        preg_match_all('\@([a-zA-Z0-9\x80-\xff\-_]{3,20}) ', $content, $atList, PREG_PATTERN_ORDER);
-        $atList = array_unique($atList[1]);
-        // Get user list.
-        $userList = User::whereIn('username', $atList[])->get();
-        foreach ($userList as $at) {
-            // Don't at self.
-            if ($at != $user->username) {
-                // Replace username to markdown links.
-                $content = str_replace($at, '[@' . $at . '](' . route('users.show', $user->id) . ')', $content);
-                // @ notification.
-                Notifynder::category('user.at')
-                    ->from($user->username)
-                    ->to($at)
-                    ->url(route('topics.show', $topic->id))
-                    ->send();
-                $atUser = User::where('username', $at)->first();
-                if ($atUser) {
-                    $atUser->notifications += 1;
-                    $atUser->save();
-                }
-            }
         }
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));

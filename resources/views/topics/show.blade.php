@@ -16,6 +16,7 @@
                         @if (Auth::check() && ($topic->user == $account->id or $account->type >= 3))
                              <a class="pull-right" href="{{ route('topics.edit', $topic->id) }}">Edit</a>
                         @endif
+                        <span class="pull-right">{{ $topic->created_at->diffForHumans() }}</span>
                     </div>
             </div>
             <div class="pull-right">
@@ -25,18 +26,30 @@
              @markdown($posts->first()->content)
         </div>
         <!-- Posts -->
-        @if ($topic->replies > 0 && count($posts) > 0)
-            @foreach ($posts as $reply)
-                @if ($reply->post > 0)
-                    <ul class="list-group"> 
-                        <li class="list-group-item"> {{ $reply->conetent }}</li>
-                    </ul>
-                @endif
-            @endforeach
+        @if ($topic->replies > 0)
+            @if (isset($posts))
+                @foreach ($posts as $reply)
+                    @if ($reply->post > 0)
+                        <ul class="list-group"> 
+                            <span><a href="{{ route('users.show', $reply->users->username) }}">{{ $reply->users->username }}</a></span>
+                            <div class="pull-right">
+                                {{ $reply->created_at->diffForHumans() }} 
+                                <a href={{ route('topics.posts.show', [$topic, $reply]) }}><span class="label label-primary">#{{ $reply->post }}</span></a>
+                            </div>
+                            <li class="list-group-item"><img alt="" src="/avatars/{{ $topic->user}}.png" width="32" height="32" />{{ $reply->content }}</li>
+                        </ul>
+                    @endif
+                @endforeach
+            @else
+                <ul class="list-group"> 
+                    <a href={{ route('topics.posts.show', [$topic, $post]) }}>#{{ $post->post }}</a><li class="list-group-item"> {{ $post->content }}</li>
+                </ul>
+                <a href="{{ route('topics.posts.show', $topic) }}">查看全部帖子</a>
+            @endif
         @endif
         <!-- reply editor -->
         @if (Auth::check())
-            @if($posts->last()->post <= $topic->replies)
+            @if($posts->last()->post < $topic->replies)
                 <form action="{{ route('topics.posts.update', [$topic->id, $topic->replies + 1]) }}" method="POST">
                     <input type="hidden" name="_method" value="PUT">
             @else

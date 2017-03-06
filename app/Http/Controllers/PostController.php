@@ -75,7 +75,7 @@ class PostController extends Controller
         // Topics
         $topic->replies += 1;
         $topic->last_reply = $user->id;
-        $topic->replied_at = now ();
+        $topic->replied_at = time ();
         $topic->save();
         // Save post.
         $post->user = $user->id;

@@ -19,7 +19,7 @@
                             <a href="{{ route('topics.show', $topic->id) }}">{{ $topic->title }}</a><br>
                             <div>
                                 <a href="{{ route('nodes.show', $topic->nodes->slug) }}">{{ $topic->nodes->name }}</a>&nbsp;•&nbsp;
-                                <a href="{{ route('users.show', $topic->user) }}">{{ $topic->users->username }}</a>&nbsp;•&nbsp;
+                                <a href="{{ route('users.show', $topic->users->username) }}">{{ $topic->users->username }}</a>&nbsp;•&nbsp;
                             @if (isset($topic->replytime ))
                                 {{ $topic->replytime->diffForHumans() }}&nbsp;•&nbsp;
                                 @lang('global.last_reply')

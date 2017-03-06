@@ -80,6 +80,10 @@ class UserController extends Controller
         $this->authorize('update', $user);
         // Update user.
         $user->updateWithInput($request->all());
+        // Update avatar.
+        if ($request->has('avatar')) {
+            $request->file('avatar')->storeAs('avatars/', $request->user()->id, 'public');
+        }
         // Show messgae.
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('users.index');
@@ -98,11 +102,6 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function profile(User $user)
-    {
-        return view('users.show', compact('user'));
-    }
-
     public function topics(User $user)
     {
         return view('users.show', compact('user'));
@@ -113,17 +112,32 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
-    public function notifications(User $user)
-    {
-        return view('users.show', compact('user'));
-    }
-
     public function followers(User $user)
     {
         return view('users.show', compact('user'));
     }
 
     public function followings(User $user)
+    {
+        return view('users.show', compact('user'));
+    }
+
+    public function profile(User $user)
+    {
+         return view('users.show', compact('user'));
+    }
+
+    public function votes(User $user)
+    {
+        return view('users.show', compact('user'));
+    }
+
+    public function favicons(User $user)
+    {
+        return view('users.show', compact('user'));
+    }
+
+    public function notifications(User $user)
     {
         return view('users.show', compact('user'));
     }

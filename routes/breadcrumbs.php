@@ -175,6 +175,54 @@ Breadcrumbs::register('users.edit', function($breadcrumbs, $user)
     }
 });
 
+Breadcrumbs::register('users.topics', function($breadcrumbs, $user)
+{
+    if (isset($user->id)) {
+        $breadcrumbs->parent('users.index');
+        $breadcrumbs->push('查看用户:' . $user->username, route('users.topics', $user));
+    }
+});
+
+Breadcrumbs::register('users.replies', function($breadcrumbs, $user)
+{
+    if (isset($user->id)) {
+        $breadcrumbs->parent('users.index');
+        $breadcrumbs->push('查看用户:' . $user->username, route('users.replies', $user));
+    }
+});
+
+Breadcrumbs::register('users.followers', function($breadcrumbs, $user)
+{
+    if (isset($user->id)) {
+        $breadcrumbs->parent('users.index');
+        $breadcrumbs->push('查看用户:' . $user->username, route('users.followers', $user));
+    }
+});
+
+Breadcrumbs::register('users.following', function($breadcrumbs, $user)
+{
+    if (isset($user->id)) {
+        $breadcrumbs->parent('users.index');
+        $breadcrumbs->push('查看用户:' . $user->username, route('users.following', $user));
+    }
+});
+
+Breadcrumbs::register('users.profile', function($breadcrumbs, $user)
+{
+    if (isset($user->id)) {
+        $breadcrumbs->parent('users.index');
+        $breadcrumbs->push('查看用户:' . $user->username, route('users.profile', $user));
+    }
+});
+
+Breadcrumbs::register('users.notifications', function($breadcrumbs, $user)
+{
+    if (isset($user->id)) {
+        $breadcrumbs->parent('users.index');
+        $breadcrumbs->push('查看用户:' . $user->username, route('users.notifications', $user));
+    }
+});
+
 # ------------------ Auth ------------------------
 Breadcrumbs::register('login', function($breadcrumbs)
 {

@@ -9,8 +9,8 @@
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-md-6">
-                        @foreach ($wiki->tags as $tag)
-                            <a href="{{ route('tag', $tag->name) }}">{{ $tag->name }}</a>
+                        @foreach ($wiki->categories as $category)
+                            <a href="{{ route('wikis.categories', $category->name) }}">{{ $category->name }}</a>
                         @endforeach
                     </div>
                     <div class="col-md-6">

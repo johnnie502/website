@@ -98,38 +98,33 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function home(User $user)
-    {
-
-    }
-
     public function profile(User $user)
     {
-        
+        return view('users.show', compact('user'));
     }
 
     public function topics(User $user)
     {
-        
+        return view('users.show', compact('user'));
     }
 
     public function replies(User $user)
     {
-        
+        return view('users.show', compact('user'));
     }
 
     public function notifications(User $user)
     {
-        
+        return view('users.show', compact('user'));
     }
 
     public function followers(User $user)
     {
-        
+        return view('users.show', compact('user'));
     }
 
     public function followings(User $user)
     {
-        
+        return view('users.show', compact('user'));
     }
 }

@@ -71,10 +71,11 @@ class PostController extends Controller
         // Create post.
         $post = Post::createWithInput([
             'content' => $markdown,
-            //'replyto' => $request->input('title'),
          ]);
         // Topics
         $topic->replies += 1;
+        $topic->last_reply = $user->id;
+        $topic->replied_at = now ();
         $topic->save();
         // Save post.
         $post->user = $user->id;

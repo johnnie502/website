@@ -38,28 +38,28 @@ Route::resource('topics.posts', 'PostController', ['only' => ['index', 'show', '
 
 # ------------------ Comments ------------------------
 Route::resource('topics.posts.comments', 'CommentController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
-Route::resource('wiki.comments', 'CommentController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('wikis.comments', 'CommentController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 # ------------------ Wiki ------------------------
 Route::resource('wiki', 'WikiController', [
     'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
     'parameters' => ['wiki' => 'title'],
 ]);
-Route::get('wiki/{name}/history', 'WikiController@history')->name('wiki.history');
-Route::get('wiki.new.old', 'WikiController@diff')->name('wiki.diff');
+Route::get('wiki/{name}/history', 'WikiController@history')->name('wikis.history');
+Route::get('wikis.new.old', 'WikiController@diff')->name('wikis.diff');
 
 # ------------------ Users ------------------------
 Route::resource('users', 'UserController', [
 	'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
 	'parameters' => ['user' => 'username'],
 ]);
-Route::get('user/{name?}/home', 'UserController@home')->name('user.home');
-Route::get('user/{name?}/profiles', 'UserController@profile')->name('user.profile');
-Route::get('user/{name?}/topics', 'UserController@topics')->name('user.topics');
-Route::get('user/{name?}/replies', 'UserController@replies')->name('user.replies');
-Route::get('user/{name?}/nofitications', 'UserController@nofitications')->name('user.nofitications');
-Route::get('user/{name?}/followers', 'UserController@followers')->name('user.followers');
-Route::get('user/{name?}/following', 'UserController@following')->name('user.following');
+Route::get('user/{name?}/home', 'UserController@home')->name('users.home');
+Route::get('user/{name?}/profiles', 'UserController@profile')->name('users.profile');
+Route::get('user/{name?}/topics', 'UserController@topics')->name('users.topics');
+Route::get('user/{name?}/replies', 'UserController@replies')->name('users.replies');
+Route::get('user/{name?}/nofitications', 'UserController@nofitications')->name('users.nofitications');
+Route::get('user/{name?}/followers', 'UserController@followers')->name('users.followers');
+Route::get('user/{name?}/following', 'UserController@following')->name('users.following');
 
 //Fix ueditor server
 Route::any('/laravel-ueditor/server', '\Stevenyangecho\UEditor\Controller@server');

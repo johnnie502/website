@@ -39,4 +39,12 @@ class User extends Model implements Authenticatable
     {
     	return $this->hasMany('App\Models\Wiki', 'user');
     }
+
+    /* 
+      * Get user signed.
+      */
+    public function signed()
+    {
+        return $this->hasMany('App\Models\Signed', 'user');
+    }
 }

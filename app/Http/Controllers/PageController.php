@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use FLash;
+use Lang;
 use Searchy;
+use App\Models\Signed;
+use App\Models\User;
+use Carbon\Carbon;
 use App\Http\Requests\SearchRequest;
 use Illuminate\Http\Request;
 
@@ -10,7 +16,7 @@ class PageController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => 'sign']);
+        $this->middleware('auth', ['only' => 'sign', 'postSign']);
     }
 
     public function index()
@@ -46,7 +52,29 @@ class PageController extends Controller
 
     public function sign()
     {
+        return view('sign');
+    }
+
+    public function postSign(Request $request)
+    {
+        // Get user.
+        $user = Auth::user();
+        $now = Carbon::now();
+        $signed = Signed::where('user', $user->id)->get();
+        if ($signed) {
+            if ($now->diffInDays($signed->time) < 1) {
+                Flash::error('You have already signed at today!');
+                return back();
+            }
+        }
+        // Random points.
         $points = random_int(1, 10);
-        $sign = Sign::where('');
+        $signed->user = $user->id;
+        $signed->points = $points;
+        $signed->time = $now;
+        $signed->save();
+        // Show messages.
+        Flash::success(Lang::get('global.register_successfully'));
+        return redirect()->intended();
     }
 }

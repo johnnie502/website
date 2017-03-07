@@ -27,6 +27,12 @@ Breadcrumbs::register('search.result', function($breadcrumbs, $query)
     $breadcrumbs->push('搜索结果:' . $query, route('search.result', $query));
 });
 
+Breadcrumbs::register('sign', function($breadcrumbs)
+{
+    $breadcrumbs->parent('index');
+    $breadcrumbs->push('签到', route('sign'));
+});
+
 # ------------------ Nodes ------------------------
 Breadcrumbs::register('nodes.index', function($breadcrumbs)
 {

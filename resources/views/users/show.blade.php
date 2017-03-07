@@ -25,20 +25,19 @@
                    <li class="{{ Route::currentRouteName() == 'users.votes' ? 'active' : '' }}"><a href="{{ route('users.votes', $user->username) }}">@lang('global.votes')</a></li>
                    <li class="{{ Route::currentRouteName() == 'users.favicons' ? 'active' : '' }}"><a href="{{ route('users.favicons', $user->username) }}">@lang('global.favicons')</a></li>
                    @if (Auth::check() && $account->id == $user->id)
-                                
                    <li class="{{ Route::currentRouteName() == 'users.notifications' ? 'active' : '' }}"><a href="{{ route('users.notifications', $user->username) }}">@lang('global.notifications')</a></li>
                    @endif
             </ul>
             <!-- Tabs content -->
             <div class="tab-content">
                 <div class="tab-pane" id="topics">
+                    @if ($user->topic > 0)
                     <ul class="list-group">
                         @foreach($user->topics as $topic)
                         <li class="list-group-item">
                             @if ($topic->replies > 0)
                             <span class="badge">{{ $topic->replies }}</span>
                             @endif
-
                             <a href="{{ route('topics.show', $topic->id) }}">{{ $topic->title }}</a><br>
                             <div>
                                 <a href="{{ route('nodes.show', $topic->nodes->slug) }}">{{ $topic->nodes->name }}</a>&nbsp;•&nbsp;
@@ -52,6 +51,9 @@
                         </li>
                     @endforeach
                 </ul>
+                @else
+                <div>empty!</div>
+                @endif
             </div>
         </div>
     </div>

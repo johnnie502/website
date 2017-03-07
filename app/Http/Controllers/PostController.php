@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Auth;
 use Flash;
 use Lang;
-use Notifynder;        
+use Notifynder; 
 use App\Models\Post;
 use App\Models\Topic;
 use App\Models\User;
+use Carbon\Carbon;
 use League\HTMLToMarkdown\HtmlConverter;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -75,7 +76,7 @@ class PostController extends Controller
         // Topics
         $topic->replies += 1;
         $topic->last_reply = $user->id;
-        $topic->replied_at = time ();
+        $topic->replied_at = Carbon::now ();
         $topic->save();
         // Save post.
         $post->user = $user->id;

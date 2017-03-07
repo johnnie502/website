@@ -7,7 +7,7 @@ use App\Models\Node;
 
 class NodePolicy extends Policy
 {
-    public function create(User $user, Node $node)
+    public function create(User $user)
     {
         return $user->type >= 4;
     }

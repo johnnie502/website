@@ -107,7 +107,11 @@ class PostController extends Controller
 
     public function show(Topic $topic, Post $post)
     {
-        return view('topics.show', compact('topic', 'post'));
+        $posts = Post::where('topic', $topic->id)
+            ->where('post', 0)
+            ->where('post', $post->id)
+            ->get();
+        return view('topics.show', compact('topic', 'posts'));
     }
 
     public function edit(Topic $topic, Post $post)

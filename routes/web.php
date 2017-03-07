@@ -26,7 +26,7 @@ Route::post('register', 'Auth\RegisterController@postRegister');
 # ------------------ Nodes ------------------------
 Route::resource('nodes', 'NodeController', [
     'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
-    'parameters' => ['node' => 'slug'],
+    'parameters' => ['nodes' => 'slug'],
 ]);
 
 # ------------------ Topics ------------------------
@@ -51,21 +51,21 @@ Route::get('wikis.new.old', 'WikiController@diff')->name('wikis.diff');
 # ------------------ Users ------------------------
 Route::resource('users', 'UserController', [
 	'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
-	'parameters' => ['user' => 'username'],
+	'parameters' => ['users' => 'username'],
 ]);
-Route::get('user/{name}/home', 'UserController@home')->name('users.home');
-Route::get('user/{name}/topics', 'UserController@topics')->name('users.topics');
-Route::get('user/{name}/replies', 'UserController@replies')->name('users.replies');
-Route::get('user/{name}/created_wiki', 'UserController@created_wiki')->name('users.created_wiki');
-Route::get('user/{name}/edited_wiki', 'UserController@edited_wiki')->name('users.edited_wiki');
-Route::get('user/{name}/comments', 'UserController@comments')->name('users.comments');
-Route::get('user/{name}/followers', 'UserController@followers')->name('users.followers');
-Route::get('user/{name}/following', 'UserController@following')->name('users.following');
-Route::get('user/{name}/profile', 'UserController@profile')->name('users.profile');
-Route::post('user/{name}/profile', 'UserController@update')->name('users.profile');
-Route::get('user/{name}/votes', 'UserController@votes')->name('users.votes');
-Route::get('user/{name}/favicons', 'UserController@favicons')->name('users.favicons');
-Route::get('user/{name}/notifications', 'UserController@notifications')->name('users.notifications');
+Route::get('user/{username}/home', 'UserController@home')->name('users.home');
+Route::get('user/{username}/topics', 'UserController@topics')->name('users.topics');
+Route::get('user/{username}/replies', 'UserController@replies')->name('users.replies');
+Route::get('user/{username}/created_wiki', 'UserController@created_wiki')->name('users.created_wiki');
+Route::get('user/{username}/edited_wiki', 'UserController@edited_wiki')->name('users.edited_wiki');
+Route::get('user/{username}/comments', 'UserController@comments')->name('users.comments');
+Route::get('user/{username}/followers', 'UserController@followers')->name('users.followers');
+Route::get('user/{username}/following', 'UserController@following')->name('users.following');
+Route::get('user/{username}/votes', 'UserController@votes')->name('users.votes');
+Route::get('user/{username}/favicons', 'UserController@favicons')->name('users.favicons');
+Route::get('user/{username}/profile', 'UserController@profile')->name('users.profile');
+Route::post('user/{username}/profile', 'UserController@update')->name('users.profile');
+Route::get('user/{username}/notifications', 'UserController@notifications')->name('users.notifications');
 
 //Fix ueditor server
 Route::any('/laravel-ueditor/server', '\Stevenyangecho\UEditor\Controller@server');

@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             // Only admin user can create or update users.
-            $this->middleware('admin', ['except' => ['index', 'show']]);
+            $this->middleware('admin', ['except' => ['index', 'show', 'profile', 'notifications']]);
         } else {
             // Register user.
             $this->middleware('guest', ['only' => 'create']);
@@ -122,11 +122,6 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
-    public function profile(User $user)
-    {
-         return view('users.show', compact('user'));
-    }
-
     public function votes(User $user)
     {
         return view('users.show', compact('user'));
@@ -135,6 +130,11 @@ class UserController extends Controller
     public function favicons(User $user)
     {
         return view('users.show', compact('user'));
+    }
+
+    public function profile(User $user)
+    {
+         return view('users.show', compact('user'));
     }
 
     public function notifications(User $user)

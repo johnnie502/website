@@ -21,7 +21,7 @@
             </div>
             <div class="pull-right">
                 <img alt="" src="/avatars/{{ $topic->user}}.png" width="128" height="128" /><br>
-                <a href="{{ route('users.show', $topic->users->id) }}">{{ $topic->users->username }}</a>
+                <a href="{{ route('users.show', $topic->users->username) }}">{{ $topic->users->username }}</a>
             </div>
              @markdown($posts->first()->content)
         </div>

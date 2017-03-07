@@ -13,6 +13,7 @@
                     <label>@lang('global.points')</label>
                     {{ $user->points }}
                </div>
+               <!-- Tabs -->
                <ul class="nav nav-tabs">
                    <li class="{{ Route::currentRouteName() == 'users.topics' ? 'active' : '' }}"><a href="{{ route('users.topics', $user->username) }}">@lang('global.topics')</a></li>
                    <li class="{{ Route::currentRouteName() == 'users.replies' ? 'active' : '' }}"><a href="{{ route('users.replies', $user->username) }}">@lang('global.repiles')</a></li>
@@ -21,12 +22,38 @@
                    <li class="{{ Route::currentRouteName() == 'users.comments' ? 'active' : '' }}"><a href="{{ route('users.comments', $user->username) }}">@lang('global.comments')</a></li>
                    <li class="{{ Route::currentRouteName() == 'users.followers' ? 'active' : '' }}"><a href="{{ route('users.followers', $user->username) }}">@lang('global.followers')</a></li>
                    <li class="{{ Route::currentRouteName() == 'users.following' ? 'active' : '' }}"><a href="{{ route('users.following', $user->username) }}">@lang('global.following')</a></li>
-                   @if (Auth::check() && $account->id == $user->id)
                    <li class="{{ Route::currentRouteName() == 'users.votes' ? 'active' : '' }}"><a href="{{ route('users.votes', $user->username) }}">@lang('global.votes')</a></li>
                    <li class="{{ Route::currentRouteName() == 'users.favicons' ? 'active' : '' }}"><a href="{{ route('users.favicons', $user->username) }}">@lang('global.favicons')</a></li>
+                   @if (Auth::check() && $account->id == $user->id)
+                                
                    <li class="{{ Route::currentRouteName() == 'users.notifications' ? 'active' : '' }}"><a href="{{ route('users.notifications', $user->username) }}">@lang('global.notifications')</a></li>
                    @endif
             </ul>
+            <!-- Tabs content -->
+            <div class="tab-content">
+                <div class="tab-pane" id="topics">
+                    <ul class="list-group">
+                        @foreach($user->topics as $topic)
+                        <li class="list-group-item">
+                            @if ($topic->replies > 0)
+                            <span class="badge">{{ $topic->replies }}</span>
+                            @endif
+
+                            <a href="{{ route('topics.show', $topic->id) }}">{{ $topic->title }}</a><br>
+                            <div>
+                                <a href="{{ route('nodes.show', $topic->nodes->slug) }}">{{ $topic->nodes->name }}</a>&nbsp;•&nbsp;
+                            @if (isset($topic->replytime ))
+                                {{ $topic->replytime->diffForHumans() }}&nbsp;•&nbsp;
+                                @lang('global.last_reply')
+                            @else
+                                {{ $topic->created_at->diffForHumans() }}
+                            @endif
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

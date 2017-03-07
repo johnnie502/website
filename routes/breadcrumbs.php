@@ -191,6 +191,22 @@ Breadcrumbs::register('users.replies', function($breadcrumbs, $user)
     }
 });
 
+Breadcrumbs::register('users.created_wiki', function($breadcrumbs, $user)
+{
+    if (isset($user->id)) {
+        $breadcrumbs->parent('users.index');
+        $breadcrumbs->push('查看用户:' . $user->username, route('users.created_wiki', $user));
+    }
+});
+
+Breadcrumbs::register('users.edited_wiki', function($breadcrumbs, $user)
+{
+    if (isset($user->id)) {
+        $breadcrumbs->parent('users.index');
+        $breadcrumbs->push('查看用户:' . $user->username, route('users.edited_wiki', $user));
+    }
+});
+
 Breadcrumbs::register('users.followers', function($breadcrumbs, $user)
 {
     if (isset($user->id)) {
@@ -204,6 +220,22 @@ Breadcrumbs::register('users.following', function($breadcrumbs, $user)
     if (isset($user->id)) {
         $breadcrumbs->parent('users.index');
         $breadcrumbs->push('查看用户:' . $user->username, route('users.following', $user));
+    }
+});
+
+Breadcrumbs::register('users.votes', function($breadcrumbs, $user)
+{
+    if (isset($user->id)) {
+        $breadcrumbs->parent('users.index');
+        $breadcrumbs->push('查看用户:' . $user->username, route('users.votes', $user));
+    }
+});
+
+Breadcrumbs::register('users.favicons', function($breadcrumbs, $user)
+{
+    if (isset($user->id)) {
+        $breadcrumbs->parent('users.index');
+        $breadcrumbs->push('查看用户:' . $user->username, route('users.favicons', $user));
     }
 });
 

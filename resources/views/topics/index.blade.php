@@ -9,6 +9,7 @@
             @if($topics->count())
                 <ul class="list-group">
                     @foreach($topics as $topic)
+                        @if ($topic->nodes->status > 0)
                         <li class="list-group-item">
                             @if ($topic->replies > 0)
                             <span class="badge">{{ $topic->replies }}</span>
@@ -28,6 +29,7 @@
                             @endif
                             </div>
                         </li>
+                        @endif
                     @endforeach
                 </ul>
                 {!! $topics->render() !!}

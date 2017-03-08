@@ -77,7 +77,7 @@ ______                            _              _                              
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Search -->
                         <li>
-                            <form action="{{ route('search') }}" class="form-inline" target="_blank">
+                            <form action="{{ route('search') }}" method="POST" class="form-inline" target="_blank">
                                 <input type="text" name="query" required class="form-control" placeholder="@lang('global.search')">
                             </form>
                         </li>
@@ -117,7 +117,7 @@ ______                            _              _                              
                 @lang('global.user_banned')
             </div>
             @else
-                @if (Auth::check() && $account->status == 0)
+                @if (Auth::check() && $account->status >= 0)
                     <div class="alert alert-warning">
                         @lang('global.confirm_email_request')
                     </div>

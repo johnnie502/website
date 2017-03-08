@@ -202,6 +202,7 @@ return [
         Backpack\LangFileManager\LangFileManagerServiceProvider::class,  // Lang File Manager
         Backpack\LogManager\LogManagerServiceProvider::class,  // Log Manager
         Backpack\Settings\SettingsServiceProvider::class,  // Settings
+        Cog\Ban\Providers\BanServiceProvider::class,  // Ban and block
 
     ],
 

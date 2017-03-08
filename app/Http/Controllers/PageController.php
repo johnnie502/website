@@ -59,20 +59,27 @@ class PageController extends Controller
     {
         // Get user.
         $user = Auth::user();
-        $now = Carbon::now();
-        $signed = Signed::where('user', $user->id)->get();
+        $signed = Signed::where('user', $user->id)->orderBy('time', 'desc')->first();
         if ($signed) {
-            if ($now->diffInDays($signed->time) < 1) {
+            if ($signed->time->isToday()) {
                 Flash::error('You have already signed at today!');
                 return back();
             }
         }
+        $signed = Signed::create();
         // Random points.
         $points = random_int(1, 10);
         $signed->user = $user->id;
         $signed->points = $points;
-        $signed->time = $now;
+        $signed->time = Carbon::now();
+        $signed->continuous += 1;
         $signed->save();
+        // Update user points
+        if ($signed->continuous % 10 == 0) {
+            $user->points += $signed->continuous;
+        }
+        $user->points += $points;
+        $user->save();
         // Show messages.
         Flash::success(Lang::get('global.register_successfully'));
         return redirect()->intended();

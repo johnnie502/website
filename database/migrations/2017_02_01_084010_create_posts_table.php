@@ -14,8 +14,10 @@ class CreatePostsTable extends Migration
                 $table->longText('content');
                 $table->integer('type')->unsigned()->default(0)->index();
                 $table->integer('status')->default(0)->index();
+                $table->integer('edits')->unsigned()->default(0);
                 $table->integer('favicons')->unsigned()->default(0);
-                $table->integer('votes')->unsigned()->default(0);
+                $table->integer('upvotes')->unsigned()->default(0);
+                $table->integer('downvotes')->unsigned()->default(0);
                 $table->datetime('moderated_at')->nullable();
                 $table->integer('moderated_by')->nullable();
                 $table->timestamps();

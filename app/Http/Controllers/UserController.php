@@ -52,6 +52,8 @@ class UserController extends Controller
         ]);
         // Set trusted IP.
         $request->setTrustedProxies(['127.0.0.1']);
+        $user->type = 1;
+        $user->status = is_null(env('MAIL_FROM_ADDRESS')) ? 1 : 0;
         $user->points = 20;
         $user->regip = $request->getClientIp();
         $user->save();

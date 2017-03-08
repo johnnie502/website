@@ -20,7 +20,7 @@ class CreateSettingsTable extends Migration
             $table->string('value')->nullable();
             $table->text('field');
             $table->tinyInteger('active');
-            $table->timestamps();
+            $table->timestampsTz();;
         });
     }
 

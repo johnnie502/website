@@ -17,12 +17,12 @@ class CreateTopicsTable extends Migration
                 $table->integer('views')->unsigned()->default(0);
                 $table->integer('replies')->unsigned()->default(0);
                 $table->integer('lastreply')->unsigned()->default(0)->nullable();
-                $table->datetime('replied_at')->nullable();
+                $table->timestampTz('replied_at')->nullable();
                 $table->integer('favicons')->unsigned()->default(0);
                 $table->integer('votes')->unsigned()->default(0);
-                $table->datetime('moderated_at')->nullable();
+                $table->timestampTz('moderated_at')->nullable();
                 $table->integer('moderated_by')->nullable();
-                $table->timestamps();
+                $table->timestampsTz();;
                 $table->softDeletes();
             });
 	}

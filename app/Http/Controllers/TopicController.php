@@ -61,7 +61,7 @@ class TopicController extends Controller
         $post->user = $user->id;
         $post->topic = $topic->id;
         $post->type = 1;
-        $post->ststus = 1;
+        $post->status = 1;
         $post->save();
         // User statics
         $user->points -= 2;

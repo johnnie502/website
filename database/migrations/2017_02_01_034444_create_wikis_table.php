@@ -20,7 +20,7 @@ class CreateWikisTable extends Migration
             $table->integer('edits')->unsigned()->default(0)->index();
             $table->integer('lastedit')->unsigned()->default(0);
             $table->integer('favicons')->unsigned()->defaul(0);
-            $table->timestamps();
+            $table->timestampsTz();;
             $table->softDeletes();
         });
 	}

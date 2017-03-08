@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use FLash;
+use Flash;
 use Lang;
 use Searchy;
 use App\Models\Signed;
@@ -58,10 +58,12 @@ class PageController extends Controller
     public function postSign(Request $request)
     {
         // Get user.
-        $user = Auth::user();
-        $signed = Signed::where('user', $user->id)->orderBy('time', 'desc')->first();
+        $user = User::find(Auth::user()->id);
+        $signed = Signed::where('user', $user->id)->orderBy('signed_at', 'desc')->first();
+        $continuous = 0;
         if ($signed) {
-            if ($signed->time->isToday()) {
+            $continuous = $signed->continuous;
+            if (Carbon::createFromFormat('Y-m-d H:i:s', $signed->signed_at)->isToday()) {
                 Flash::error('You have already signed at today!');
                 return back();
             }
@@ -71,8 +73,8 @@ class PageController extends Controller
         $points = random_int(1, 10);
         $signed->user = $user->id;
         $signed->points = $points;
-        $signed->time = Carbon::now();
-        $signed->continuous += 1;
+        $signed->signed_at = Carbon::now();
+        $signed->continuous = $continuous + 1;
         $signed->save();
         // Update user points
         if ($signed->continuous % 10 == 0) {

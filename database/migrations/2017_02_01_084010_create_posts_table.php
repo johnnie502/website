@@ -11,6 +11,7 @@ class CreatePostsTable extends Migration
                 $table->increments('id');
                 $table->integer('user')->unsigned()->default(0)->index();
                 $table->integer('post')->unsigned()->default(0)->index();
+                $table->integer('topic')->unsigned()->default(0);
                 $table->longText('content');
                 $table->integer('type')->unsigned()->default(0)->index();
                 $table->integer('status')->default(0)->index();
@@ -18,9 +19,9 @@ class CreatePostsTable extends Migration
                 $table->integer('favicons')->unsigned()->default(0);
                 $table->integer('upvotes')->unsigned()->default(0);
                 $table->integer('downvotes')->unsigned()->default(0);
-                $table->datetime('moderated_at')->nullable();
+                $table->timestampTz('moderated_at')->nullable();
                 $table->integer('moderated_by')->nullable();
-                $table->timestamps();
+                $table->timestampsTz();;
                 $table->softDeletes();
             });
 	}

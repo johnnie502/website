@@ -12,10 +12,10 @@ class UserRequest extends Request
             {
                 return [
                     // CREATE ROLES
-                    'username' => 'bail|required|min:3|max:20|unique:users',
+                    'username' => 'bail|required|min:3|max:20|unique:users|not_in:admin,administrator',
                     'email' => 'sometimes|bail|required|email|min:5|max:30|unique:users',
                     'password' => 'bail|required|min:8|max:50|case_diff|numbers|letters|confirmed',
-                    'g-recaptcha-response' => 'sometimes|bail|required|recaptcha',
+                    //'g-recaptcha-response' => 'sometimes|bail|required|recaptcha',
                 ];
             }
             case 'PUT':
@@ -23,7 +23,7 @@ class UserRequest extends Request
             {
                 return [
                     // UPDATE ROLES
-                    'username' => 'bail|required|min:3|max:20|unique:users',
+                    'username' => 'bail|required|min:3|max:20|unique:users|not_in:admin,administrator',
                     'email' => 'sometimes|bail|required|email|min:5|max:30|unique:users',
                     'password' => 'bail|required|min:8|max:50|case_diff|numbers|letters|confirmed',
                 ];

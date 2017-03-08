@@ -6,6 +6,7 @@ class Signed extends Model
 {
     protected $table = 'signed';
     protected $fillable = [];
+    public $timestamps = false;
 
     /* 
       * Get user assoc signed.

@@ -58,15 +58,16 @@ class PageController extends Controller
     public function postSign(Request $request)
     {
         // Get user.
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
         $signed = Signed::where('user', $user->id)->orderBy('signed_at', 'desc')->first();
-        $continuous = 0;
         if ($signed) {
-            $continuous = $signed->continuous;
             if (Carbon::createFromFormat('Y-m-d H:i:s', $signed->signed_at)->isToday()) {
                 Flash::error('You have already signed at today!');
                 return back();
-            }
+            } else if (Carbon::createFromFormat('Y-m-d H:i:s', $signed->signed_at)->isYesterday()) {
+                $user->signed += 1;
+        } else {
+            $user->signed = 1;
         }
         $signed = Signed::create();
         // Random points.
@@ -74,11 +75,10 @@ class PageController extends Controller
         $signed->user = $user->id;
         $signed->points = $points;
         $signed->signed_at = Carbon::now();
-        $signed->continuous = $continuous + 1;
         $signed->save();
         // Update user points
-        if ($signed->continuous % 10 == 0) {
-            $user->points += $signed->continuous;
+        if ($user->signed % 10 == 0) {
+            $user->points += $user->signed;
         }
         $user->points += $points;
         $user->save();

@@ -12,7 +12,6 @@ class CreateSignedTable extends Migration
                       $table->integer('user')->unsigned()->default(0)->index();
                       $table->integer('points')->unsigned()->default(0)->index();
                       $table->timestamp('signed_at');
-                      $table->integer('continuous')->unsigned()->default(0)->index();
                   });
 	}
 

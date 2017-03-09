@@ -7,16 +7,18 @@ class CreateSignedTable extends Migration
 {
 	public function up()
 	{
-                  Schema::create('signed', function(Blueprint $table) {
+                  Schema::create('points', function(Blueprint $table) {
                       $table->increments('id');
                       $table->integer('user')->unsigned()->default(0)->index();
+                      $table->integer('type')->unsigned()->default(0)->index();
                       $table->integer('points')->unsigned()->default(0)->index();
-                      $table->timestamp('signed_at');
+                      $table->integer('total_points')->unsigned()->default(0)->index();
+                      $table->timestamp('got_at');
                   });
 	}
 
 	public function down()
 	{
-		Schema::drop('comments');
+		Schema::drop('points');
 	}
 }

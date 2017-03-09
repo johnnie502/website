@@ -31,7 +31,7 @@ $(document).ready(function(){
                 	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ old('title', $wiki->title) }}" />
                 </div>
                 <div class="form-group">
-                    <label for="title-field">Categories</label>
+                    <label for="categories-field">Categories</label>
                     <input class="form-control" type="text" name="categories" id="categories" data-role="tagsinput" required placeholder="按Enter添加标签" value="{{ old('categories', $wiki->tagList) }}">
                 </div>
                 <div class="form-group">

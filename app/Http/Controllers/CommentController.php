@@ -6,6 +6,9 @@ use Auth;
 use Flash;
 use Lang;
 use App\Models\Comment;
+use App\Models\Point;
+use App\Models\Post;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
@@ -33,7 +36,7 @@ class CommentController extends Controller
 	{
 		// Get user id.
         $user = Auth::user();
-        if ($user->point < 1) {
+        if ($user->points < 1) {
             Flash::error('Your points are not enough');
             return back()->withInput();
         }

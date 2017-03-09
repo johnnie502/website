@@ -9,6 +9,7 @@ class Comment extends Model
 {
     use Traits\CommentOperation, Moderatable, SoftDeletes;
 
+    protected $table = 'comments';
     protected $dates = ['deleted_at'];
     protected $fillable = ['content'];
     protected $touches = ['post'];

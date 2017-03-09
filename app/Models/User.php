@@ -13,6 +13,7 @@ class User extends Model implements Authenticatable
 {
     use AuthenticableTrait, Traits\UserOperation, softDeletes, HasApiTokens, Notifiable, InviteTrait;
 
+    protected $table = 'users';
     protected $dates = ['deleted_at'];
     protected $fillable = ['username', 'email', 'password'];
 
@@ -41,9 +42,9 @@ class User extends Model implements Authenticatable
     }
 
     /* 
-      * Get user signed.
+      * Get user points.
       */
-    public function signed()
+    public function points()
     {
         return $this->hasMany('App\Models\Signed', 'user');
     }

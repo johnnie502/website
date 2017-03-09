@@ -9,6 +9,7 @@ class Post extends Model
 {
     use Traits\PostOperation, Moderatable, SoftDeletes;
 
+    protected $table = 'posts';
     protected $dates = ['deleted_at'];
     protected $fillable = ['content'];
     protected $touches = ['topics'];

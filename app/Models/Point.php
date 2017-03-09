@@ -4,7 +4,7 @@ namespace App\Models;
 
 class Signed extends Model
 {
-    protected $table = 'signed';
+    protected $table = 'points';
     protected $fillable = [];
     public $timestamps = false;
 

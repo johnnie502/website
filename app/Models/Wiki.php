@@ -10,6 +10,7 @@ class Wiki extends Model
 {
     use Traits\WikiOperation, Moderatable, SoftDeletes, Taggable;
 
+    protected $table = 'wikis';
     protected $dates = ['deleted_at'];
     protected $fillable = ['category', 'title', 'content', 'redirect'];
 

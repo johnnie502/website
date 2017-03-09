@@ -52,7 +52,10 @@ class PageController extends Controller
 
     public function sign()
     {
-        return view('sign');
+        // Get user.
+        $user = Auth::user();
+        $signed = Signed::where('user', $user->id)->orderBy('signed_at', 'desc')->get();
+        return view('sign', compact('signed'));
     }
 
     public function postSign(Request $request)
@@ -62,10 +65,13 @@ class PageController extends Controller
         $signed = Signed::where('user', $user->id)->orderBy('signed_at', 'desc')->first();
         if ($signed) {
             if (Carbon::createFromFormat('Y-m-d H:i:s', $signed->signed_at)->isToday()) {
-                Flash::error('You have already signed at today!');
-                return back();
+                //Flash::error('You have already signed at today!');
+                //return back();
             } else if (Carbon::createFromFormat('Y-m-d H:i:s', $signed->signed_at)->isYesterday()) {
                 $user->signed += 1;
+            } else {
+                $user->signed = 1;
+            }
         } else {
             $user->signed = 1;
         }
@@ -83,7 +89,7 @@ class PageController extends Controller
         $user->points += $points;
         $user->save();
         // Show messages.
-        Flash::success(Lang::get('global.register_successfully'));
-        return redirect()->intended();
+        Flash::success(Lang::get('global.operation_successfully'));
+        return redirect()->route('sign');
     }
 }

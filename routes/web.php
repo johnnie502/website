@@ -43,12 +43,12 @@ Route::resource('topics.posts.comments', 'CommentController', ['only' => ['index
 Route::resource('wikis.comments', 'CommentController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 # ------------------ Wiki ------------------------
+Route::get('wiki/{name}/history', 'WikiController@history')->name('wikis.history');
+Route::get('wikis.new.old', 'WikiController@diff')->name('wikis.diff');
 Route::resource('wiki', 'WikiController', [
     'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
     'parameters' => ['wiki' => 'title'],
 ]);
-Route::get('wiki/{name}/history', 'WikiController@history')->name('wikis.history');
-Route::get('wikis.new.old', 'WikiController@diff')->name('wikis.diff');
 
 # ------------------ Users ------------------------
 Route::get('users/{username}/home', 'UserController@home')->name('users.home');

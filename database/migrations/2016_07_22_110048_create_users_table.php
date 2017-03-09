@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->ipAddress('lastip')->nullable();
             $table->integer('topics')->unsigned()->default(0);
             $table->integer('replies')->unsigned()->default(0);
-            $table->integer('wiki')->unsigned()->default(0);
+            $table->integer('wikis')->unsigned()->default(0);
             $table->integer('signed')->unsigned()->default(0)->index();
             $table->integer('follers')->unsigned()->default(0);
             $table->integer('follwing')->unsigned()->default(0);

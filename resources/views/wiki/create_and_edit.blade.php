@@ -20,10 +20,10 @@ $(document).ready(function(){
         </div>
         <div class="panel-body">
             @if($wiki->id)
-                <form action="{{ route('wiki.update', $wiki->id) }}" method="wiki">
+                <form action="{{ route('wiki.update', $wiki->id) }}" method="POST">
                     <input type="hidden" name="_method" value="PUT">
             @else
-                <form action="{{ route('wiki.store') }}" method="wiki">
+                <form action="{{ route('wiki.store') }}" method="POST">
             @endif
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">

@@ -52,6 +52,7 @@ class TopicController extends Controller
             'title' => $request->input('title'),
         ]);
         $topic->user = $user->id;
+        $topic->node = $request->input('node');
         $topic->type = 1;
         $topic->status = 1;
         $topic->save();

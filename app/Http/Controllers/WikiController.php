@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Flash;
+use Lang;
 use App\Models\User;
 use App\Models\Wiki;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -39,7 +42,7 @@ class WikiController extends Controller
         $wiki = Wiki::createWithInput([
             'title' => $request->input('title'),
             'content' => $markdown,
-            'redirect' => $request->input('redirect'),
+            //'redirect' => $request->input('redirect'),
         ]);
         $wiki->user = $user->id;
         $wiki->type = 1;

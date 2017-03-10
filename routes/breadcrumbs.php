@@ -253,6 +253,14 @@ Breadcrumbs::register('users.profile', function($breadcrumbs, $user)
     }
 });
 
+Breadcrumbs::register('users.points', function($breadcrumbs, $user)
+{
+    if (isset($user->id)) {
+        $breadcrumbs->parent('users.index');
+        $breadcrumbs->push('查看用户:' . $user->username, route('users.points', $user));
+    }
+});
+
 Breadcrumbs::register('users.notifications', function($breadcrumbs, $user)
 {
     if (isset($user->id)) {

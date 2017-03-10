@@ -6,6 +6,7 @@ use Auth;
 use Flash;
 use Lang;
 use Notifynder; 
+use App\Models\Point;
 use App\Models\Post;
 use App\Models\Topic;
 use App\Models\User;
@@ -36,6 +37,7 @@ class PostController extends Controller
 
     public function store(PostRequest $request, Topic $topic)
     {
+        $this->authorize('create');
         // Get user id.
         $user = Auth::user();
         if ($user->points < 1) {
@@ -86,9 +88,16 @@ class PostController extends Controller
         $post->status = 1;
         $post->save();
         // User statics
-        $user->points -= 1;
+        $user->points -= 3;
         $user->replies += 1;
         $user->save();
+        // Update points.
+        $point->user = $user->id;
+        $point->type = 3;
+        $point->points = 3;
+        $point->total_points = $user->points;
+        $point->got_at = Carbon::now();
+        $point->save();
         // Send notification.
         if ($topic->users->id != $user->id) {
             // Reply notification.

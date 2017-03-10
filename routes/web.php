@@ -62,7 +62,8 @@ Route::get('users/{username}/following', 'UserController@following')->name('user
 Route::get('users/{username}/votes', 'UserController@votes')->name('users.votes');
 Route::get('users/{username}/favicons', 'UserController@favicons')->name('users.favicons');
 Route::get('users/{username}/profile', 'UserController@profile')->name('users.profile');
-Route::post('users/{username}/profile', 'UserController@update')->name('users.profile');
+Route::post('users/{username}/profile', 'UserController@profile');
+Route::post('users/{username}/points', 'UserController@points')->name('users.points');
 Route::get('users/{username}/notifications', 'UserController@notifications')->name('users.notifications');
 Route::resource('users', 'UserController', [
 	'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],

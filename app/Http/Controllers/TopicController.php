@@ -6,6 +6,7 @@ use Auth;
 use Flash;
 use Lang;
 use App\Models\Topic;
+use App\Models\Point;
 use App\Models\Post;
 use App\Models\Node;
 use App\Models\User;
@@ -37,13 +38,10 @@ class TopicController extends Controller
 
     public function store(TopicRequest $request)
     {
+        $this->authorize('create');
         // Get user id.
         $user = Auth::user();
-        if ($user->points < 2) {
-            Flash::error('Your points are not enough');
-            return back()->withInput();
-        }
-        // Convert HTML topic content to markdown.
+       // Convert HTML topic content to markdown.
         $converter = new HtmlConverter();
         $markdown = $converter->convert($request->input('content'));
         // Create topic and post.
@@ -65,9 +63,16 @@ class TopicController extends Controller
         $post->status = 1;
         $post->save();
         // User statics
-        $user->points -= 2;
+        $user->points -= 5;
         $user->topics += 1;
         $user->save();
+        // Update points.
+        $point->user = $user->id;
+        $point->type = 2;
+        $point->points = -5;
+        $point->total_points = $user->points;
+        $point->got_at = Carbon::now();
+        $point->save();
         // Add tag.
         $topic->tag($request->input('tags'));
         // Show message.

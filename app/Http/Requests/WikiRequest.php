@@ -12,6 +12,10 @@ class WikiRequest extends Request
             {
                 return [
                     // CREATE ROLES
+                    'title' => 'bail|required|min:3|max:20|unique:wikis',
+                    'categroies' => 'bail|required',
+                    'content' => 'bail|required|min:10',
+                    'redirect' => 'exists:wikis,title'
                 ];
             }
             case 'PUT':
@@ -19,6 +23,10 @@ class WikiRequest extends Request
             {
                 return [
                     // UPDATE ROLES
+                    'title' => 'bail|required|min:3|max:20|unique:wikis',
+                    'categroies' => 'bail|required',
+                    'content' => 'bail|required|min:10',
+                    'redirect' => 'exists:wikis,title'
                 ];
             }
             case 'GET':

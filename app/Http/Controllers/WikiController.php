@@ -33,6 +33,7 @@ class WikiController extends Controller
 
     public function store(WikiRequest $request)
     {
+        $this->authorize('create');
         // Get user id.
         $user = Auth::user();
         // Convert HTML topic content to markdown.
@@ -53,6 +54,13 @@ class WikiController extends Controller
         $user->points += 10;
         $user->wikis += 1;
         $user->save();
+        // Update points.
+        $point->user = $user->id;
+        $point->type = 4;
+        $point->points = 10;
+        $point->total_points = $user->points;
+        $point->got_at = Carbon::now();
+        $point->save();
         // Add tag.
         $wiki->tag($request->input('categories'));
         // Show message.
@@ -82,6 +90,11 @@ class WikiController extends Controller
     public function update(WikiRequest $request, Wiki $wiki)
     {
         $this->authorize('update', $wiki);
+        // Get user id.
+        $user = Auth::user();
+        // Convert HTML topic content to markdown.
+        $converter = new HtmlConverter();
+        $markdown = $converter->convert($request->input('content'));
         // NOT update the wiki! save a new version.
         $wiki = Wiki::createWithInput([
             'title' => $request->input('title'),
@@ -93,6 +106,16 @@ class WikiController extends Controller
         $wiki->status = 1;
         $wiki->version += 1;
         $wiki->save();
+        // User statics
+        $user->points += 5;
+        $user->save();
+        // Update points.
+        $point->user = $user->id;
+        $point->type = 5;
+        $point->points = 5;
+        $point->total_points = $user->points;
+        $point->got_at = Carbon::now();
+        $point->save();
         // Update tag.
         $wiki->retag($request->input('categories'));
         // Show messages.

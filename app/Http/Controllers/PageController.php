@@ -78,17 +78,19 @@ class PageController extends Controller
         $point= Point::create();
         // Random points.
         $get_point = random_int(1, 10);
-        $point->user = $user->id;
-        $point->type = 1;
-        $point->points = $get_point;
-        $point->got_at = Carbon::now();
-        $point->save();
         // Update user points
         if ($user->signed % 10 == 0) {
             $user->points += $user->signed;
         }
         $user->points += $get_point;
         $user->save();
+        // Update points.
+        $point->user = $user->id;
+        $point->type = 1;
+        $point->points = $get_point;
+        $point->total_points = $user->points;
+        $point->got_at = Carbon::now();
+        $point->save();
         // Show messages.
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('sign');

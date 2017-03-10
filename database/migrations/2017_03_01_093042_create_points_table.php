@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSignedTable extends Migration 
+class CreatePointsTable extends Migration 
 {
 	public function up()
 	{
@@ -11,7 +11,7 @@ class CreateSignedTable extends Migration
                       $table->increments('id');
                       $table->integer('user')->unsigned()->default(0)->index();
                       $table->integer('type')->unsigned()->default(0)->index();
-                      $table->integer('points')->unsigned()->default(0)->index();
+                      $table->integer('points')->default(0)->index();
                       $table->integer('total_points')->unsigned()->default(0)->index();
                       $table->timestamp('got_at');
                   });

@@ -16,6 +16,7 @@
         "caouecs/laravel-lang": "^3.0",
         "cviebrock/eloquent-taggable": "^2.1",
         "cybercog/laravel-ban": "^2.0",
+        "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "fenos/notifynder": "^4.1",
         "greggilbert/recaptcha": "dev-master",
         "hootlex/laravel-moderation": "^1.0",
@@ -33,7 +34,6 @@
         "stevenyangecho/laravel-u-editor": "^1.4",
         "tom-lingham/searchy": "^2.0",
         "vi-kon/laravel-diff": "^1.0",
-        "yajra/laravel-breadcrumbs": "^4.0",
         "zizaco/entrust": "^1.7"
     },
     "require-dev": {

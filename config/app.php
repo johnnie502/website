@@ -191,7 +191,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,  // Image
         Junaidnasir\Larainvite\LaraInviteServiceProvider::class,  // Invite register
         \Schuppo\PasswordStrength\PasswordStrengthServiceProvider::class,  // Password strength
-        Yajra\Breadcrumbs\ServiceProvider::class,  //Breadcrumbs
+        DaveJamesMiller\Breadcrumbs\ServiceProvider::class,  //Breadcrumbs
         TomLingham\Searchy\SearchyServiceProvider::class,  // Search
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,  // reCaptcha
         Fenos\Notifynder\NotifynderServiceProvider::class,  // Notifynder
@@ -257,7 +257,7 @@ return [
         'Markdown' => Indal\Markdown\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Invite' => Junaidnasir\Larainvite\Facades\Invite::class,
-        'Breadcrumbs' => Yajra\Breadcrumbs\Facade::class,
+        'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Searchy' => TomLingham\Searchy\Facades\Searchy::class,
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
         'Notifynder' => Fenos\Notifynder\Facades\Notifynder::class,

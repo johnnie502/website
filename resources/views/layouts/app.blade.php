@@ -135,8 +135,8 @@ ______                            _              _                              
                         </div>
                     @endif
                     <!-- Breadcrumbs -->
-                    @if (Route::currentRouteName())
-                        {!! Breadcrumbs::render() !!}
+                    @if (Breadcrumbs::exists(Route::currentRouteName()))
+                        {!! Breadcrumbs::renderIfExists() !!}
                     @endif
                     @yield('content')
                     <!-- SideBar -->

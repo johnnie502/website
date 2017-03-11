@@ -5,9 +5,8 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">403 - Forbidden</div>
-                    您没有权限进行此操作。
                 <div class="panel-body">
-                    Empty!
+                    @lang('global.403_forbidden')
                 </div>
             </div>
         </div>

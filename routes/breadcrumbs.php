@@ -92,22 +92,16 @@ Breadcrumbs::register('topics.edit', function($breadcrumbs, $topic)
 });
 
 # ------------------ Posts ------------------------
-Breadcrumbs::register('topics.posts.index', function($breadcrumbs)
-{
-    $breadcrumbs->parent('topics.index');
-    $breadcrumbs->push(Lang::get('global.posts'), route('topics.posts.index'));
-});
-
 Breadcrumbs::register('topics.posts.create', function($breadcrumbs)
 {
-    $breadcrumbs->parent('topics.posts.index');
+    $breadcrumbs->parent('topics.index');
     $breadcrumbs->push('发表回复', route('topics.posts.create'));
 });
 
 Breadcrumbs::register('topics.posts.show', function($breadcrumbs, $topic, $post)
 {
     if (isset($topic->id)) {
-        $breadcrumbs->parent('topics.posts.index');
+        $breadcrumbs->parent('topics.index');
         $breadcrumbs->push('查看主题: ' . $topic->title, route('topics.posts..show', $topic->id, $post->id));
     }
 });
@@ -115,7 +109,7 @@ Breadcrumbs::register('topics.posts.show', function($breadcrumbs, $topic, $post)
 Breadcrumbs::register('topics.posts.edit', function($breadcrumbs, $topic)
 {
     if (isset($topic->id)) {
-        $breadcrumbs->parent('topics.posts.index');
+        $breadcrumbs->parent('topics.index');
         $breadcrumbs->push('编辑回复: ' . $topic->title, route('topics.posts.edit', $topic, $post));
     }
 });

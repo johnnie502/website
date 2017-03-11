@@ -22,12 +22,6 @@ class CommentController extends Controller
         $this->middleware('admin', ['only' => 'destory']);
     }
 
-    public function index()
-    {
-        $comments = Comment::paginate();
-        return view('comments.index', compact('comments'));
-    }
-
     public function create(Comment $comment)
     {
         return view('comments.create_and_edit', compact('comment'));

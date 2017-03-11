@@ -24,15 +24,9 @@ class PostController extends Controller
         $this->middleware('admin', ['only' => 'destory']);
     }
 
-    public function index(Topic $topics)
-    {
-        $posts = Post::paginate(20);
-        return view('posts.index', compact('topics', 'posts'));
-    }
-
     public function create(Topic $topic, Post $post)
     {
-        return view('posts.create_and_edit', compact('topic', 'post'));
+        return view('topics.create_and_edit', compact('topic', 'post'));
     }
 
     public function store(PostRequest $request, Topic $topic)
@@ -112,21 +106,26 @@ class PostController extends Controller
         }
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('topics.index');
+        return redirect()->route('topics.show', $topic->id);
     }
 
     public function show(Topic $topic, Post $post)
     {
-        $posts = Post::where('topic', $topic->id)
-            ->where('post', 0)
-            ->where('post', $post->id)
-            ->get();
+        if ($post->id > 0) {
+            $posts = Post::where('topic', $topic->id)
+                ->whereIn('post', [0, $post->id])
+                ->firstOrFail();
+        } else {
+            $posts = Post::where('topic', $topic->id)
+                ->where('post', 0)
+                ->firstOrFail();
+        }
         return view('topics.show', compact('topic', 'posts'));
     }
 
     public function edit(Topic $topic, Post $post)
     {
-        return view('posts.create_and_edit', compact('topic', 'post'));
+        return view('topics.create_and_edit', compact('topic', 'post'));
     }
 
     public function update(PostRequest $request, Topic $topic, Post $post)
@@ -161,6 +160,6 @@ class PostController extends Controller
         $user->save();
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('topics.index');
+        return redirect()->route('topics.show', $topic->id);
     }
 }

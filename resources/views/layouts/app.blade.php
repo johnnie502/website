@@ -69,9 +69,9 @@ ______                            _              _                              
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ url('/topics') }}">@lang('global.topics')</a></li>
-                        <li><a href="{{ url('/wiki') }}">@lang('global.wiki')</a></li>
-                        <li><a href="{{ url('/about') }}">@lang('global.about')</a></li>
+                        <li><a href="{{ route('topics.index') }}">@lang('global.topics')</a></li>
+                        <li><a href="{{ route('wiki.index') }}">@lang('global.wiki')</a></li>
+                        <li><a href="{{ route('about') }}">@lang('global.about')</a></li>
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -87,6 +87,7 @@ ______                            _              _                              
                             <li><a href="{{ url('/register') }}">@lang('global.register')</a></li>
                         @else
                             <img alt="avatar" src="/avatars/{{ $account->id }}.png" width="32" height="32" />
+                            <span class="badge">{{ $account->notifications }}</span>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ $account->username }} <span class="caret"></span>
@@ -117,7 +118,7 @@ ______                            _              _                              
                 @lang('global.user_banned')
             </div>
             @else
-                @if (Auth::check() && $account->status >= 0)
+                @if (Auth::check() && $account->status == 0)
                     <div class="alert alert-warning">
                         @lang('global.confirm_email_request')
                     </div>

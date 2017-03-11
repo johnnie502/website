@@ -20,7 +20,9 @@
                                 <input id="password" type="password" class="form-control" name="password" required placeholder="8~50个字符，要求包含大小写字母和数字">
                             </div>
                         </div>
+                        @if (\App::environment() === 'production')
                         {!! Recaptcha::render() !!}
+                        @endif
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <div class="checkbox">

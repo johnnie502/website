@@ -71,7 +71,7 @@ class LoginController extends Controller
         $this->validate($request, [
             'username' => 'bail|required|min:5|max:30',
             'password' => 'bail|required|min:8|max:50|case_diff|numbers|letters',
-            //'g-recaptcha-response' => 'sometimes|bail|required|recaptcha',
+            'g-recaptcha-response' => 'sometimes|bail|required|recaptcha',
         ]);
         // Determine whether is email or username login.
         $type = filter_var($username, FILTER_VALIDATE_EMAIL ) ? 'email' : 'username';

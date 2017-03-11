@@ -7,14 +7,21 @@ use App\Models\Topic;
 
 class TopicPolicy extends Policy
 {
+    public function before(User $user)
+    {
+        if ($user->status > 0) {
+            return true;
+        }
+    }
+
     public function create(User $user)
     {
-        return $user->status > 0;
+        return true;
     }
 
     public function update(User $user, Topic $topic)
     {
-        return $user->status > 0 && ($topic->user == $user->id or $user->type >= 3);
+        return $topic->user == $user->id or $user->type >= 3;
     }
 
     public function destroy(User $user, Topic $topic)

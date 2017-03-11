@@ -7,6 +7,13 @@ use App\Models\Node;
 
 class NodePolicy extends Policy
 {
+    public function before($user, $ability)
+    {
+        if ($user->status > 0) {
+            return true;
+        }
+    }
+
     public function create(User $user)
     {
         return $user->type >= 4;

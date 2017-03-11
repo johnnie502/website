@@ -29,11 +29,15 @@ class NodeController extends Controller
 
     public function store(NodeRequest $request)
     {
-        // Create node.
-        Node::createWithInput($request->all());
-        // Show message.
-        Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('nodes.index');
+        // Get user id.
+        $user = Auth::user();
+        if ($user->can('create')) {
+             // Create node.
+            Node::createWithInput($request->all());
+            // Show message.
+            Flash::success(Lang::get('global.operation_successfully'));
+            return redirect()->route('nodes.index');
+        }
     }
 
     public function show(Node $node)
@@ -48,24 +52,30 @@ class NodeController extends Controller
 
     public function update(NodeRequest $request, Node $node)
     {
-        $this->authorize('update', $node);
-        // Update node.
-        $node->updateWithInput($request->all());
-        // Show messgae.
-        Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('nodes.index');
+        // Get user id.
+        $user = Auth::user();
+        if ($user->can('update', $node)) {
+             // Update node.
+            $node->updateWithInput($request->all());
+            // Show messgae.
+            Flash::success(Lang::get('global.operation_successfully'));
+            return redirect()->route('nodes.index');
+        }
     }
 
     public function destroy(Node $node)
     {
-        $this->authorize('destroy', $node);
-        // Set status = -1 is deleted.
-        $node->status = -1;
-        $node->save();
-        // Soft delete.
-        $node->delete();
-        // Show message.
-        Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('nodes.index');
+        // Get user id.
+        $user = Auth::user();
+        if ($user->can('destroy', $node)) {
+             // Set status = -1 is deleted.
+            $node->status = -1;
+            $node->save();
+            // Soft delete.
+            $node->delete();
+            // Show message.
+            Flash::success(Lang::get('global.operation_successfully'));
+            return redirect()->route('nodes.index');
+        }
     }
 }

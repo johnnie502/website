@@ -28,7 +28,6 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
 		 Comment::class => CommentPolicy::class,
 		 Wiki::class => WikiPolicy::class,
-		 File::class => FilePolicy::class,
 		 Node::class => NodePolicy::class,
 		 Post::class => PostPolicy::class,
 		 User::class => UserPolicy::class,

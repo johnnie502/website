@@ -38,46 +38,49 @@ class TopicController extends Controller
 
     public function store(TopicRequest $request)
     {
-        $this->authorize('create');
-        // Get user id.
+         // Get user id.
         $user = Auth::user();
-       // Convert HTML topic content to markdown.
-        $converter = new HtmlConverter();
-        $markdown = $converter->convert($request->input('content'));
-        // Create topic and post.
-        $topic = Topic::createWithInput([
-            'node' => $request->input('node'),
-            'title' => $request->input('title'),
-        ]);
-        $topic->user = $user->id;
-        $topic->node = $request->input('node');
-        $topic->type = 1;
-        $topic->status = 1;
-        $topic->save();
-        $post = Post::createWithInput([
-            'content' => $markdown,
-        ]);
-        $post->user = $user->id;
-        $post->topic = $topic->id;
-        $post->type = 1;
-        $post->status = 1;
-        $post->save();
-        // User statics
-        $user->points -= 5;
-        $user->topics += 1;
-        $user->save();
-        // Update points.
-        $point->user = $user->id;
-        $point->type = 2;
-        $point->points = -5;
-        $point->total_points = $user->points;
-        $point->got_at = Carbon::now();
-        $point->save();
-        // Add tag.
-        $topic->tag($request->input('tags'));
-        // Show message.
-        Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('topics.index');
+        if ($user->can('create')) {
+           // Get user id.
+            $user = Auth::user();
+           // Convert HTML topic content to markdown.
+            $converter = new HtmlConverter();
+            $markdown = $converter->convert($request->input('content'));
+            // Create topic and post.
+            $topic = Topic::createWithInput([
+                'node' => $request->input('node'),
+                'title' => $request->input('title'),
+            ]);
+            $topic->user = $user->id;
+            $topic->node = $request->input('node');
+            $topic->type = 1;
+            $topic->status = 1;
+            $topic->save();
+            $post = Post::createWithInput([
+                'content' => $markdown,
+            ]);
+            $post->user = $user->id;
+            $post->topic = $topic->id;
+            $post->type = 1;
+            $post->status = 1;
+            $post->save();
+            // User statics
+            $user->points -= 5;
+            $user->topics += 1;
+            $user->save();
+            // Update points.
+            $point->user = $user->id;
+            $point->type = 2;
+            $point->points = -5;
+            $point->total_points = $user->points;
+            $point->got_at = Carbon::now();
+            $point->save();
+            // Add tag.
+            $topic->tag($request->input('tags'));
+            // Show message.
+            Flash::success(Lang::get('global.operation_successfully'));
+            return redirect()->route('topics.index');
+        }
     }
 
     public function show(Topic $topic)
@@ -111,44 +114,49 @@ class TopicController extends Controller
 
     public function update(TopicRequest $request, Topic $topic)
     {
-        $this->authorize('update', $topic);
-        // Convert HTML topic content to markdown.
-        $converter = new HtmlConverter();
-        $markdown = $converter->convert($request->input('content'));
-        // Update topic.
-        $topic->updateWithInput([
-            'title' => $request->input('title'),
-        ]);
-        // Update post.
-        $post = $topic->posts->first();
-        $post->update([
-            'content' => $markdown,
-        ]);
-        // Update tags.
-        $topic->retag($request->input('tags'));
-        // Show messgae.
-        Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('topics.show', $topic->id);
+         // Get user id.
+        $user = Auth::user();
+        if ($user->can('update', $topic)) {
+           // Convert HTML topic content to markdown.
+            $converter = new HtmlConverter();
+            $markdown = $converter->convert($request->input('content'));
+            // Update topic.
+            $topic->updateWithInput([
+                'title' => $request->input('title'),
+            ]);
+            // Update post.
+            $post = $topic->posts->first();
+            $post->update([
+                'content' => $markdown,
+            ]);
+            // Update tags.
+            $topic->retag($request->input('tags'));
+            // Show messgae.
+            Flash::success(Lang::get('global.operation_successfully'));
+            return redirect()->route('topics.show', $topic->id);
+        }
     }
 
     public function destroy(Topic $topic)
     {
-        $this->authorize('destroy', $topic);
-        // Set status = -1 to delete.
-        $topic->status = -1;
-        $topic->save();
-        // Soft delete.
-        $topic->delete();
-        // User statics.
-        $user =  User::find($topic->user);
-        $user->topics -= 1;
-        $user->save();
-        // Get node from topic's node id.
-        $node = Node::find($topic->node);
-        $node->topics -= 1;
-        $node->save();
-        // Show message.
-        Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('topics.index');
+         // Get user id.
+        $user = Auth::user();
+        if ($user->can('destroy', $topic)) {
+           // Set status = -1 to delete.
+            $topic->status = -1;
+            $topic->save();
+            // Soft delete.
+            $topic->delete();
+            // User statics.
+            $user->topics -= 1;
+            $user->save();
+            // Get node from topic's node id.
+            $node = Node::find($topic->node);
+            $node->topics -= 1;
+            $node->save();
+            // Show message.
+            Flash::success(Lang::get('global.operation_successfully'));
+            return redirect()->route('topics.index');
+        }
     }
 }

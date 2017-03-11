@@ -7,14 +7,21 @@ use App\Models\Comment;
 
 class CommentPolicy extends Policy
 {
+    public function before(User $user)
+    {
+        if ($user->status > 0) {
+            return true;
+        }
+    }
+
     public function create(User $user)
     {
-        return $user->status > 0;
+        return true;
     }
 
     public function update(User $user, Comment $comment)
     {
-        return $user->status > 0 && ($comment->user == $user->id or $user->type >= 3);
+        return $comment->user == $user->id or $user->type >= 3;
     }
 
     public function destroy(User $user, Comment $comment)

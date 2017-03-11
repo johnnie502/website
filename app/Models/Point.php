@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Signed extends Model
+class Point extends Model
 {
     protected $table = 'points';
     protected $fillable = [];

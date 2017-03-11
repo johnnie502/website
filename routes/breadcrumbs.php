@@ -102,7 +102,7 @@ Breadcrumbs::register('topics.posts.show', function($breadcrumbs, $topic, $post)
 {
     if (isset($topic->id)) {
         $breadcrumbs->parent('topics.index');
-        $breadcrumbs->push('查看主题: ' . $topic->title, route('topics.posts..show', $topic->id, $post->id));
+        $breadcrumbs->push('查看主题: ' . $topic->title, route('topics.posts.show', $topic->id, $post->id));
     }
 });
 

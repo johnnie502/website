@@ -68,17 +68,19 @@ class WikiController extends Controller
         return redirect()->route('wiki.index');
     }
 
-    public function show(Wiki $wiki, $redirect = 0)
+    public function show(Wiki $wiki)
     {
-        // Get wiki via name.
-        $wiki = Wiki::where('name', $wiki->name)->orderBy('version', 'desc')->firstOrFail();
+        // Get wiki via title.
+        $wiki = Wiki::where('title', $wiki->title)->orderBy('version', 'desc')->firstOrFail();
         // Rediect
-        if ($redirect > 0) {
-        	    $wiki = Wiki::where('name', $wiki->name)
+        if ($wiki->redirect > 0) {
+        	    $wiki = Wiki::where('title', $wiki->title)
         	    	->where('redirect', $redirect)
         	    	->firstOrFail();
-        	    return redirect()->route('wiki.show', $wiki->name);
+        	    return redirect()->route('wiki.show', $wiki->title);
         	}
+        // Table of Contents.
+        
         return view('wiki.show', compact('wiki'));
     }
 
@@ -120,13 +122,13 @@ class WikiController extends Controller
         $wiki->retag($request->input('categories'));
         // Show messages.
         Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('wiki.show', $wiki->name);
+        return redirect()->route('wiki.show', $wiki->title);
     }
 
     public function destroy(Wiki $wiki)
     {
         $this->authorize('destroy', $wiki);
-        $wiki = Wiki::where('name', $wiki)->get();
+        $wiki = Wiki::where('title', $wiki->title)->get();
         // Set status = -1 to delete.
         $wiki->status = -1;
         $wiki->save();
@@ -140,19 +142,19 @@ class WikiController extends Controller
         return redirect()->route('wiki.index');
     }
 
-    public function history($name)
+    public function history($title)
     {
-        // Get wiki via name.
-        $wiki = Wiki::where('name', $name)->orderBy('version', 'desc')->get();
+        // Get wiki via title.
+        $wiki = Wiki::where('title', $title)->orderBy('version', 'desc')->get();
         return view('wiki.history', compact('wiki'));
     }
 
     public function diff(Wiki $wiki, $new, $old)
     {
-    	$newContent = Wiki::where('name', $wiki)
+    	$newContent = Wiki::where('title', $wiki)
     		->where('version', $new)
     		->firstOrFail();
-    	$oldContent = Wiki::where('name', $wiki)
+    	$oldContent = Wiki::where('title', $wiki)
     		->where('version', $old)
     		->firstOrFail();
     	$diff = Diff::compare($oldContent, $newContent);

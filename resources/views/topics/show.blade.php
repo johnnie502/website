@@ -44,7 +44,7 @@
                 <ul class="list-group"> 
                     <a href={{ route('topics.posts.show', [$topic, $post]) }}>#{{ $post->post }}</a><li class="list-group-item"> {{ $post->content }}</li>
                 </ul>
-                <a href="{{ route('topics.posts.show', $topic) }}">查看全部帖子</a>
+                <a href="{{ route('topics.show', $topic) }}">查看全部帖子</a>
             @endif
         @endif
         <!-- reply editor -->

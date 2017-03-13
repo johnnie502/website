@@ -13,9 +13,9 @@
                         @endforeach
                     </div>
                     <div class="col-md-6">
-                        @if (Auth::check() && ($topic->user == $account->id or $account->type >= 3))
+                        @can('update', $topic)
                              <a class="pull-right" href="{{ route('topics.edit', $topic->id) }}">Edit</a>
-                        @endif
+                        @endcan
                         <span class="pull-right">{{ $topic->created_at->diffForHumans() }}</span>
                     </div>
             </div>

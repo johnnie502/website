@@ -135,7 +135,7 @@ class WikiController extends Controller
     {
          // Get user id.
         $user = Auth::user();
-        if ($user->can('destroy', $wiki)) {
+        if ($user->can('delete', $wiki)) {
            $wiki = Wiki::where('title', $wiki->title)->get();
             // Set status = -1 to delete.
             $wiki->status = -1;

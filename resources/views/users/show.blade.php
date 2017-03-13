@@ -25,6 +25,7 @@
                    <li class="{{ Route::currentRouteName() == 'users.votes' ? 'active' : '' }}"><a href="{{ route('users.votes', $user->username) }}">@lang('global.votes')</a></li>
                    <li class="{{ Route::currentRouteName() == 'users.favicons' ? 'active' : '' }}"><a href="{{ route('users.favicons', $user->username) }}">@lang('global.favicons')</a></li>
                    @if (Auth::check() && $account->id == $user->id)
+                   <li class="{{ Route::currentRouteName() == 'users.points' ? 'active' : '' }}"><a href="{{ route('users.points', $user->username) }}">@lang('global.points')</a></li>
                    <li class="{{ Route::currentRouteName() == 'users.notifications' ? 'active' : '' }}"><a href="{{ route('users.notifications', $user->username) }}">@lang('global.notifications')</a></li>
                    @endif
             </ul>
@@ -41,8 +42,8 @@
                             <a href="{{ route('topics.show', $topic->id) }}">{{ $topic->title }}</a><br>
                             <div>
                                 <a href="{{ route('nodes.show', $topic->nodes->slug) }}">{{ $topic->nodes->name }}</a>&nbsp;•&nbsp;
-                            @if (isset($topic->replytime ))
-                                {{ $topic->replytime->diffForHumans() }}&nbsp;•&nbsp;
+                            @if (isset($topic->replied_at ))
+                                {{ $topic->replied_at->diffForHumans() }}&nbsp;•&nbsp;
                                 @lang('global.last_reply')
                             @else
                                 {{ $topic->created_at->diffForHumans() }}

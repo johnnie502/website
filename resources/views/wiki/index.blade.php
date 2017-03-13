@@ -5,6 +5,9 @@
         <div class="panel-heading">
         </div>
         <div class="panel-body">
+            @can('create')
+                <a class="pull-right" href="{{ route('wiki.create') }}">@lang('global.create_wiki')</a> 
+            @endcan
             @if($wikis->count())
                 <table class="table table-condensed table-striped">
                     <tbody>

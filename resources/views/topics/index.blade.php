@@ -6,6 +6,9 @@
             <div class="pull-left panel-title">@lang('global.topics')</div>
         </div>
         <div class="panel-body remove-padding-horizontal">
+            @can('create')
+                <a class="pull-right" href="{{ route('topics.create') }}">@lang('global.create_topic')</a> 
+            @endcan
             @if($topics->count())
                 <ul class="list-group">
                     @foreach($topics as $topic)

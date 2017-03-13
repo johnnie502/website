@@ -141,7 +141,7 @@ class TopicController extends Controller
     {
          // Get user id.
         $user = Auth::user();
-        if ($user->can('destroy', $topic)) {
+        if ($user->can('delete', $topic)) {
            // Set status = -1 to delete.
             $topic->status = -1;
             $topic->save();

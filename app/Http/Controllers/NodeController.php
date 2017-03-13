@@ -67,7 +67,7 @@ class NodeController extends Controller
     {
         // Get user id.
         $user = Auth::user();
-        if ($user->can('destroy', $node)) {
+        if ($user->can('delete', $node)) {
              // Set status = -1 is deleted.
             $node->status = -1;
             $node->save();

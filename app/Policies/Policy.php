@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\user;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class Policy
@@ -13,10 +14,8 @@ class Policy
         //
     }
 
-    public function before($user, $ability)
+    public function before(User $user, $ability)
 	{
-	    // if ($user->isSuperAdmin()) {
-	    // 		return true;
-	    // }
+	    //
 	}
 }

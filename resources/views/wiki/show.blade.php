@@ -12,11 +12,9 @@
                         <a href="{{ route('wikis.categories', $category->name) }}">{{ $category->name }}</a>
                     @endforeach
                 </div>
-                <div class="col-md-6">
-                     <a class="btn btn-sm btn-warning pull-right" href="{{ route('topics.edit', $wiki->id) }}">
-                        <i class="glyphicon glyphicon-edit"></i> Edit
-                    </a>
-                </div>
+                @can('update', $wiki)
+                    <a class="pull-right" href="{{ route('wiki.edit', $wiki->id) }}">Edit</a>
+                @endcan
             </div>
 	@markdown($wiki->content)
         </div>

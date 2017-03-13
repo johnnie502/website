@@ -91,7 +91,7 @@ class CommentController extends Controller
     {
          // Get user id.
         $user = Auth::user();
-        if ($user->can('destroy', $comment)) {
+        if ($user->can('delete', $comment)) {
             $comment->delete();
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('comments.index');

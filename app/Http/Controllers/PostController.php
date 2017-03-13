@@ -151,7 +151,7 @@ class PostController extends Controller
     {
          // Get user id.
         $user = Auth::user();
-        if ($user->can('destroy', $post)) {
+        if ($user->can('delete', $post)) {
            // Set status = -1 to delete.
             $post->status = -1;
             $post->save();

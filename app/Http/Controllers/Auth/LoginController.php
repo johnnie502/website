@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App;
 use Auth;
 use Flash;
 use Lang;
@@ -47,7 +48,9 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
-        $this->middleware('throttle:5,30');
+        if (App::environment() === 'production') {
+            $this->middleware('throttle:5,30');
+        }
     }
 
     /**

@@ -6,12 +6,11 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Junaidnasir\Larainvite\InviteTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model implements Authenticatable
+class User extends Authenticatable
 {
-    use AuthenticableTrait, Traits\UserOperation, softDeletes, HasApiTokens, Notifiable, InviteTrait;
+    use Traits\UserOperation, softDeletes, HasApiTokens, Notifiable, InviteTrait;
 
     protected $table = 'users';
     protected $dates = ['deleted_at'];
@@ -46,6 +45,6 @@ class User extends Model implements Authenticatable
       */
     public function points()
     {
-        return $this->hasMany('App\Models\Signed', 'user');
+        return $this->hasMany('App\Models\Point', 'user');
     }
 }

@@ -6,6 +6,7 @@ use Flash;
 use Lang;
 use App\Models\Node;
 use Illuminate\Http\Request;
+use Illuminate\Http\response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NodeRequest;
 
@@ -37,6 +38,8 @@ class NodeController extends Controller
             // Show message.
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('nodes.index');
+        } else {
+            return response('You don\'t have permission to access this page.', 403);
         }
     }
 
@@ -60,6 +63,8 @@ class NodeController extends Controller
             // Show messgae.
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('nodes.index');
+        } else {
+            return response('You don\'t have permission to access this page.', 403);
         }
     }
 
@@ -76,6 +81,8 @@ class NodeController extends Controller
             // Show message.
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('nodes.index');
+        } else {
+            return response('You don\'t have permission to access this page.', 403);
         }
     }
 }

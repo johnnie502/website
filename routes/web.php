@@ -51,6 +51,10 @@ Route::get('wiki/{name}/history', 'WikiController@history')->name('wikis.history
 Route::get('wikis.new.old', 'WikiController@diff')->name('wikis.diff');
 
 # ------------------ Users ------------------------
+Route::resource('users', 'UserController', [
+    'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
+    'parameters' => ['users' => 'username'],
+]);
 Route::get('users/{username}/home', 'UserController@home')->name('users.home');
 Route::get('users/{username}/topics', 'UserController@topics')->name('users.topics');
 Route::get('users/{username}/replies', 'UserController@replies')->name('users.replies');
@@ -65,10 +69,6 @@ Route::get('users/{username}/profile', 'UserController@profile')->name('users.pr
 Route::post('users/{username}/profile', 'UserController@profile');
 Route::post('users/{username}/points', 'UserController@points')->name('users.points');
 Route::get('users/{username}/notifications', 'UserController@notifications')->name('users.notifications');
-Route::resource('users', 'UserController', [
-	'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
-	'parameters' => ['users' => 'username'],
-]);
 
 //Fix ueditor server
 Route::any('/laravel-ueditor/server', '\Stevenyangecho\UEditor\Controller@server');

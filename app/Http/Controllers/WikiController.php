@@ -10,6 +10,7 @@ use App\Models\Wiki;
 use League\HTMLToMarkdown\HtmlConverter;
 use ViKon\Diff\Diff;
 use Illuminate\Http\Request;
+use Illuminate\Http\response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WikiRequest;
 
@@ -68,19 +69,21 @@ class WikiController extends Controller
             // Show message.
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('wiki.index');
+        } else {
+            return response('You don\'t have permission to access this page.', 403);
         }
     }
 
     public function show(Wiki $wiki)
     {
         // Get wiki via title.
-        $wiki = Wiki::where('title', $wiki->title)->orderBy('version', 'desc')->firstOrFail();
+        $wiki = Wiki::where('title', $wiki->first()->title)->orderBy('version', 'desc')->firstOrFail();
         // Rediect
         if ($wiki->redirect > 0) {
-        	    $wiki = Wiki::where('title', $wiki->title)
+        	    $wiki = Wiki::where('title', $wiki->first()->title)
         	    	->where('redirect', $redirect)
         	    	->firstOrFail();
-        	    return redirect()->route('wiki.show', $wiki->title);
+        	    return redirect()->route('wiki.show', $wiki->first()->title);
         	}
         // Table of Contents.
         
@@ -128,6 +131,8 @@ class WikiController extends Controller
             // Show messages.
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('wiki.show', $wiki->title);
+        } else {
+            return response('You don\'t have permission to access this page.', 403);
         }
     }
 
@@ -148,6 +153,8 @@ class WikiController extends Controller
             $user->save();
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('wiki.index');
+        } else {
+            return response('You don\'t have permission to access this page.', 403);
         }
     }
 
@@ -160,10 +167,10 @@ class WikiController extends Controller
 
     public function diff(Wiki $wiki, $new, $old)
     {
-    	$newContent = Wiki::where('title', $wiki)
+    	$newContent = Wiki::where('title', $wiki->first()->title)
     		->where('version', $new)
     		->firstOrFail();
-    	$oldContent = Wiki::where('title', $wiki)
+    	$oldContent = Wiki::where('title', $wiki->first()->title)
     		->where('version', $old)
     		->firstOrFail();
     	$diff = Diff::compare($oldContent, $newContent);

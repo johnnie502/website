@@ -11,6 +11,7 @@ use App\Models\Post;
 use App\Models\Topic;
 use League\HTMLToMarkdown\HtmlConverter;
 use Illuminate\Http\Request;
+use Illuminate\Http\response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
 
@@ -56,6 +57,8 @@ class CommentController extends Controller
             $point->save();
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('comments.index');
+        } else {
+            return response('You don\'t have permission to access this page.', 403);
         }
     }
 
@@ -84,6 +87,8 @@ class CommentController extends Controller
             ]);
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('comments.index');
+        } else {
+            return response('You don\'t have permission to access this page.', 403);
         }
     }
 
@@ -95,6 +100,8 @@ class CommentController extends Controller
             $comment->delete();
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('comments.index');
+        } else {
+            return response('You don\'t have permission to access this page.', 403);
         }
     }
 }

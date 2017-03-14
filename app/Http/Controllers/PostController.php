@@ -13,6 +13,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use League\HTMLToMarkdown\HtmlConverter;
 use Illuminate\Http\Request;
+use Illuminate\Http\response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 
@@ -107,6 +108,8 @@ class PostController extends Controller
             // Show message.
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('topics.show', $topic->id);
+        } else {
+            return response('You don\'t have permission to access this page.', 403);
         }
     }
 
@@ -144,6 +147,8 @@ class PostController extends Controller
             // Show message.
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('topics.show', $topic->id);
+        } else {
+            return response('You don\'t have permission to access this page.', 403);
         }
     }
 
@@ -166,6 +171,8 @@ class PostController extends Controller
             // Show message.
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('topics.show', $topic->id);
+        } else {
+            return response('You don\'t have permission to access this page.', 403);
         }
     }
 }

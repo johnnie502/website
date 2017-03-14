@@ -11,6 +11,7 @@ use Md\MDAvatars;
 use Intervention\Image\ImageManager;
 use \Intervention\Image\AbstractFont as Font;
 use Illuminate\Http\Request;
+use Illuminate\Http\response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 

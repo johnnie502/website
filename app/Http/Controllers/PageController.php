@@ -80,15 +80,15 @@ class PageController extends Controller
         $get_point = random_int(1, 10);
         // Update user points
         if ($user->signed % 10 == 0) {
-            $user->points += $user->signed;
+            $user->point += $user->signed;
         }
-        $user->points += $get_point;
+        $user->point += $get_point;
         $user->save();
         // Update points.
         $point->user = $user->id;
         $point->type = 1;
-        $point->points = $get_point;
-        $point->total_points = $user->points;
+        $point->point = $get_point;
+        $point->total_points = $user->point;
         $point->got_at = Carbon::now();
         $point->save();
         // Show messages.

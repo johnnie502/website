@@ -54,7 +54,7 @@ class UserController extends Controller
         // Set trusted IP.
         $request->setTrustedProxies(['127.0.0.1']);
         $user->type = 1;
-        $user->points = 20;
+        $user->point = 20;
         $user->regip = $request->getClientIp();
         $user->save();
         // Save default avatar.
@@ -67,8 +67,9 @@ class UserController extends Controller
         return redirect()->intended();
     }
 
-    public function show(User $user)
+    public function show(User $user, $users)
     {
+        $user = User::where('username', $users)->firstOrFail();
         return view('users.show', compact('user'));
     }
 
@@ -102,50 +103,5 @@ class UserController extends Controller
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('users.index');
-    }
-
-    public function topics(User $user)
-    {
-        return view('users.show', compact('user'));
-    }
-
-    public function replies(User $user)
-    {
-        return view('users.show', compact('user'));
-    }
-
-    public function followers(User $user)
-    {
-        return view('users.show', compact('user'));
-    }
-
-    public function followings(User $user)
-    {
-        return view('users.show', compact('user'));
-    }
-
-    public function votes(User $user)
-    {
-        return view('users.show', compact('user'));
-    }
-
-    public function favicons(User $user)
-    {
-        return view('users.show', compact('user'));
-    }
-
-    public function profile(User $user)
-    {
-         return view('users.show', compact('user'));
-    }
-
-    public function points(User $user)
-    {
-        return view('users.show', compact('user'));
-    }
-
-    public function notifications(User $user)
-    {
-        return view('users.show', compact('user'));
     }
 }

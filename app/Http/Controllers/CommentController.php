@@ -35,7 +35,7 @@ class CommentController extends Controller
         if ($user->can('create')) {
            // Get user id.
             $user = Auth::user();
-            if ($user->points < 1) {
+            if ($user->point < 1) {
                 Flash::error('Your points are not enough');
                 return back()->withInput();
             }
@@ -46,13 +46,13 @@ class CommentController extends Controller
                     'content' => $markdown,
                 ]);
             // User statics
-            $user->points -= 1;
+            $user->point -= 1;
             $user->save();
             // Update points.
             $point->user = $user->id;
             $point->type = 6;
-            $point->points = -1;
-            $point->total_points = $user->points;
+            $point->point = -1;
+            $point->total_points = $user->point;
             $point->got_at = Carbon::now();
             $point->save();
             Flash::success(Lang::get('global.operation_successfully'));

@@ -35,7 +35,7 @@ class PostController extends Controller
         // Get user id.
         $user = Auth::user();
         if ($user->can('create')) {
-            if ($user->points < 1) {
+            if ($user->point < 1) {
                 Flash::error('Your points are not enough');
                 return back()->withInput();
             }
@@ -61,7 +61,7 @@ class PostController extends Controller
                         ->send();
                     $atUser = User::where('username', $at)->first();
                     if ($atUser) {
-                        $atUser->notifications += 1;
+                        $atUser->notification_count += 1;
                         $atUser->save();
                     }
                 }
@@ -83,14 +83,14 @@ class PostController extends Controller
             $post->status = 1;
             $post->save();
             // User statics
-            $user->points -= 3;
-            $user->replies += 1;
+            $user->point -= 3;
+            $user->reply_count += 1;
             $user->save();
             // Update points.
             $point->user = $user->id;
             $point->type = 3;
-            $point->points = 3;
-            $point->total_points = $user->points;
+            $point->point = 3;
+            $point->total_points = $user->point;
             $point->got_at = Carbon::now();
             $point->save();
             // Send notification.
@@ -102,7 +102,7 @@ class PostController extends Controller
                     ->to($toUser->username)
                     ->url(route('topics.show', $topic->id))
                     ->send(); 
-                $toUser->notifications += 1;
+                $toUser->notification_count += 1;
                 $toUser->save();
             }
             // Show message.
@@ -166,7 +166,7 @@ class PostController extends Controller
             $topic->replies -= 1;
             $topic->save();
             // User statics.
-            $user->replies -= 1;
+            $user->reply_count -= 1;
             $user->save();
             // Show message.
             Flash::success(Lang::get('global.operation_successfully'));

@@ -66,14 +66,14 @@ class TopicController extends Controller
             $post->status = 1;
             $post->save();
             // User statics
-            $user->points -= 5;
-            $user->topics += 1;
+            $user->point -= 5;
+            $user->topic_count += 1;
             $user->save();
             // Update points.
             $point->user = $user->id;
             $point->type = 2;
-            $point->points = -5;
-            $point->total_points = $user->points;
+            $point->point = -5;
+            $point->total_points = $user->point;
             $point->got_at = Carbon::now();
             $point->save();
             // Add tag.
@@ -153,7 +153,7 @@ class TopicController extends Controller
             // Soft delete.
             $topic->delete();
             // User statics.
-            $user->topics -= 1;
+            $user->topic_count -= 1;
             $user->save();
             // Get node from topic's node id.
             $node = Node::find($topic->node);

@@ -55,20 +55,6 @@ Route::resource('users', 'UserController', [
     'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
     'parameters' => ['users' => 'username'],
 ]);
-Route::get('users/{username}/home', 'UserController@home')->name('users.home');
-Route::get('users/{username}/topics', 'UserController@topics')->name('users.topics');
-Route::get('users/{username}/replies', 'UserController@replies')->name('users.replies');
-Route::get('users/{username}/created_wiki', 'UserController@created_wiki')->name('users.created_wiki');
-Route::get('users/{username}/edited_wiki', 'UserController@edited_wiki')->name('users.edited_wiki');
-Route::get('users/{username}/comments', 'UserController@comments')->name('users.comments');
-Route::get('users/{username}/followers', 'UserController@followers')->name('users.followers');
-Route::get('users/{username}/following', 'UserController@following')->name('users.following');
-Route::get('users/{username}/votes', 'UserController@votes')->name('users.votes');
-Route::get('users/{username}/favicons', 'UserController@favicons')->name('users.favicons');
-Route::get('users/{username}/profile', 'UserController@profile')->name('users.profile');
-Route::post('users/{username}/profile', 'UserController@profile');
-Route::post('users/{username}/points', 'UserController@points')->name('users.points');
-Route::get('users/{username}/notifications', 'UserController@notifications')->name('users.notifications');
 
 //Fix ueditor server
 Route::any('/laravel-ueditor/server', '\Stevenyangecho\UEditor\Controller@server');

@@ -54,14 +54,14 @@ class WikiController extends Controller
             $wiki->version += 1;
             $wiki->save();
             // User statics
-            $user->points += 10;
-            $user->wikis += 1;
+            $user->point += 10;
+            $user->wiki_count += 1;
             $user->save();
             // Update points.
             $point->user = $user->id;
             $point->type = 4;
-            $point->points = 10;
-            $point->total_points = $user->points;
+            $point->point = 10;
+            $point->total_points = $user->point;
             $point->got_at = Carbon::now();
             $point->save();
             // Add tag.
@@ -74,16 +74,16 @@ class WikiController extends Controller
         }
     }
 
-    public function show(Wiki $wiki)
+    public function show(Wiki $wiki, $wikis)
     {
         // Get wiki via title.
-        $wiki = Wiki::where('title', $wiki->first()->title)->orderBy('version', 'desc')->firstOrFail();
+        $wiki = Wiki::where('title', $wikis)->orderBy('version', 'desc')->firstOrFail();
         // Rediect
         if ($wiki->redirect > 0) {
-        	    $wiki = Wiki::where('title', $wiki->first()->title)
+        	    $wiki = Wiki::where('title', $wikis)
         	    	->where('redirect', $redirect)
         	    	->firstOrFail();
-        	    return redirect()->route('wiki.show', $wiki->first()->title);
+        	    return redirect()->route('wiki.show', $wikis);
         	}
         // Table of Contents.
         
@@ -117,13 +117,13 @@ class WikiController extends Controller
             $wiki->version += 1;
             $wiki->save();
             // User statics
-            $user->points += 5;
+            $user->point += 5;
             $user->save();
             // Update points.
             $point->user = $user->id;
             $point->type = 5;
-            $point->points = 5;
-            $point->total_points = $user->points;
+            $point->point = 5;
+            $point->total_points = $user->point;
             $point->got_at = Carbon::now();
             $point->save();
             // Update tag.
@@ -149,7 +149,7 @@ class WikiController extends Controller
             $wiki->delete();
             // User statics.
             $user =  User::find($wiki->user);
-            $user->topics -= 1;
+            $user->topic_count -= 1;
             $user->save();
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('wiki.index');

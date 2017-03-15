@@ -138,7 +138,7 @@ class RegisterController extends Controller
                 'email' => $user->email,
                 'password' => '',
             ]);
-            $user->points = 20;
+            $user->point = 20;
             $user->regip = $request->ip();
             $user->save();
             $userid = User::where('username', $user->name)->first()->id;

@@ -11,7 +11,7 @@ class CreatePointsTable extends Migration
                       $table->increments('id');
                       $table->integer('user')->unsigned()->default(0)->index();
                       $table->integer('type')->unsigned()->default(0)->index();
-                      $table->integer('points')->default(0)->index();
+                      $table->integer('point')->default(0)->index();
                       $table->integer('total_points')->unsigned()->default(0)->index();
                       $table->timestamp('got_at');
                   });

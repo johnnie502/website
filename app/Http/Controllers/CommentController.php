@@ -35,7 +35,7 @@ class CommentController extends Controller
         if ($user->can('create')) {
            // Get user id.
             $user = Auth::user();
-            if ($user->point < 1) {
+            if ($user->point_count < 1) {
                 Flash::error('Your points are not enough');
                 return back()->withInput();
             }
@@ -46,19 +46,19 @@ class CommentController extends Controller
                     'content' => $markdown,
                 ]);
             // User statics
-            $user->point -= 1;
+            $user->point_count -= 1;
             $user->save();
             // Update points.
             $point->user = $user->id;
             $point->type = 6;
             $point->point = -1;
-            $point->total_points = $user->point;
+            $point->total_points = $user->point_count;
             $point->got_at = Carbon::now();
             $point->save();
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('comments.index');
         } else {
-            return response('You don\'t have permission to access this page.', 403);
+            return response(view('errors.403'), 403);
         }
     }
 
@@ -88,7 +88,7 @@ class CommentController extends Controller
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('comments.index');
         } else {
-            return response('You don\'t have permission to access this page.', 403);
+            return response(view('errors.403'), 403);
         }
     }
 
@@ -101,7 +101,7 @@ class CommentController extends Controller
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('comments.index');
         } else {
-            return response('You don\'t have permission to access this page.', 403);
+            return response(view('errors.403'), 403);
         }
     }
 }

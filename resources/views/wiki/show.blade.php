@@ -9,7 +9,7 @@
             <div class="row">
                    <div class="col-md-6">
                     @foreach ($wiki->tags as $category)
-                        <a href="{{ route('wikis.categories', $category->name) }}">{{ $category->name }}</a>
+                        <a href="{{ route('wiki.categories', $category->name) }}">{{ $category->name }}</a>
                     @endforeach
                 </div>
                 @can('update', $wiki)

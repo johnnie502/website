@@ -54,14 +54,14 @@ class WikiController extends Controller
             $wiki->version += 1;
             $wiki->save();
             // User statics
-            $user->point += 10;
+            $user->point_count += 10;
             $user->wiki_count += 1;
             $user->save();
             // Update points.
             $point->user = $user->id;
             $point->type = 4;
             $point->point = 10;
-            $point->total_points = $user->point;
+            $point->total_points = $user->point_count;
             $point->got_at = Carbon::now();
             $point->save();
             // Add tag.
@@ -70,7 +70,7 @@ class WikiController extends Controller
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('wiki.index');
         } else {
-            return response('You don\'t have permission to access this page.', 403);
+            return response(view('errors.403'), 403);
         }
     }
 
@@ -117,13 +117,13 @@ class WikiController extends Controller
             $wiki->version += 1;
             $wiki->save();
             // User statics
-            $user->point += 5;
+            $user->point_count += 5;
             $user->save();
             // Update points.
             $point->user = $user->id;
             $point->type = 5;
             $point->point = 5;
-            $point->total_points = $user->point;
+            $point->total_points = $user->point_count;
             $point->got_at = Carbon::now();
             $point->save();
             // Update tag.
@@ -132,7 +132,7 @@ class WikiController extends Controller
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('wiki.show', $wiki->title);
         } else {
-            return response('You don\'t have permission to access this page.', 403);
+            return response(view('errors.403'), 403);
         }
     }
 
@@ -154,7 +154,7 @@ class WikiController extends Controller
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('wiki.index');
         } else {
-            return response('You don\'t have permission to access this page.', 403);
+            return response(view('errors.403'), 403);
         }
     }
 

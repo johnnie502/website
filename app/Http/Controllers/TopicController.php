@@ -66,14 +66,14 @@ class TopicController extends Controller
             $post->status = 1;
             $post->save();
             // User statics
-            $user->point -= 5;
+            $user->point_count -= 5;
             $user->topic_count += 1;
             $user->save();
             // Update points.
             $point->user = $user->id;
             $point->type = 2;
             $point->point = -5;
-            $point->total_points = $user->point;
+            $point->total_points = $user->point_count;
             $point->got_at = Carbon::now();
             $point->save();
             // Add tag.
@@ -82,7 +82,7 @@ class TopicController extends Controller
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('topics.index');
         } else {
-            return response('You don\'t have permission to access this page.', 403);
+            return response(view('errors.403'), 403);
         }
     }
 
@@ -138,7 +138,7 @@ class TopicController extends Controller
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('topics.show', $topic->id);
         } else {
-            return response('You don\'t have permission to access this page.', 403);
+            return response(view('errors.403'), 403);
         }
     }
 
@@ -163,7 +163,7 @@ class TopicController extends Controller
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('topics.index');
         } else {
-            return response('You don\'t have permission to access this page.', 403);
+            return response(view('errors.403'), 403);
         }
     }
 }

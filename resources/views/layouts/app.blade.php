@@ -87,7 +87,7 @@ ______                            _              _                              
                             <li><a href="{{ url('/register') }}">@lang('global.register')</a></li>
                         @else
                             <img alt="avatar" src="/avatars/{{ $account->id }}.png" width="32" height="32" />
-                            <span class="badge">{{ $account->notifications }}</span>
+                            <span class="badge">{{ $account->notification_count }}</span>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ $account->username }} <span class="caret"></span>

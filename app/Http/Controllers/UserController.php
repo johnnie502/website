@@ -54,7 +54,7 @@ class UserController extends Controller
         // Set trusted IP.
         $request->setTrustedProxies(['127.0.0.1']);
         $user->type = 1;
-        $user->point = 20;
+        $user->point_count = 20;
         $user->regip = $request->getClientIp();
         $user->save();
         // Save default avatar.

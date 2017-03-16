@@ -11,7 +11,7 @@
                     <label>@lang('global.email')</label>
                    {{ $user->email }}
                     <label>@lang('global.points')</label>
-                    {{ $user->point }}
+                    {{ $user->point_count }}
                </div>
                <!-- Tabs -->
                <ul class="nav nav-tabs">
@@ -58,10 +58,38 @@
             </div>
             <div class="tab-pane fade" id="replies">
                 @if ($user->reply_count > 0)
-                  <div></div>
+                  <ul class="list-group">
+                        @foreach($user->posts as $reply)
+                            @if ($reply->post > 0)
+                                <li class="list-group-item">
+                                    <a href="{{ route('topics.posts', $reply->topic, $reply->id) }}">{{ substr($reply->content. 0, 100) }}</a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
                 @else
                   <div>empty!</div>                
                 @endif
+            </div>
+            <div class="tab-pane fade" id="created_wiki">
+                @if ($user->wiki_count > 0)
+                    <ul class="list-group">
+                        @foreach ($user->wikis as $wiki)
+                            <li class="list-group-item">
+                                <a href="{{ route('wiki.show', $wiki->title) }}">{{ $wiki->title }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <div>empty!</div> 
+                @endif
+            </div>
+            <div class="tab-pane fade" id="points">
+                <ul class="list-group">
+                        @foreach ($user->points as $point)
+                            <li class="list-group-item">{{ $point->got_at }} {{ $point->point }} {{ $account->signed }} {{ $point->total_points }}</li>
+                        @endforeach
+                    </ul>
             </div>
         </div>
     </div>

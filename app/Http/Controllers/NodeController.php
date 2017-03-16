@@ -39,7 +39,7 @@ class NodeController extends Controller
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('nodes.index');
         } else {
-            return response('You don\'t have permission to access this page.', 403);
+            return response(view('errors.403'), 403);
         }
     }
 
@@ -64,7 +64,7 @@ class NodeController extends Controller
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('nodes.index');
         } else {
-            return response('You don\'t have permission to access this page.', 403);
+            return response(view('errors.403'), 403);
         }
     }
 
@@ -82,7 +82,7 @@ class NodeController extends Controller
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('nodes.index');
         } else {
-            return response('You don\'t have permission to access this page.', 403);
+            return response(view('errors.403'), 403);
         }
     }
 }

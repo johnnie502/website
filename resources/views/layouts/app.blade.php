@@ -77,7 +77,7 @@ ______                            _              _                              
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Search -->
                         <li>
-                            <form action="{{ route('search') }}" method="POST" class="form-inline" target="_blank">
+                            <form class="nav-form" action="{{ route('search') }}" method="POST" class="form-inline" target="_blank">
                                 <input type="text" name="query" required class="form-control" placeholder="@lang('global.search')">
                             </form>
                         </li>
@@ -86,10 +86,10 @@ ______                            _              _                              
                             <li><a href="{{ url('/login') }}">@lang('global.login')</a></li>
                             <li><a href="{{ url('/register') }}">@lang('global.register')</a></li>
                         @else
-                            <img alt="avatar" src="/avatars/{{ $account->id }}.png" width="32" height="32" />
-                            <span class="badge">{{ $account->notification_count }}</span>
+                            <a href="{{ route('users.show', $account->username) }}"><img alt="avatar" src="/avatars/{{ $account->id }}.png" width="32" height="32" /></a>
+                            <a href="{{ route('users.show', $account->username) . '#notifications' }}"><span class="badge">{{ $account->notification_count }}</span></a>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     {{ $account->username }} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">

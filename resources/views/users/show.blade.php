@@ -6,13 +6,9 @@
         </div>
         <div class="panel-body">
                 <div class="row">
-                    <label>@lang('global.username')</label>
-	           {{ $user->username }}
-                    <label>@lang('global.email')</label>
-                   {{ $user->email }}
-                    <label>@lang('global.points')</label>
-                    {{ $user->point_count }}
-               </div>
+                    <div>{{ $user->username }}，{{ config('app.name') }}第{{ $user->id }}号会员，注册于{{ $user->created_at }}。</div>
+                    <div class="pull-right"><img alt="{{ $user->username }}" src="/avatars/{{ $user->id }}.png" width="128" height="128" />
+	           </div>
                <!-- Tabs -->
                <ul class="nav nav-tabs">
                    <li class="active'"><a data-toggle="pill" href="{{ route('users.show', $user->username) . '#topics' }}">@lang('global.topics')</a></li>
@@ -43,10 +39,10 @@
                             <div>
                                 <a href="{{ route('nodes.show', $topic->nodes->slug) }}">{{ $topic->nodes->name }}</a>&nbsp;•&nbsp;
                             @if (isset($topic->replied_at ))
-                                {{ $topic->replied_at->diffForHumans() }}&nbsp;•&nbsp;
+                                {{ $topic->replied_at }}&nbsp;•&nbsp;
                                 @lang('global.last_reply')
                             @else
-                                {{ $topic->created_at->diffForHumans() }}
+                                {{ $topic->created_at }}
                             @endif
                             </div>
                         </li>
@@ -75,9 +71,11 @@
                 @if ($user->wiki_count > 0)
                     <ul class="list-group">
                         @foreach ($user->wikis as $wiki)
+                            @if ($wiki->version == 1)
                             <li class="list-group-item">
                                 <a href="{{ route('wiki.show', $wiki->title) }}">{{ $wiki->title }}</a>
                             </li>
+                            @endif
                         @endforeach
                     </ul>
                 @else
@@ -87,7 +85,7 @@
             <div class="tab-pane fade" id="points">
                 <ul class="list-group">
                         @foreach ($user->points as $point)
-                            <li class="list-group-item">{{ $point->got_at }} {{ $point->point }} {{ $account->signed }} {{ $point->total_points }}</li>
+                            <li class="list-group-item">{{ $point->got_at }} {{ $point->point }} {{ $user->signed }} {{ $point->total_points }}</li>
                         @endforeach
                     </ul>
             </div>

@@ -32,8 +32,8 @@ Route::resource('nodes', 'NodeController', [
 ]);
 
 # ------------------ Topics ------------------------
-Route::get('tag/{slug}', 'TopicController@tags')->name('topics.tags');
 Route::resource('topics', 'TopicController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::get('tag/{slug}', 'TopicController@tags')->name('topics.tags');
 
 # ------------------ Posts ------------------------
 Route::resource('topics.posts', 'PostController', ['only' => ['show', 'create', 'store', 'update', 'edit', 'destroy']]);
@@ -47,8 +47,9 @@ Route::resource('wiki', 'WikiController', [
     'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
     'parameters' => ['wiki' => 'title'],
 ]);
-Route::get('wiki/{name}/history', 'WikiController@history')->name('wikis.history');
-Route::get('wikis.new.old', 'WikiController@diff')->name('wikis.diff');
+Route::get('wiki/Category/{slug}', 'WikiController@category')->name('wiki.categories');
+Route::get('wiki/{title}/history', 'WikiController@history')->name('wikis.history');
+Route::get('wiki.new.old', 'WikiController@diff')->name('wikis.diff');
 
 # ------------------ Users ------------------------
 Route::resource('users', 'UserController', [

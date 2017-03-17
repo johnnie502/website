@@ -158,6 +158,11 @@ class WikiController extends Controller
         }
     }
 
+    public function Category ()
+    {
+        // Get category.
+    }
+
     public function history($title)
     {
         // Get wiki via title.

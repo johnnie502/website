@@ -12,12 +12,11 @@
                             @foreach ($wikis as $wiki)
                                 <li class="list-group-item">
                             <div class="pull-left">
-                                <img alt="" src="/avatars/{{ $topic->user }}.png" width="32" height="32" /></span>
+                                <img alt="" src="/avatars/{{ $wiki->user }}.png" width="32" height="32" /></span>
                             </div>
                             <a href="{{ route('wiki.show', $wiki->title) }}">{{ $wiki->title }}</a><br>
                             <div>
-                                <a href="{{ route('nodes.show', $topic->nodes->slug) }}">{{ $wiki->tags->name }}</a>&nbsp;•&nbsp;
-                                <a href="{{ route('users.show', $wiki->usrrs->username) }}">{{ $wiki->users->username }}</a>&nbsp;•&nbsp;
+                                <a href="{{ route('users.show', $wiki->users->username) }}">{{ $wiki->users->username }}</a>&nbsp;•&nbsp;
                             </div>
                         </li>
                             @endforeach

@@ -158,9 +158,12 @@ class WikiController extends Controller
         }
     }
 
-    public function Category ()
+    public function Category($slug)
     {
         // Get category.
+        // Display all topic of this slug.
+        $wikis = Wiki::withAllTags($slug)->get();
+        return view('wiki.categories', compact('wikis'));
     }
 
     public function history($title)

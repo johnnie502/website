@@ -48,22 +48,31 @@ $(document).ready(function(){
                 	<input class="form-control" type="text" name="tags" id="tags" data-role="tagsinput" required placeholder="按Enter添加标签" value="{{ old('tags', $topic->tagList) }}">
                 </div>
                 <div class="form-group">
-                	<label for="content-field">Content</label>
-                        @include('UEditor::head')
-                        <script id="ueditor" name="content" type="text/plain">@markdown(old('content', isset($post) ? $post->content : '' ))</script>
-                        <script type="text/javascript">
-                            var ue = UE.getEditor('ueditor', {
-                                <!-- 定制工具栏按钮 -->
-                                 toolbars: [
-                                  ['bold', 'italic', 'underline', 'superscript', 'subscript', 'spechars', 'blockquote', 'insertcode', 'link', 'unlink',  'inserttitle', 'paragraph',  'inserttable' , '|', 'undo', 'redo', 'selectall', 'pasteplain', 'removeformat', '|', 'fontfamily', 'fontsize', 'forecolor', '|', 'emotion', 'simpleupload']
-                                  ]
-                              });
-                            var preloadContent = $("#ueditor").html();
-                            ue.ready(function() {
-                                ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
-                                ue.setContent(preloadContent);
-                            });
-                        </script>
+                	  <label for="content-field">Content</label>
+                        @if (Agent::isPhone())
+                            {!! editor_css() !!}
+                            {!! editor_js() !!}
+                            {!! editor_config('mdeditor') !!}
+                            <textarea name="content" style="display:none;">
+                            {{ old('content', isset($post) ? $post->content : '' ) }}
+                            </textarea>
+                        @else
+                            @include('UEditor::head')
+                            <script id="ueditor" name="content" type="text/plain">@markdown(old('content', isset($post) ? $post->content : '' ))</script>
+                            <script type="text/javascript">
+                                var ue = UE.getEditor('ueditor', {
+                                    <!-- 定制工具栏按钮 -->
+                                     toolbars: [
+                                      ['bold', 'italic', 'underline', 'superscript', 'subscript', 'spechars', 'blockquote', 'insertcode', 'link', 'unlink',  'inserttitle', 'paragraph',  'inserttable' , '|', 'undo', 'redo', 'selectall', 'pasteplain', 'removeformat', '|', 'fontfamily', 'fontsize', 'forecolor', '|', 'emotion', 'simpleupload']
+                                      ]
+                                  });
+                                var preloadContent = $("#ueditor").html();
+                                ue.ready(function() {
+                                    ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
+                                    ue.setContent(preloadContent);
+                                });
+                            </script>
+                       @endif 
                  </div> 
                 <div class="well well-sm">
                     <button type="submit" class="btn btn-primary">Submit</button>

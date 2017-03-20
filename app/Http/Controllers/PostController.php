@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Agent;
 use Auth;
 use Flash;
 use Lang;
@@ -40,8 +41,15 @@ class PostController extends Controller
                 return back()->withInput();
             }
             // Convert HTML topic content to markdown.
-            $converter = new HtmlConverter();
-            $markdown = $converter->convert($request->input('content'));
+            $agent = new Agent();
+            if ($agent->isPhone()) {
+                // Editor.md
+                $markdown = $request->input('content');
+            } else {
+                // Ueditor
+                $converter = new HtmlConverter();
+                $markdown = $converter->convert($request->input('content'));
+            }
             // @ notification.
             $atList = [];
             preg_match_all('\@([a-zA-Z0-9\x80-\xff\-_]{3,20}) ', $markdown, $atList, PREG_PATTERN_ORDER);
@@ -138,8 +146,15 @@ class PostController extends Controller
         $user = Auth::user();
         if ($user->can('update', $post)) {
             // Convert HTML topic content to markdown.
-            $converter = new HtmlConverter();
-            $markdown = $converter->convert($request->input('content'));
+            $agent = new Agent();
+            if ($agent->isPhone()) {
+                // Editor.md
+                $markdown = $request->input('content');
+            } else {
+                // Ueditor
+                $converter = new HtmlConverter();
+                $markdown = $converter->convert($request->input('content'));
+            }
             // Update post.
             $post->updateWithInput([
                 'content' => $request->input('content')

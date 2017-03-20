@@ -32,7 +32,7 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="请再次输入密码">
                             </div>
                         </div>
-                        @if (\App::environment() === 'production')
+                        @if (App::environment() === 'production')
                         {!! Recaptcha::render() !!}
                         @endif
                         <div class="form-group">

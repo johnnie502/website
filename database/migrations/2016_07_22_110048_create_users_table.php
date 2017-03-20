@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
             $table->integer('reply_count')->unsigned()->default(0);
             $table->integer('wiki_count')->unsigned()->default(0);
             $table->integer('signed')->unsigned()->default(0)->index();
-            $table->integer('follers')->unsigned()->default(0);
+            $table->integer('follwers')->unsigned()->default(0);
             $table->integer('follwing')->unsigned()->default(0);
             $table->integer('vote_count')->unsigned()->default(0);
             $table->timestampsTz();;

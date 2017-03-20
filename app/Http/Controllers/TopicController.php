@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Agent;
 use Auth;
 use Flash;
 use Lang;
@@ -45,8 +46,15 @@ class TopicController extends Controller
            // Get user id.
             $user = Auth::user();
            // Convert HTML topic content to markdown.
-            $converter = new HtmlConverter();
-            $markdown = $converter->convert($request->input('content'));
+            $agent = new Agent();
+            if ($agent->isPhone()) {
+                // Editor.md
+                $markdown = $request->input('content');
+            } else {
+                // Ueditor
+                $converter = new HtmlConverter();
+                $markdown = $converter->convert($request->input('content'));
+            }
             // Create topic and post.
             $topic = Topic::createWithInput([
                 'node' => $request->input('node'),
@@ -121,8 +129,15 @@ class TopicController extends Controller
         $user = Auth::user();
         if ($user->can('update', $topic)) {
            // Convert HTML topic content to markdown.
-            $converter = new HtmlConverter();
-            $markdown = $converter->convert($request->input('content'));
+            $agent = new Agent();
+            if ($agent->isPhone()) {
+                // Editor.md
+                $markdown = $request->input('content');
+            } else {
+                // Ueditor
+                $converter = new HtmlConverter();
+                $markdown = $converter->convert($request->input('content'));
+            }
             // Update topic.
             $topic->updateWithInput([
                 'title' => $request->input('title'),

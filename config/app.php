@@ -185,6 +185,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,  // Flash messages
         Indal\Markdown\MarkdownServiceProvider::class,  // Markdown parse
         Stevenyangecho\UEditor\UEditorServiceProvider::class,  // UEditor
+        Douyasi\Editor\EditorServiceProvider::class,  // Editor.md
         Hootlex\Moderation\ModerationServiceProvider::class,  // Audit contents
         Zizaco\Entrust\EntrustServiceProvider::class,  // 
         \Cviebrock\EloquentTaggable\ServiceProvider::class,  // Tags manage
@@ -203,6 +204,7 @@ return [
         Backpack\LogManager\LogManagerServiceProvider::class,  // Log Manager
         Backpack\Settings\SettingsServiceProvider::class,  // Settings
         Cog\Ban\Providers\BanServiceProvider::class,  // Ban and block
+        Jenssegers\Agent\AgentServiceProvider::class,  // User-Agent
 
     ],
 
@@ -261,6 +263,7 @@ return [
         'Searchy' => TomLingham\Searchy\Facades\Searchy::class,
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
         'Notifynder' => Fenos\Notifynder\Facades\Notifynder::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
 
     ],
 

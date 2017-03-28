@@ -42,12 +42,13 @@ class TopicController extends Controller
     {
          // Get user id.
         $user = Auth::user();
-        if ($user->can('create')) {
+        $topic = new Topic();
+        if ($user->can('create',$topic)) {
            // Get user id.
             $user = Auth::user();
            // Convert HTML topic content to markdown.
             $agent = new Agent();
-            if ($agent->isPhone()) {
+            if (false&&$agent->isPhone()) {
                 // Editor.md
                 $markdown = $request->input('content');
             } else {
@@ -56,10 +57,11 @@ class TopicController extends Controller
                 $markdown = $converter->convert($request->input('content'));
             }
             // Create topic and post.
-            $topic = Topic::createWithInput([
+            /*$topic = Topic::createWithInput([
                 'node' => $request->input('node'),
                 'title' => $request->input('title'),
-            ]);
+            ]);*/
+            $topic->title = $request->input('title');
             $topic->user = $user->id;
             $topic->node = $request->input('node');
             $topic->type = 1;
@@ -78,11 +80,12 @@ class TopicController extends Controller
             $user->topic_count += 1;
             $user->save();
             // Update points.
+            $point = new Point();
             $point->user = $user->id;
             $point->type = 2;
             $point->point = -5;
             $point->total_points = $user->point_count;
-            $point->got_at = Carbon::now();
+            $point->got_at = date('YmdHms');//Carbon::now();
             $point->save();
             // Add tag.
             $topic->tag($request->input('tags'));

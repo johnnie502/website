@@ -32,7 +32,21 @@ $(document).ready(function(){
                 </div>
                 <div class="form-group">
                     <label for="categories-field">Categories</label>
-                    <input class="form-control" type="text" name="categories" id="categories" data-role="tagsinput" required placeholder="按Enter添加标签" value="{{ old('categories', $wiki->tagList) }}">
+                    <input class="form-control" type="text" name="categories" id="categories" data-role="tagsinput" required placeholder="按Enter添加分类" value="{{ old('categories', $wiki->tagList) }}">
+                </div>
+                <div class="form-group">
+                    <label for="title-field">Redirect</label>
+                    <input class="form-control" type="text" name="redirect" id="redirect-field" placeholder="" value="{{ old('redirect', $wiki->redirect) }}" />
+                </div>
+                <div class="form-group">
+                    <label for="template-field">Template</label>
+                    <select class="form-control" name="node" id="node-field" required placeholder="(可选)选择一个模板">
+                        @if (isset($templates))
+                            @foreach ($templates as $template)
+                                <option value="{{ $template->id }}">{{ $template->title }}</option>
+                            @endforeach
+                        @endif
+                    </select>
                 </div>
                 <div class="form-group">
                 	<label for="content-field">Content</label>

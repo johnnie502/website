@@ -26,12 +26,12 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-		 Comment::class => CommentPolicy::class,
-		 Wiki::class => WikiPolicy::class,
-		 Node::class => NodePolicy::class,
-		 Post::class => PostPolicy::class,
-		 User::class => UserPolicy::class,
-		 Topic::class => TopicPolicy::class,
+	   Comment::class => CommentPolicy::class,
+	   Wiki::class => WikiPolicy::class,
+	   Node::class => NodePolicy::class,
+	   Post::class => PostPolicy::class,
+	   User::class => UserPolicy::class,
+	   Topic::class => TopicPolicy::class,
         'App\Model' => 'App\Policies\ModelPolicy',
     ];
 

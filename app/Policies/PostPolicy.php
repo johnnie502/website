@@ -63,4 +63,16 @@ class PostPolicy extends Policy
     {
         return $user->type >= 3;
     }
+
+    /**
+     * Determine whether the user can vote the post.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Post  $post
+     * @return mixed
+     */
+    public function vote(User $user, Post $post)
+    {
+        return true;
+    }
 }

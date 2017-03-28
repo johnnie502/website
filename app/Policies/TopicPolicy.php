@@ -12,6 +12,7 @@ class TopicPolicy extends Policy
 
     public function before(User $user, $ability)
     {
+        var_dump($user->status > 0);
         if ($user->status > 0) {
             return true;
         }
@@ -63,4 +64,15 @@ class TopicPolicy extends Policy
     {
         return $user->type >= 3;
     }
-}
+
+    /**
+     * Determine whether the user can vote the topic.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Topic  $topic
+     * @return mixed
+     */
+    public function vote(User $user, Topic $topic)
+    {
+        return true;
+    }}

@@ -9,6 +9,7 @@ use Lang;
 use App\Models\User;
 use App\Models\Wiki;
 use League\HTMLToMarkdown\HtmlConverter;
+use PHPHtmlParser\Dom;
 use ViKon\Diff\Diff;
 use Illuminate\Http\Request;
 use Illuminate\Http\response;
@@ -54,7 +55,8 @@ class WikiController extends Controller
             $wiki = Wiki::createWithInput([
                 'title' => $request->input('title'),
                 'content' => $markdown,
-                //'redirect' => $request->input('redirect'),
+                'redirect' => $request->input('redirect'),
+                'template' => $request->input('template'),
             ]);
             $wiki->user = $user->id;
             $wiki->type = 1;
@@ -94,33 +96,6 @@ class WikiController extends Controller
         	    return redirect()->route('wiki.show', $wikis);
         	}
         // Table of Contents.
-        // ensure using only "\n" as line-break
-        $source = str_replace(["\r\n", "\r"], "\n", $wiki->content);
-        // look for markdown TOC items
-        preg_match_all('/^(?:=|-|#).*$/m', $source, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE);
-        // preprocess: iterate matched lines to create an array of items
-         // where each item is an array(level, text)
-        $size = strlen($source);
-        foreach ($matches[0] as $item) {
-            $mark = substr($item[0], 0, 1);
-            if ($mark == '#') {
-                // text is the found item
-                $text = $item[0];
-                $level = strrpos($text, '#') + 1;
-                $text = substr($text, $level);
-            } else {
-                // text is the previous line (empty if <hr>)
-                $offset = $item[1];
-                $lineOffset = strrpos($source, "\n", -($size - $offset + 2));
-                $text = substr($source, $lineOffset, $offset - $lineOffset - 1);
-                $text = trim($text);
-                $level = $mark == '=' ? 1 : 2;
-            }
-            if (!trim($text) or strpos($text, '|') !== false) {
-                // item is an horizontal separator or a table header, don't mind
-                continue;
-            }
-        }
         return view('wiki.show', compact('wiki'));
     }
 
@@ -151,6 +126,7 @@ class WikiController extends Controller
                 'title' => $request->input('title'),
                 'content' => $markdown,
                 'redirect' => $request->input('redirect'),
+                'template' => $request->input('template'),
             ]);
             $wiki->user = $user->id;
             $wiki->type = 1;

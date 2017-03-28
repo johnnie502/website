@@ -190,4 +190,22 @@ class PostController extends Controller
             return response(view('errors.403'), 403);
         }
     }
+
+    public function upVote(Topic $topic, Post $post)
+    {
+    	 // Get user id.
+        $user = Auth::user();
+        if ($user->can('vote', $post)) {
+        	    $topic->upVote += 1;
+        }
+    }
+
+    public function downVote(Topic $topic, Post $post)
+    {
+         // Get user id.
+        $user = Auth::user();
+        if ($user->can('vote', $post)) {
+                $topic->downVote += 1;
+        }
+    }
 }

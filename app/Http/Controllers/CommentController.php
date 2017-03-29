@@ -30,9 +30,10 @@ class CommentController extends Controller
 
     public function store(CommentRequest $request)
     {
+        $comment = new Comment()
          // Get user id.
         $user = Auth::user();
-        if ($user->can('create')) {
+        if ($user->can('create', $comment)) {
            // Get user id.
             $user = Auth::user();
             if ($user->point_count < 1) {
@@ -42,9 +43,7 @@ class CommentController extends Controller
             // Convert HTML topic content to markdown.
             $converter = new HtmlConverter();
             $markdown = $converter->convert($request->input('content'));
-            $comment = Comment::createWithInput([
-                    'content' => $markdown,
-                ]);
+            $comment ->content = $markdown;
             // User statics
             $user->point_count -= 1;
             $user->save();

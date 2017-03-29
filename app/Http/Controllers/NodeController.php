@@ -30,9 +30,10 @@ class NodeController extends Controller
 
     public function store(NodeRequest $request)
     {
+        $node = new Node();
         // Get user id.
         $user = Auth::user();
-        if ($user->can('create')) {
+        if ($user->can('create', $node)) {
              // Create node.
             Node::createWithInput($request->all());
             // Show message.

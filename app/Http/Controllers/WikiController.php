@@ -36,9 +36,10 @@ class WikiController extends Controller
 
     public function store(WikiRequest $request)
     {
+        $wiki = new Wiki();
          // Get user id.
         $user = Auth::user();
-        if ($user->can('create')) {
+        if ($user->can('create',$wiki)) {
            // Get user id.
             $user = Auth::user();
             // Convert HTML topic content to markdown.
@@ -52,12 +53,10 @@ class WikiController extends Controller
                 $markdown = $converter->convert($request->input('content'));
             }
             // Create wiki.
-            $wiki = Wiki::createWithInput([
-                'title' => $request->input('title'),
-                'content' => $markdown,
-                'redirect' => $request->input('redirect'),
-                'template' => $request->input('template'),
-            ]);
+            $wiki->title = $request->input('title'),
+            $wiki->content = $markdown,
+            $wiki->redirect = $request->input('redirect'),
+            $wiki->template = $request->input('template'),
             $wiki->user = $user->id;
             $wiki->type = 1;
             $wiki->status = 1;

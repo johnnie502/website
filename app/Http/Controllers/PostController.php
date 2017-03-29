@@ -33,16 +33,17 @@ class PostController extends Controller
 
     public function store(PostRequest $request, Topic $topic)
     {
+        $post=new Post();
         // Get user id.
         $user = Auth::user();
-        if ($user->can('create')) {
+        if ($user->can('create',$post)) {
             if ($user->point_count < 1) {
                 Flash::error('Your points are not enough');
                 return back()->withInput();
             }
             // Convert HTML topic content to markdown.
             $agent = new Agent();
-            if ($agent->isPhone()) {
+            if (false&&$agent->isPhone()) {
                 // Editor.md
                 $markdown = $request->input('content');
             } else {
@@ -52,10 +53,10 @@ class PostController extends Controller
             }
             // @ notification.
             $atList = [];
-            preg_match_all('\@([a-zA-Z0-9\x80-\xff\-_]{3,20}) ', $markdown, $atList, PREG_PATTERN_ORDER);
+            preg_match_all('/@([a-zA-Z0-9\x80-\xff\-_]{3,20}) /', $markdown, $atList, PREG_PATTERN_ORDER);
             $atList = array_unique($atList[1]);
             // Get user list.
-            $userList = User::whereIn('username', $atList[])->get();
+            $userList = User::whereIn('username', $atList)->get();
             foreach ($userList as $at) {
                 // Don't at self.
                 if ($at != $user->username) {
@@ -74,16 +75,13 @@ class PostController extends Controller
                     }
                 }
             }
-            // Create post.
-            $post = Post::createWithInput([
-                'content' => $markdown,
-             ]);
             // Topics
             $topic->replies += 1;
-            $topic->last_reply = $user->id;
+            $topic->lastreply = $user->id;
             $topic->replied_at = Carbon::now ();
             $topic->save();
             // Save post.
+            $post->content = $markdown;
             $post->user = $user->id;
             $post->topic = $topic->id;
             $post->post = $topic->replies;
@@ -95,6 +93,7 @@ class PostController extends Controller
             $user->reply_count += 1;
             $user->save();
             // Update points.
+            $point=new Point();
             $point->user = $user->id;
             $point->type = 3;
             $point->point = 3;

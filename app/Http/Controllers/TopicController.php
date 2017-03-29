@@ -11,6 +11,7 @@ use App\Models\Point;
 use App\Models\Post;
 use App\Models\Node;
 use App\Models\User;
+use Carbon\Carbon;
 use League\HTMLToMarkdown\HtmlConverter;
 use Illuminate\Http\Request;
 use Illuminate\Http\response;
@@ -85,7 +86,7 @@ class TopicController extends Controller
             $point->type = 2;
             $point->point = -5;
             $point->total_points = $user->point_count;
-            $point->got_at = date('YmdHms');//Carbon::now();
+            $point->got_at = Carbon::now();
             $point->save();
             // Add tag.
             $topic->tag($request->input('tags'));

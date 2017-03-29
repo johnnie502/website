@@ -11,7 +11,7 @@ class Topic extends Model
     use Traits\TopicOperation, Moderatable, SoftDeletes, Taggable;
 
     protected $table = 'topics';
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at','replied_at'];
     protected $fillable = ['title'];
 
     /*

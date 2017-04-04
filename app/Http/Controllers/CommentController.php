@@ -43,7 +43,9 @@ class CommentController extends Controller
             // Convert HTML topic content to markdown.
             $converter = new HtmlConverter();
             $markdown = $converter->convert($request->input('content'));
-            $comment ->content = $markdown;
+            comment = Comment::createWithInput([
+                'content' => $markdown,
+            ]);
             // User statics
             $user->point_count -= 1;
             $user->save();

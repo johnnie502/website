@@ -43,7 +43,7 @@ class PostController extends Controller
             }
             // Convert HTML topic content to markdown.
             $agent = new Agent();
-            if (false&&$agent->isPhone()) {
+            if ($agent->isPhone()) {
                 // Editor.md
                 $markdown = $request->input('content');
             } else {
@@ -75,6 +75,10 @@ class PostController extends Controller
                     }
                 }
             }
+            // Create post.
+            $post = Post::createWithInput([
+                'content' => $markdown,
+            ]);
             // Topics
             $topic->replies += 1;
             $topic->lastreply = $user->id;

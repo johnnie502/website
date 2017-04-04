@@ -58,11 +58,10 @@ class TopicController extends Controller
                 $markdown = $converter->convert($request->input('content'));
             }
             // Create topic and post.
-            /*$topic = Topic::createWithInput([
+            $topic = Topic::createWithInput([
                 'node' => $request->input('node'),
                 'title' => $request->input('title'),
-            ]);*/
-            $topic->title = $request->input('title');
+            ]);
             $topic->user = $user->id;
             $topic->node = $request->input('node');
             $topic->type = 1;

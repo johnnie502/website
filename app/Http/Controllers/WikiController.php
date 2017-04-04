@@ -53,10 +53,12 @@ class WikiController extends Controller
                 $markdown = $converter->convert($request->input('content'));
             }
             // Create wiki.
-            $wiki->title = $request->input('title'),
-            $wiki->content = $markdown,
-            $wiki->redirect = $request->input('redirect'),
-            $wiki->template = $request->input('template'),
+            $wiki = Wiki::createWithInput([
+                'title' => $request->input('title'),
+                'content' => $markdown,
+                'redirect' => $request->input('redirect'),
+                'template' => $request->input('template'),
+            ]);
             $wiki->user = $user->id;
             $wiki->type = 1;
             $wiki->status = 1;

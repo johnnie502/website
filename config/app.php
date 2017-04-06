@@ -205,6 +205,7 @@ return [
         Backpack\Settings\SettingsServiceProvider::class,  // Settings
         Cog\Ban\Providers\BanServiceProvider::class,  // Ban and block
         Jenssegers\Agent\AgentServiceProvider::class,  // User-Agent
+        RobBrazier\Piwik\PiwikServiceProvider::class,  // Piwik
 
     ],
 
@@ -264,6 +265,7 @@ return [
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
         'Notifynder' => Fenos\Notifynder\Facades\Notifynder::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'Piwik' => RobBrazier\Piwik\Facades\Piwik::class,
 
     ],
 

@@ -70,6 +70,10 @@ a:active {
     color: #fff000;
 }
 
+#nprogress .bar {
+    background: #006600;
+}
+
 /* Bootstrap overflow */
 .navbar-default {
     background-color: white;

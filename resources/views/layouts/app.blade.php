@@ -25,21 +25,31 @@ ______                            _              _                              
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }}</title>
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <!-- Scripts -->
     <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+    <script src="https://cdn.bootcss.com/piwik/3.0.3-b2/piwik.js"></script>
     {{-- <script src="{{ elixir('/js/app.js') }}"></script> --}}
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
+        // Pjax and progress.
         $(document).pjax('a', '#pjax-container');
+        $(document).on('pjax:start', function() {
+            NProgress.start();
+        });
+        $(document).on('pjax:end',   function() {
+            NProgress.done(); 
+        });
+        // Prevent timeout event jump to links.
         $(document).on("pjax:timeout", function(event) {
-        // 阻止超时导致链接跳转事件发生
             event.preventDefault()
         });
         // Flash

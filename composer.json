@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "RobBrazier/Piwik": "^2.1",
         "andreasindal/laravel-markdown": "^1.1",
         "backpack/backupmanager": "^1.1",
         "backpack/base": "^0.7.16",

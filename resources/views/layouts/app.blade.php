@@ -34,7 +34,6 @@ ______                            _              _                              
     <script src="https://cdn.bootcss.com/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
-    <script src="https://cdn.bootcss.com/piwik/3.0.3-b2/piwik.js"></script>
     {{-- <script src="{{ elixir('/js/app.js') }}"></script> --}}
     <script>
         window.Laravel = {!! json_encode([
@@ -68,7 +67,7 @@ ______                            _              _                              
              var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
              g.type='text/javascript';
              g.async=true; g.defer=true;
-             g.src=u+'piwik.js';
+             g.src='https://cdn.bootcss.com/piwik/3.0.3-b2/piwik.js';
 
 s.parentNode.insertBefore(g,s); })();
     </script>

@@ -61,9 +61,9 @@ ______                            _              _                              
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {
-            var u="//mpcblab.com/piwik/";
+            var u="{{ config('piwik.piwik_url') }}";
              _paq.push(['setTrackerUrl', u+'piwik.php']);
-             _paq.push(['setSiteId', '2']);
+             _paq.push(['setSiteId', {{ config('piwik.site_id') }}]);
              var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
              g.type='text/javascript';
              g.async=true; g.defer=true;

@@ -43,8 +43,7 @@ class WikiController extends Controller
            // Get user id.
             $user = Auth::user();
             // Convert HTML topic content to markdown.
-            $agent = new Agent();
-            if ($agent->isPhone()) {
+            if (Agent::isPhone()) {
                 // Editor.md
                 $markdown = $request->input('content');
             } else {
@@ -113,8 +112,7 @@ class WikiController extends Controller
            // Get user id.
             $user = Auth::user();
             // Convert HTML topic content to markdown.
-            $agent = new Agent();
-            if ($agent->isPhone()) {
+            if (Agent::isPhone()) {
                 // Editor.md
                 $markdown = $request->input('content');
             } else {

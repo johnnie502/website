@@ -42,8 +42,7 @@ class PostController extends Controller
                 return back()->withInput();
             }
             // Convert HTML topic content to markdown.
-            $agent = new Agent();
-            if ($agent->isPhone()) {
+            if (Agent::isPhone()) {
                 // Editor.md
                 $markdown = $request->input('content');
             } else {
@@ -149,8 +148,7 @@ class PostController extends Controller
         $user = Auth::user();
         if ($user->can('update', $post)) {
             // Convert HTML topic content to markdown.
-            $agent = new Agent();
-            if ($agent->isPhone()) {
+            if (Agent::isPhone()) {
                 // Editor.md
                 $markdown = $request->input('content');
             } else {

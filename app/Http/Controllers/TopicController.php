@@ -48,8 +48,7 @@ class TopicController extends Controller
            // Get user id.
             $user = Auth::user();
            // Convert HTML topic content to markdown.
-            $agent = new Agent();
-            if (false&&$agent->isPhone()) {
+            if (Agent::isPhone()) {
                 // Editor.md
                 $markdown = $request->input('content');
             } else {
@@ -132,8 +131,7 @@ class TopicController extends Controller
         $user = Auth::user();
         if ($user->can('update', $topic)) {
            // Convert HTML topic content to markdown.
-            $agent = new Agent();
-            if ($agent->isPhone()) {
+            if (Agent::isPhone()) {
                 // Editor.md
                 $markdown = $request->input('content');
             } else {

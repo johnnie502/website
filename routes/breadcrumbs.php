@@ -106,11 +106,11 @@ Breadcrumbs::register('topics.posts.show', function($breadcrumbs, $topic, $post)
     }
 });
 
-Breadcrumbs::register('topics.posts.edit', function($breadcrumbs, $topic)
+Breadcrumbs::register('topics.posts.edit', function($breadcrumbs, $topic,$post)
 {
     if (isset($topic->id)) {
         $breadcrumbs->parent('topics.index');
-        $breadcrumbs->push('编辑回复: ' . $topic->title, route('topics.posts.edit', $topic, $post));
+        $breadcrumbs->push('编辑回复: ' . $topic->title, route('topics.posts.edit', [$topic, $post]));
     }
 });
 

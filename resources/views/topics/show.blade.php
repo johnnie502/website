@@ -32,6 +32,9 @@
                     @if ($reply->post > 0)
                         <ul class="list-group"> 
                             <span><a href="{{ route('users.show', $reply->users->username) }}">{{ $reply->users->username }}</a></span>
+                            @can('update', $reply)
+                                 <a class="pull-right" href="{{ route('topics.posts.edit', array($topic->id, $reply->id)) }}">Edit</a>
+                            @endcan
                             <div class="pull-right">
                                 {{ $reply->created_at->diffForHumans() }} 
                                 <a href={{ route('topics.posts.show', [$topic, $reply]) }}><span class="label label-primary">#{{ $reply->post }}</span></a>

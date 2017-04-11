@@ -16,17 +16,21 @@ $(document).ready(function(){
     <div class="panel panel-default col-md-10 col-md-offset-1">
         <div class="panel-heading">
             <h1>
-                {{ isset($topic->id) ? '编辑主题' : '发表主题' }}
+                {{ isset($topic->id) ? (isset($node)?'编辑主题':'编辑回复') : '发表主题' }}
             </h1>
         </div>
         <div class="panel-body">
-            @if($topic->id)
+            @if(isset($topic->id)&&!isset($node))
+                <form action="{{ route('topics.posts.update', [$topic->id, $post->id]) }}" method="POST">
+                    <input type="hidden" name="_method" value="PUT">
+            @elseif($topic->id)
                 <form action="{{ route('topics.update', $topic->id) }}" method="POST">
                     <input type="hidden" name="_method" value="PUT">
             @else
                 <form action="{{ route('topics.store') }}" method="POST">
             @endif
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            @if(!isset($topic->id)||isset($node))
                 <div class="form-group">
                     <label for="node-field">Node</label>
                     @if($topic->id)
@@ -47,6 +51,7 @@ $(document).ready(function(){
                 	<label for="title-field">Tags</label>
                 	<input class="form-control" type="text" name="tags" id="tags" data-role="tagsinput" required placeholder="按Enter添加标签" value="{{ old('tags', $topic->tagList) }}">
                 </div>
+            @endif
                 <div class="form-group">
                 	  <label for="content-field">Content</label>
                         @if (Agent::isPhone())

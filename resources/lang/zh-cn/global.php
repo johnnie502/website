@@ -18,6 +18,7 @@ return [
 	'user_banned' => '用户已被封禁',
 	'login_request' => '您需要登录之后才能回复',
 	'submit' => '提交',
+	'edit'=>'编辑',
 	'back' => '返回',
 # ---------- Http errors ---------- #
 	'403_forbidden' => '您没有权限进行此操作',

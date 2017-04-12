@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-md-6">
                         @can('update', $topic)
-                             <a class="pull-right" href="{{ route('topics.edit', $topic->id) }}">Edit</a>
+                             <a class="pull-right" href="{{ route('topics.edit', $topic->id) }}">@lang('global.edit')</a>
                         @endcan
                         <span class="pull-right">{{ $topic->created_at->diffForHumans() }}</span>
                     </div>
@@ -33,7 +33,7 @@
                         <ul class="list-group"> 
                             <span><a href="{{ route('users.show', $reply->users->username) }}">{{ $reply->users->username }}</a></span>
                             @can('update', $reply)
-                                 <a class="pull-right" href="{{ route('topics.posts.edit', array($topic->id, $reply->id)) }}">Edit</a>
+                                 <a class="pull-right" href="{{ route('topics.posts.edit', array($topic->id, $reply->id)) }}">@lang('global.edit')</a>
                             @endcan
                             <div class="pull-right">
                                 {{ $reply->created_at->diffForHumans() }} 

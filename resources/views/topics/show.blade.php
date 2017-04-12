@@ -33,7 +33,7 @@
                         <ul class="list-group"> 
                             <span><a href="{{ route('users.show', $reply->users->username) }}">{{ $reply->users->username }}</a></span>
                             @can('update', $reply)
-                                 <a class="pull-right" href="{{ route('topics.posts.edit', array($topic->id, $reply->id)) }}">@lang('global.edit')</a>
+                                 <a class="pull-right" href="{{ route('topics.posts.edit', [$topic->id, $reply->id]) }}">@lang('global.edit')</a>
                             @endcan
                             <div class="pull-right">
                                 {{ $reply->created_at->diffForHumans() }} 

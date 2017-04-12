@@ -158,7 +158,7 @@ class PostController extends Controller
             }
             // Update post.
             $post->updateWithInput([
-                'content' => $request->input('content')
+                'content' => $markdown
             ]);
             // Show message.
             Flash::success(Lang::get('global.operation_successfully'));

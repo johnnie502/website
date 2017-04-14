@@ -40,7 +40,7 @@
                                 {{ $reply->created_at->diffForHumans() }} 
                                 <a href={{ route('topics.posts.show', [$topic, $reply]) }}><span class="label label-primary">#{{ $reply->post }}</span></a>
                             </div>
-                            <li class="list-group-item">
+                            <li class="list-group-item post-item">
                                 <div><img alt="" src="/avatars/{{ $topic->user}}.png" width="32" height="32" /></div>
 
                                 <div>{{ $reply->content }}<hr/><span>顶&nbsp;({{ $reply->upvotes }})</span><span>踩&nbsp;({{ $reply->downvotes }})</span></div>

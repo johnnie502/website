@@ -4,11 +4,11 @@
     <div class="panel panel-default col-md-10 col-md-offset-1">
         <div class="panel-heading">
             <div class="pull-left panel-title">@lang('global.topics')</div>
+            @if($CanCreate)
+                <a class="pull-right" href="{{ route('topics.create') }}">@lang('global.create_topic')</a> 
+            @endif
         </div>
         <div class="panel-body remove-padding-horizontal">
-            @can('create')
-                <a class="pull-right" href="{{ route('topics.create') }}">@lang('global.create_topic')</a> 
-            @endcan
             @if($topics->count())
                 <ul class="list-group">
                     @foreach($topics as $topic)

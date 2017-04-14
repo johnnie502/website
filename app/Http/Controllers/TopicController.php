@@ -29,7 +29,8 @@ class TopicController extends Controller
     public function index()
     {
         $topics = Topic::paginate(20);
-        return view('topics.index', compact('topics'));
+        $CanCreate=Auth::user()->can('create',Topic::class);
+        return view('topics.index', compact('topics','CanCreate'));
     }
 
     public function create(Topic $topic)

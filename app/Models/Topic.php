@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Hootlex\Moderation\Moderatable;
 use Cviebrock\EloquentTaggable\Taggable;
+use Jcc\LaravelVote\CanBeVoted;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Topic extends Model
 {
-    use Traits\TopicOperation, Moderatable, SoftDeletes, Taggable;
+    use Traits\TopicOperation, Moderatable, SoftDeletes, Taggable, CanBeVoted;
 
     protected $table = 'topics';
     protected $dates = ['deleted_at','replied_at'];

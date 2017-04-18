@@ -206,6 +206,9 @@ return [
         Cog\Ban\Providers\BanServiceProvider::class,  // Ban and block
         Jenssegers\Agent\AgentServiceProvider::class,  // User-Agent
         RobBrazier\Piwik\PiwikServiceProvider::class,  // Piwik
+        Overtrue\LaravelFollow\FollowServiceProvider::class,  // Follow
+        Jcc\LaravelVote\VoteServiceProvider::class,  // Votes
+        
 
     ],
 

@@ -21,7 +21,7 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             // Only admin user can create or update users.
-            $this->middleware('admin', ['except' => ['index', 'show', 'profile', 'notifications']]);
+            $this->middleware('admin', ['except' => ['index', 'show', 'profile', 'notifications', 'follow', 'unfollow']]);
         } else {
             // Register user.
             $this->middleware('guest', ['only' => 'create']);
@@ -103,5 +103,29 @@ class UserController extends Controller
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('users.index');
+    }
+
+    public function follow(User $user)
+    {
+        $curUser = Auth::user();
+        if ($curUser->id == $user->id) {
+            Flash::error('不能关注自己');
+            return back();
+        }
+        // Follow user.
+        $curUser->follow($user->id);
+    }
+
+    public function unfollow(User $user)
+    {
+        $curUser = Auth::user();
+        if ($curUser->id == $user->id) {
+            Flash::error('不能取消关注自己');
+            return back();
+        }
+        // Unfollow user.
+        if ($curUser->isFollowing($user->id) {
+            $curUser->unfollow($user->id);
+        }
     }
 }

@@ -22,7 +22,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['create', 'edit']]);
+        $this->middleware('auth', ['only' => ['create', 'edit', 'upVote', 'downVote']]);
         $this->middleware('admin', ['only' => 'destory']);
     }
 
@@ -192,21 +192,33 @@ class PostController extends Controller
         }
     }
 
-    public function upVote(Topic $topic, Post $post)
+    public function upVote(User $user, Post $post)
     {
-    	 // Get user id.
+    	// Get user id.
         $user = Auth::user();
         if ($user->can('vote', $post)) {
-        	    $topic->upVote += 1;
+            if ($user->hasVoted($post) {
+                $user->cancelVote($post);
+            }
+            // Up vote the post.
+            $user->upVote($post);
+        } else {
+            return response(view('errors.403'), 403);
         }
     }
 
-    public function downVote(Topic $topic, Post $post)
+    public function downVote(User $user, Post $post)
     {
-         // Get user id.
+        // Get user id.
         $user = Auth::user();
         if ($user->can('vote', $post)) {
-                $topic->downVote += 1;
+            if ($user->hasVoted($post) {
+                $user->cancelVote($post);
+            }
+            // Down vote the post.
+            $user->downVote($post);
+        } else {
+            return response(view('errors.403'), 403);
         }
     }
 }

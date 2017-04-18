@@ -22,14 +22,14 @@ class TopicController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['create', 'edit']]);
+        $this->middleware('auth', ['only' => ['create', 'edit', 'upVote', 'downVote']]);
         $this->middleware('admin', ['only' => 'destory']);
     }
 
     public function index()
     {
         $topics = Topic::paginate(20);
-        $CanCreate=Auth::user()->can('create',Topic::class);
+        $CanCreate = Auth::user()->can('create',Topic::class);
         return view('topics.index', compact('topics','CanCreate'));
     }
 
@@ -179,6 +179,36 @@ class TopicController extends Controller
             // Show message.
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('topics.index');
+        } else {
+            return response(view('errors.403'), 403);
+        }
+    }
+
+    public function upVote(User $user, Topic $topic)
+    {
+    	// Get user id.
+        $user = Auth::user();
+        if ($user->can('vote', $topic)) {
+            if ($user->hasVoted($topic) {
+                $user->cancelVote($topic);
+            }
+            // Up vote the topic.
+            $user->upVote($topic);
+        } else {
+            return response(view('errors.403'), 403);
+        }
+    }
+
+    public function downVote(User $user, Topic $topic)
+    {
+        // Get user id.
+        $user = Auth::user();
+        if ($user->can('vote', $topic)) {
+            if ($user->hasVoted($topic) {
+                $user->cancelVote($topic);
+            }
+            // Down vote the topic.
+            $user->downVote($topic);
         } else {
             return response(view('errors.403'), 403);
         }

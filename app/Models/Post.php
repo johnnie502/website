@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Hootlex\Moderation\Moderatable;
+use Jcc\LaravelVote\CanBeVoted;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use Traits\PostOperation, Moderatable, SoftDeletes;
+    use Traits\PostOperation, Moderatable, SoftDeletes, CanBeVoted;
 
     protected $table = 'posts';
     protected $dates = ['deleted_at'];

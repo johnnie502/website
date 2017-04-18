@@ -5,12 +5,15 @@ namespace App\Models;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Junaidnasir\Larainvite\InviteTrait;
+use Overtrue\LaravelFollow\CanFollow;
+use Overtrue\LaravelFollow\CanBeFollowed;
+use Jcc\LaravelVote\Vote;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Traits\UserOperation, softDeletes, HasApiTokens, Notifiable, InviteTrait;
+    use Traits\UserOperation, softDeletes, HasApiTokens, Notifiable, InviteTrait, CanFollow, CanBeFollowed, Vote;
 
     protected $table = 'users';
     protected $dates = ['deleted_at'];

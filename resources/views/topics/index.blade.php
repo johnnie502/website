@@ -14,6 +14,7 @@
                     @foreach($topics as $topic)
                         @if ($topic->nodes->status > 0)
                         <li class="list-group-item">
+                            {{ $topic->upVote }}
                             @if ($topic->replies > 0)
                             <span class="badge">{{ $topic->replies }}</span>
                             @endif

@@ -19,6 +19,7 @@
                         <span class="pull-right">{{ $topic->created_at->diffForHumans() }}</span>
                     </div>
             </div>
+            {{ $topic->countVoters() }}
             <div class="pull-right">
                 <img alt="" src="/avatars/{{ $topic->user}}.png" width="128" height="128" /><br>
                 <a href="{{ route('users.show', $topic->users->username) }}">{{ $topic->users->username }}</a>
@@ -30,6 +31,7 @@
         @if ($topic->replies > 0)
             @if (isset($posts))
                 @foreach ($posts as $reply)
+                    {{ $reply->countVoters() }}
                     @if ($reply->post > 0)
                         <ul class="list-group"> 
                             <span><a href="{{ route('users.show', $reply->users->username) }}">{{ $reply->users->username }}</a></span>

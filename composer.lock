@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cc4f91641500ae9d8c38b0c8a47288e9",
+    "content-hash": "93a0fe316f547920db72669381bc0da1",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -150,16 +150,16 @@
         },
         {
             "name": "backpack/base",
-            "version": "0.7.16",
+            "version": "0.7.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/Base.git",
-                "reference": "8954050bcb50ff13328f7426c6ff6b4e727d17fb"
+                "reference": "1e81a3130a927b643bab1e2e0eb8cbeeef603039"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/Base/zipball/8954050bcb50ff13328f7426c6ff6b4e727d17fb",
-                "reference": "8954050bcb50ff13328f7426c6ff6b4e727d17fb",
+                "url": "https://api.github.com/repos/Laravel-Backpack/Base/zipball/1e81a3130a927b643bab1e2e0eb8cbeeef603039",
+                "reference": "1e81a3130a927b643bab1e2e0eb8cbeeef603039",
                 "shasum": ""
             },
             "require": {
@@ -205,20 +205,20 @@
                 "backpack",
                 "base"
             ],
-            "time": "2017-02-11T18:07:17+00:00"
+            "time": "2017-04-25T13:55:39+00:00"
         },
         {
             "name": "backpack/crud",
-            "version": "3.2.7",
+            "version": "3.2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "c9d599ec8ede008f4059961d4a418bf071695faa"
+                "reference": "a58929d3633023b9b01e6a5d2311a94d094c1baa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/c9d599ec8ede008f4059961d4a418bf071695faa",
-                "reference": "c9d599ec8ede008f4059961d4a418bf071695faa",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/a58929d3633023b9b01e6a5d2311a94d094c1baa",
+                "reference": "a58929d3633023b9b01e6a5d2311a94d094c1baa",
                 "shasum": ""
             },
             "require": {
@@ -269,7 +269,7 @@
                 "read",
                 "update"
             ],
-            "time": "2017-03-16T09:46:05+00:00"
+            "time": "2017-04-21T16:15:29+00:00"
         },
         {
             "name": "backpack/langfilemanager",
@@ -344,16 +344,16 @@
         },
         {
             "name": "backpack/logmanager",
-            "version": "2.3.10",
+            "version": "2.3.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/LogManager.git",
-                "reference": "0f25a1163a994d832a6406b2f03b9f9e93bf9db2"
+                "reference": "fbd1458850a710c386b394b68c95605916d0b215"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/LogManager/zipball/0f25a1163a994d832a6406b2f03b9f9e93bf9db2",
-                "reference": "0f25a1163a994d832a6406b2f03b9f9e93bf9db2",
+                "url": "https://api.github.com/repos/Laravel-Backpack/LogManager/zipball/fbd1458850a710c386b394b68c95605916d0b215",
+                "reference": "fbd1458850a710c386b394b68c95605916d0b215",
                 "shasum": ""
             },
             "require": {
@@ -397,20 +397,20 @@
                 "log manager",
                 "logs"
             ],
-            "time": "2017-04-05T05:14:10+00:00"
+            "time": "2017-04-21T16:27:09+00:00"
         },
         {
             "name": "backpack/settings",
-            "version": "2.0.15",
+            "version": "2.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/Settings.git",
-                "reference": "491c255d3ae563f96beb74976603e35cd01102a0"
+                "reference": "7ed5b32a29b1d3b95fb9e5a7b0627ff088bd7776"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/Settings/zipball/491c255d3ae563f96beb74976603e35cd01102a0",
-                "reference": "491c255d3ae563f96beb74976603e35cd01102a0",
+                "url": "https://api.github.com/repos/Laravel-Backpack/Settings/zipball/7ed5b32a29b1d3b95fb9e5a7b0627ff088bd7776",
+                "reference": "7ed5b32a29b1d3b95fb9e5a7b0627ff088bd7776",
                 "shasum": ""
             },
             "require": {
@@ -456,7 +456,7 @@
                 "tabacitu",
                 "updivision"
             ],
-            "time": "2017-02-14T07:46:09+00:00"
+            "time": "2017-04-21T16:25:43+00:00"
         },
         {
             "name": "barryvdh/elfinder-flysystem-driver",
@@ -1545,6 +1545,48 @@
             "time": "2016-07-18T04:51:16+00:00"
         },
         {
+            "name": "ghanem/rating",
+            "version": "1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AbdullahGhanem/rating.git",
+                "reference": "2709cf334f0daabb2317b8f5fa8dc3d864b87e60"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AbdullahGhanem/rating/zipball/2709cf334f0daabb2317b8f5fa8dc3d864b87e60",
+                "reference": "2709cf334f0daabb2317b8f5fa8dc3d864b87e60",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ghanem\\Rating\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "abdullah ghanem",
+                    "email": "3bdullah.ghanem@gmail.com"
+                }
+            ],
+            "description": "Rating syetem for Laravel 5",
+            "keywords": [
+                "Ratable",
+                "Rating",
+                "laravel"
+            ],
+            "time": "2017-04-25T22:42:00+00:00"
+        },
+        {
             "name": "greggilbert/recaptcha",
             "version": "dev-master",
             "source": {
@@ -1598,21 +1640,21 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.2.3",
+            "version": "6.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006"
+                "reference": "3f808fba627f2c5b69e2501217bf31af349c1427"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8d6c6cc55186db87b7dc5009827429ba4e9dc006",
-                "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/3f808fba627f2c5b69e2501217bf31af349c1427",
+                "reference": "3f808fba627f2c5b69e2501217bf31af349c1427",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/promises": "^1.0",
-                "guzzlehttp/psr7": "^1.4",
+                "guzzlehttp/psr7": "^1.3.1",
                 "php": ">=5.5"
             },
             "require-dev": {
@@ -1656,7 +1698,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2017-02-28T22:50:30+00:00"
+            "time": "2016-07-15T17:22:37+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -1822,16 +1864,16 @@
         },
         {
             "name": "intervention/image",
-            "version": "2.3.11",
+            "version": "2.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "e8881fd99b9804b29e02d6d1c2c15ee459335cf1"
+                "reference": "15a517f052ee15d373ffa145c9642d5fec7ddf5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/e8881fd99b9804b29e02d6d1c2c15ee459335cf1",
-                "reference": "e8881fd99b9804b29e02d6d1c2c15ee459335cf1",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/15a517f052ee15d373ffa145c9642d5fec7ddf5c",
+                "reference": "15a517f052ee15d373ffa145c9642d5fec7ddf5c",
                 "shasum": ""
             },
             "require": {
@@ -1880,7 +1922,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2017-02-04T10:37:19+00:00"
+            "time": "2017-04-23T18:45:36+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -1971,16 +2013,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.39",
+            "version": "v1.2.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "ee994af8b5d67b07d2a489cb4ae2edd93d4f1a3a"
+                "reference": "c5c0f049264edcf6499847c756dc36e51a072313"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/ee994af8b5d67b07d2a489cb4ae2edd93d4f1a3a",
-                "reference": "ee994af8b5d67b07d2a489cb4ae2edd93d4f1a3a",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/c5c0f049264edcf6499847c756dc36e51a072313",
+                "reference": "c5c0f049264edcf6499847c756dc36e51a072313",
                 "shasum": ""
             },
             "require": {
@@ -2015,20 +2057,20 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2017-04-14T19:58:14+00:00"
+            "time": "2017-04-20T18:58:25+00:00"
         },
         {
             "name": "jcc/laravel-vote",
-            "version": "v1.1.0",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jcc/laravel-vote.git",
-                "reference": "9a2fb99191ae0105340a37ff5084ceee7774e5d2"
+                "reference": "d026261d1f8f713989e27c197140911a39cd9de1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jcc/laravel-vote/zipball/9a2fb99191ae0105340a37ff5084ceee7774e5d2",
-                "reference": "9a2fb99191ae0105340a37ff5084ceee7774e5d2",
+                "url": "https://api.github.com/repos/jcc/laravel-vote/zipball/d026261d1f8f713989e27c197140911a39cd9de1",
+                "reference": "d026261d1f8f713989e27c197140911a39cd9de1",
                 "shasum": ""
             },
             "require": {
@@ -2054,7 +2096,7 @@
                 }
             ],
             "description": "The package helps you to add user based vote system to your model",
-            "time": "2017-04-18T05:50:38+00:00"
+            "time": "2017-04-26T06:22:47+00:00"
         },
         {
             "name": "jenssegers/agent",
@@ -2117,16 +2159,16 @@
         },
         {
             "name": "jenssegers/date",
-            "version": "v3.2.9",
+            "version": "v3.2.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jenssegers/date.git",
-                "reference": "0b31adfc17a359e34ceff20964a9047bca7ea7d9"
+                "reference": "ddc073e6cbba95bf298bf2bf43f2ebb2ec47b050"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jenssegers/date/zipball/0b31adfc17a359e34ceff20964a9047bca7ea7d9",
-                "reference": "0b31adfc17a359e34ceff20964a9047bca7ea7d9",
+                "url": "https://api.github.com/repos/jenssegers/date/zipball/ddc073e6cbba95bf298bf2bf43f2ebb2ec47b050",
+                "reference": "ddc073e6cbba95bf298bf2bf43f2ebb2ec47b050",
                 "shasum": ""
             },
             "require": {
@@ -2170,20 +2212,20 @@
                 "time",
                 "translation"
             ],
-            "time": "2017-03-12T09:26:50+00:00"
+            "time": "2017-04-20T14:50:49+00:00"
         },
         {
             "name": "junaidnasir/larainvite",
-            "version": "v0.1.7",
+            "version": "v0.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/junaidnasir/larainvite.git",
-                "reference": "956942a4661b6b6078896d04650a1cf841814640"
+                "reference": "4e9dcc0ed89a2792964abcf48455ed78a7445dac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/junaidnasir/larainvite/zipball/956942a4661b6b6078896d04650a1cf841814640",
-                "reference": "956942a4661b6b6078896d04650a1cf841814640",
+                "url": "https://api.github.com/repos/junaidnasir/larainvite/zipball/4e9dcc0ed89a2792964abcf48455ed78a7445dac",
+                "reference": "4e9dcc0ed89a2792964abcf48455ed78a7445dac",
                 "shasum": ""
             },
             "require": {
@@ -2218,7 +2260,7 @@
                 "invitations",
                 "laravel"
             ],
-            "time": "2016-04-11T11:33:46+00:00"
+            "time": "2017-04-19T17:12:13+00:00"
         },
         {
             "name": "laracasts/flash",
@@ -2678,16 +2720,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.37",
+            "version": "1.0.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "78b5cc4feb61a882302df4fbaf63b7662e5e4ccd"
+                "reference": "2474325ee924134bb05848663b12531f6f2e9fbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/78b5cc4feb61a882302df4fbaf63b7662e5e4ccd",
-                "reference": "78b5cc4feb61a882302df4fbaf63b7662e5e4ccd",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/2474325ee924134bb05848663b12531f6f2e9fbe",
+                "reference": "2474325ee924134bb05848663b12531f6f2e9fbe",
                 "shasum": ""
             },
             "require": {
@@ -2709,12 +2751,12 @@
                 "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
                 "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
                 "league/flysystem-copy": "Allows you to use Copy.com storage",
-                "league/flysystem-dropbox": "Allows you to use Dropbox storage",
                 "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
                 "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
                 "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
                 "league/flysystem-webdav": "Allows you to use WebDAV storage",
-                "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter"
+                "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter",
+                "spatie/flysystem-dropbox": "Allows you to use Dropbox storage"
             },
             "type": "library",
             "extra": {
@@ -2757,7 +2799,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2017-03-22T15:43:14+00:00"
+            "time": "2017-04-25T15:24:43+00:00"
         },
         {
             "name": "league/flysystem-cached-adapter",
@@ -3313,24 +3355,24 @@
         },
         {
             "name": "overtrue/laravel-follow",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/laravel-follow.git",
-                "reference": "5d49bfce854ef093d02a44668fa184054cb52167"
+                "reference": "a955d45af0a5be51c4d8818793783c65e0387a05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/laravel-follow/zipball/5d49bfce854ef093d02a44668fa184054cb52167",
-                "reference": "5d49bfce854ef093d02a44668fa184054cb52167",
+                "url": "https://api.github.com/repos/overtrue/laravel-follow/zipball/a955d45af0a5be51c4d8818793783c65e0387a05",
+                "reference": "a955d45af0a5be51c4d8818793783c65e0387a05",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4"
+                "php": ">=5.5.9"
             },
             "require-dev": {
-                "laravel/framework": "~5.1",
-                "phpunit/phpunit": "^3.0"
+                "laravel/laravel": "5.1.*",
+                "phpunit/phpunit": "~5.0"
             },
             "type": "library",
             "autoload": {
@@ -3349,7 +3391,7 @@
                 }
             ],
             "description": "Laravel 5 User Based System",
-            "time": "2017-01-02T07:26:09+00:00"
+            "time": "2017-04-12T03:24:11+00:00"
         },
         {
             "name": "paquettg/php-html-parser",
@@ -4037,24 +4079,27 @@
         },
         {
             "name": "robbrazier/piwik",
-            "version": "2.1.2",
+            "version": "2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobBrazier/Laravel_Piwik.git",
-                "reference": "10f4f8319a8a987523c9f8a8f8966dd1740b44a5"
+                "reference": "2997d6291e8742f853115f1db7d4865f824b4f37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobBrazier/Laravel_Piwik/zipball/10f4f8319a8a987523c9f8a8f8966dd1740b44a5",
-                "reference": "10f4f8319a8a987523c9f8a8f8966dd1740b44a5",
+                "url": "https://api.github.com/repos/RobBrazier/Laravel_Piwik/zipball/2997d6291e8742f853115f1db7d4865f824b4f37",
+                "reference": "2997d6291e8742f853115f1db7d4865f824b4f37",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": ">=5.0.0",
-                "php": ">=5.4.0"
+                "guzzlehttp/guzzle": "6.2.1",
+                "illuminate/support": "~5.1",
+                "php": ">=5.5.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "mockery/mockery": "0.9.5",
+                "phpunit/phpcov": "2.0.2",
+                "phpunit/phpunit": "4.8.35"
             },
             "type": "library",
             "autoload": {
@@ -4077,7 +4122,7 @@
                 "laravel",
                 "piwik"
             ],
-            "time": "2016-08-20T16:51:55+00:00"
+            "time": "2017-04-22T17:00:33+00:00"
         },
         {
             "name": "schuppo/password-strength",
@@ -4401,16 +4446,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.6",
+            "version": "v5.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e"
+                "reference": "56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e",
-                "reference": "81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4",
+                "reference": "56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4",
                 "shasum": ""
             },
             "require": {
@@ -4451,7 +4496,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2017-02-13T07:52:53+00:00"
+            "time": "2017-04-20T17:32:18+00:00"
         },
         {
             "name": "symfony/console",
@@ -5655,16 +5700,16 @@
     "packages-dev": [
         {
             "name": "backpack/generators",
-            "version": "1.1.8",
+            "version": "1.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/Generators.git",
-                "reference": "25ccfe6b75738bb1a2b013b4466d746573718e8b"
+                "reference": "c3d93e43e81aeba094e2cb44b13b5c54c2dca3aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/Generators/zipball/25ccfe6b75738bb1a2b013b4466d746573718e8b",
-                "reference": "25ccfe6b75738bb1a2b013b4466d746573718e8b",
+                "url": "https://api.github.com/repos/Laravel-Backpack/Generators/zipball/c3d93e43e81aeba094e2cb44b13b5c54c2dca3aa",
+                "reference": "c3d93e43e81aeba094e2cb44b13b5c54c2dca3aa",
                 "shasum": ""
             },
             "require": {
@@ -5708,7 +5753,7 @@
                 "request",
                 "view"
             ],
-            "time": "2017-04-03T17:02:48+00:00"
+            "time": "2017-04-26T05:13:41+00:00"
         },
         {
             "name": "doctrine/instantiator",

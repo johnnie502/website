@@ -21,7 +21,7 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             // Only admin user can create or update users.
-            $this->middleware('admin', ['except' => ['index', 'show', 'profile', 'notifications', 'follow', 'unfollow']]);
+            $this->middleware('admin', ['except' => ['index', 'show', 'profile', 'notifications', 'getFollow', 'postFollow', 'getUnfollow', 'postUnfollow']]);
         } else {
             // Register user.
             $this->middleware('guest', ['only' => 'create']);
@@ -105,7 +105,7 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function follow(User $user)
+    public function postFollow(User $user)
     {
         $curUser = Auth::user();
         if ($curUser->id == $user->id) {
@@ -116,7 +116,7 @@ class UserController extends Controller
         $curUser->follow($user->id);
     }
 
-    public function unfollow(User $user)
+    public function postUnfollow(User $user)
     {
         $curUser = Auth::user();
         if ($curUser->id == $user->id) {

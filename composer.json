@@ -20,6 +20,7 @@
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "douyasi/laravel-editor-md": "dev-master",
         "fenos/notifynder": "^4.1",
+        "ghanem/rating": "^1.4",
         "greggilbert/recaptcha": "dev-master",
         "hootlex/laravel-moderation": "^1.0",
         "intervention/image": "^2.3",

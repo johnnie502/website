@@ -22,7 +22,7 @@ class TopicController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['create', 'edit', 'upVote', 'downVote']]);
+        $this->middleware('auth', ['only' => ['create', 'edit', 'getUpVote', 'postUpvote', 'getDownVote', 'postDownvote']]);
         $this->middleware('admin', ['only' => 'destory']);
     }
 
@@ -184,7 +184,7 @@ class TopicController extends Controller
         }
     }
 
-    public function upVote(User $user, Topic $topic)
+    public function getUpvote(User $user, Topic $topic)
     {
     	// Get user id.
         $user = Auth::user();
@@ -199,7 +199,7 @@ class TopicController extends Controller
         }
     }
 
-    public function downVote(User $user, Topic $topic)
+    public function postDownvote(User $user, Topic $topic)
     {
         // Get user id.
         $user = Auth::user();

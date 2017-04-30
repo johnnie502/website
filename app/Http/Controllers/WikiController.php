@@ -6,6 +6,7 @@ use Agent;
 use Auth;
 use Flash;
 use Lang;
+use Markdown;
 use App\Models\User;
 use App\Models\Wiki;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -96,6 +97,12 @@ class WikiController extends Controller
         	    return redirect()->route('wiki.show', $wikis);
         	}
         // Table of Contents.
+        // Get dom from wiki contents.
+        $dom = new Dom;
+        $dom->loadStr(Markdown::parse($wiki->content, []));
+        $html = $dom->outerHtml;
+        // The toc being generated.
+        
         return view('wiki.show', compact('wiki'));
     }
 
@@ -199,5 +206,29 @@ class WikiController extends Controller
     		->firstOrFail();
     	$diff = Diff::compare($oldContent, $newContent);
     	return view('wiki.diff', compact('wiki', 'diff'));
+    }
+
+    public function postStar(User $user, Wiki $wiki, $star)
+    {
+        // Create/Update a wiki rating.
+        // Get user id.
+        $user = Auth::user();
+        if ($user->can('star', $wiki)) {
+            $rating = [1, 2, 3, 4, 5];
+            if (in_array($rating, $star)) {
+                $wiki->rating([
+                    'rating' => $star
+                ], $user);
+            }
+        }
+    }
+    
+    public function ppstUnstar(User $user, Wiki $wiki)
+    {
+        // Get user id.
+        $user = Auth::user();
+        if ($user->can('star', $wiki)) {
+            $wiki->deleteRating($user->id);
+        }
     }
 }

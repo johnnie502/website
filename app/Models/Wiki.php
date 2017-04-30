@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Hootlex\Moderation\Moderatable;
 use Cviebrock\EloquentTaggable\Taggable;
+use Ghanem\Rating\Traits\Ratingable as Rating;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Wiki extends Model
 {
-    use Traits\WikiOperation, Moderatable, SoftDeletes, Taggable;
+    use Traits\WikiOperation, Moderatable, Rating, SoftDeletes, Taggable;
 
     protected $table = 'wikis';
     protected $dates = ['deleted_at'];

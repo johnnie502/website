@@ -22,7 +22,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['create', 'edit', 'upVote', 'downVote']]);
+        $this->middleware('auth', ['only' => ['create', 'edit', 'getUpvote', 'postUpvote', 'getDownvote', 'postDownvote']]);
         $this->middleware('admin', ['only' => 'destory']);
     }
 
@@ -192,7 +192,7 @@ class PostController extends Controller
         }
     }
 
-    public function upVote(User $user, Post $post)
+    public function postUpvote(User $user, Post $post)
     {
     	// Get user id.
         $user = Auth::user();
@@ -207,7 +207,7 @@ class PostController extends Controller
         }
     }
 
-    public function downVote(User $user, Post $post)
+    public function postDownvote(User $user, Post $post)
     {
         // Get user id.
         $user = Auth::user();

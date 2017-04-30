@@ -208,6 +208,7 @@ return [
         RobBrazier\Piwik\PiwikServiceProvider::class,  // Piwik
         Overtrue\LaravelFollow\FollowServiceProvider::class,  // Follow
         Jcc\LaravelVote\VoteServiceProvider::class,  // Votes
+        Ghanem\Rating\RatingServiceProvider::class,  // Fivestar rating
         
 
     ],

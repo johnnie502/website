@@ -50,7 +50,7 @@ class PageController extends Controller
         
     }
 
-    public function sign()
+    public function getSign()
     {
         // Get user.
         $user = Auth::user();

@@ -25,7 +25,17 @@
                 <a href="{{ route('users.show', $topic->users->username) }}">{{ $topic->users->username }}</a>
             </div>
              @markdown($posts->first()->content)
-             upvotes
+             $topic->upvotes
+             <!-- Comments -->
+             @if (Auth::check())
+                 @if (isset($comment->id))
+                     <form action="{{ route('topics.posts.comments.update', $topic->id, 0, $comment->id) }}" method="POST">
+                @else
+                     <form action="{{ route('topics.posts.comments.create', $topic->id, 0, 1) }}" method="POST">
+                @endif
+                     <textarea name="comments" id="comments">{{ if(isset($comment->id)); old($comment->content) }}</textarea>
+                 </form>
+            @endif
         </div>
         <!-- Posts -->
         @if ($topic->replies > 0)
@@ -48,6 +58,15 @@
                                 <div>{{ $reply->content }}<hr/><span>顶&nbsp;({{ $reply->upvotes }})</span><span>踩&nbsp;({{ $reply->downvotes }})</span></div>
                             </li>
                         </ul>
+                        @if (Auth::check())
+                            @if (isset($comment->id))
+                                <form action="{{ route('topics.posts.comments.update', $topic->id, $post->id, $comment->id) }}" method="POST">
+                           @else
+                                <form action="{{ route('topics.posts.comments.create', $topic->id, $post->id, $comments->id) }}" method="POST">
+                           @endif
+                                <textarea name="comments" id="comments">{{ if(isset($comment->id)); old($comment->content) }}</textarea>
+                            </form>
+                        @endif
                     @endif
                 @endforeach
             @else

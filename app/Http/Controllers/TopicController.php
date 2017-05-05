@@ -29,15 +29,15 @@ class TopicController extends Controller
     public function index()
     {
         $topics = Topic::paginate(20);
-        $CanCreate = Auth::user()->can('create',Topic::class);
-        return view('topics.index', compact('topics','CanCreate'));
+        $topic = new Topic();
+        return view('topics.index', compact('topics', 'topic'));
     }
 
     public function create(Topic $topic)
     {
         // Get nodes list.
         $nodes = Node::all();
-        return view('topics.create_and_edit', compact('nodes', 'topic'));
+        return view('topics.create_and_edit', compact('nodes'));
     }
 
     public function store(TopicRequest $request)
@@ -189,7 +189,7 @@ class TopicController extends Controller
     	// Get user id.
         $user = Auth::user();
         if ($user->can('vote', $topic)) {
-            if ($user->hasVoted($topic) {
+            if ($user->hasVoted($topic)) {
                 $user->cancelVote($topic);
             }
             // Up vote the topic.
@@ -204,7 +204,7 @@ class TopicController extends Controller
         // Get user id.
         $user = Auth::user();
         if ($user->can('vote', $topic)) {
-            if ($user->hasVoted($topic) {
+            if ($user->hasVoted($topic)) {
                 $user->cancelVote($topic);
             }
             // Down vote the topic.

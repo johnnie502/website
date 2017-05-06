@@ -38,4 +38,12 @@ class Topic extends Model
     {
         return $this->hasMany('App\Models\Post', 'topic');
     }    
+
+    /**
+     * Get all of the topic's comments.
+     */
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Comment', 'model');
+    }
 }

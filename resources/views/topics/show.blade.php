@@ -27,6 +27,11 @@
              @markdown($posts->first()->content)
              $topic->upvotes
              <!-- Comments -->
+             @foreach ($topic->comments as $comment)
+                 <ul class="list-group">
+                     <li class="list-group-item"><a link="{{ route('user.show', $comment->user) }}">{{ $comment->user->username }}</a> . ': ' . {{ $comment->content }}</li>
+                 </ul>
+             @endforeach
              @if (Auth::check())
                  @if (isset($comment->id))
                      <form action="{{ route('topics.posts.comments.update', $topic->id, 0, $comment->id) }}" method="POST">
@@ -58,6 +63,12 @@
                                 <div>{{ $reply->content }}<hr/><span>顶&nbsp;({{ $reply->upvotes }})</span><span>踩&nbsp;({{ $reply->downvotes }})</span></div>
                             </li>
                         </ul>
+                        <!-- Comments -->
+                        @foreach ($post->comments as $comment)
+                             <ul class="list-group">
+                                 <li class="list-group-item"><a link="{{ route('user.show', $comment->user) }}">{{ $comment->user->username }}</a> . ': ' . {{ $comment->content }}</li>
+                             </ul>
+                        @endforeach
                         @if (Auth::check())
                             @if (isset($comment->id))
                                 <form action="{{ route('topics.posts.comments.update', $topic->id, $post->id, $comment->id) }}" method="POST">

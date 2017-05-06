@@ -16,6 +16,11 @@
                     <a class="pull-right" href="{{ route('wiki.edit', $wiki->id) }}">Edit</a>
                 @endcan
             </div>
+        <!-- Title -->
+        {{ $wiki->title }}
+        <!-- Title of Contents -->
+        {{ $wiki->toc }}
+        <!-- Contents -->
 	@markdown($wiki->content)
         </div>
     </div>

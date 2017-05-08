@@ -1,7 +1,7 @@
 <?php
 
 return [
-# ---------- general ----------#
+# ---------- General ---------- #
 	'mpcblab' => '数理化生实验室',
 	'topics' => '社区',
 	'wiki' => '百科',
@@ -24,12 +24,39 @@ return [
 	'403_forbidden' => '您没有权限进行此操作',
 	'404_not_found' => '您来到了一个未知的领域',
 
-# ---------- Flash messages ----------#
+# ---------- Flash messages ---------- #
 	'operation_successfully' => '操作成功',
 	'register_successfully' => '注册成功，请在邮件中确认',
 	'login_successfully' => '登录成功',
 	'logout_successfully' => '注销成功',
 	'confirm_email_request' => '您还没有验证邮箱地址',
-# ----------Topics ----------#
+# ---------- User ---------- #
+	'topics' => '主题',
+	'replies' => '回复',
+	'crested_wiki' => '创建的条目',
+	'edited_wiki' => '编辑的条目',
+	'comments' => '评论',
+	'followers' => '关注者',
+	'following' => '关注的人',
+	'vores' => '赞和踩',
+	'favicons' => '收藏',
+	'points' => '积分',
+	'notifications' => '通知提醒',
+# ---------- Topic ---------- #
+	'create_topic' => '创建主题',
+	'edit_topic' => '编辑主题',
+	'view_topic' => '查看主题',
+	'delete_topic' => '删除主题',
+	'create_post' => '创建回复',
+	'edit_post' => '编辑回复',
+	'view_all_post' => '查看所有回复',
+	'delete_post' => '删除回复',
 	'last_reply' => '最后回复来自',
+# ---------- Wiki ---------- #
+	'create_wiki' => '创建条目',
+	'edit_wiki' => '编辑条目',
+	'view_wiki' => '查看条目',
+	'delete_wiki' => '删除条目',
+	'view_wiki_history' => '查看条目历史',
+	'compare_wiki_version' => '对比条目版本',
 ];

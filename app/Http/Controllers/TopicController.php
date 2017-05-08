@@ -13,6 +13,7 @@ use App\Models\Node;
 use App\Models\User;
 use Carbon\Carbon;
 use League\HTMLToMarkdown\HtmlConverter;
+use Ricoa\CopyWritingCorrect\CopyWritingCorrectService;
 use Illuminate\Http\Request;
 use Illuminate\Http\response;
 use App\Http\Controllers\Controller;
@@ -57,6 +58,8 @@ class TopicController extends Controller
                 $converter = new HtmlConverter();
                 $markdown = $converter->convert($request->input('content'));
             }
+            // Fix the contents.
+            $markdown = CopyWritingCorrectService::correct($markdown);
             // Create topic and post.
             $topic = Topic::createWithInput([
                 'node' => $request->input('node'),
@@ -140,6 +143,8 @@ class TopicController extends Controller
                 $converter = new HtmlConverter();
                 $markdown = $converter->convert($request->input('content'));
             }
+            // Fix the contents.
+            $markdown = CopyWritingCorrectService::correct($markdown);
             // Update topic.
             $topic->updateWithInput([
                 'title' => $request->input('title'),

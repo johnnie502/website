@@ -10,6 +10,7 @@ use Markdown;
 use App\Models\User;
 use App\Models\Wiki;
 use League\HTMLToMarkdown\HtmlConverter;
+use Ricoa\CopyWritingCorrect\CopyWritingCorrectService;
 use PHPHtmlParser\Dom;
 use ViKon\Diff\Diff;
 use Illuminate\Http\Request;
@@ -52,6 +53,8 @@ class WikiController extends Controller
                 $converter = new HtmlConverter();
                 $markdown = $converter->convert($request->input('content'));
             }
+            // Fix the contents.
+            $markdown = CopyWritingCorrectService::correct($markdown);
             // Create wiki.
             $wiki = Wiki::createWithInput([
                 'title' => $request->input('title'),
@@ -136,6 +139,8 @@ class WikiController extends Controller
                 $converter = new HtmlConverter();
                 $markdown = $converter->convert($request->input('content'));
             }
+            // Fix the contents.
+            $markdown = CopyWritingCorrectService::correct($markdown);
             // NOT update the wiki! save a new version.
             $wiki = Wiki::createWithInput([
                 'title' => $request->input('title'),

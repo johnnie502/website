@@ -10,6 +10,7 @@ use App\Models\Point;
 use App\Models\Post;
 use App\Models\Topic;
 use League\HTMLToMarkdown\HtmlConverter;
+use Ricoa\CopyWritingCorrect\CopyWritingCorrectService;
 use Illuminate\Http\Request;
 use Illuminate\Http\response;
 use App\Http\Controllers\Controller;
@@ -43,6 +44,8 @@ class CommentController extends Controller
             // Convert HTML topic content to markdown.
             $converter = new HtmlConverter();
             $markdown = $converter->convert($request->input('content'));
+            // Fix the contents.
+            $markdown = CopyWritingCorrectService::correct($markdown);
             comment = Comment::createWithInput([
                 'content' => $markdown,
             ]);
@@ -83,6 +86,8 @@ class CommentController extends Controller
             // Convert HTML topic content to markdown.
             $converter = new HtmlConverter();
             $markdown = $converter->convert($request->input('content'));
+            // Fix the contents.
+            $markdown = CopyWritingCorrectService::correct($markdown);
             $comment->updateWithInput([
                 'content' => $markdown,
             ]);

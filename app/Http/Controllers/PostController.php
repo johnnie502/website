@@ -13,6 +13,7 @@ use App\Models\Topic;
 use App\Models\User;
 use Carbon\Carbon;
 use League\HTMLToMarkdown\HtmlConverter;
+use Ricoa\CopyWritingCorrect\CopyWritingCorrectService;
 use Illuminate\Http\Request;
 use Illuminate\Http\response;
 use App\Http\Controllers\Controller;
@@ -50,6 +51,8 @@ class PostController extends Controller
                 $converter = new HtmlConverter();
                 $markdown = $converter->convert($request->input('content'));
             }
+            // Fix the contents.
+            $markdown = CopyWritingCorrectService::correct($markdown);
             // @ notification.
             $atList = [];
             preg_match_all('/@([a-zA-Z0-9\x80-\xff\-_]{3,20}) /', $markdown, $atList, PREG_PATTERN_ORDER);
@@ -156,6 +159,8 @@ class PostController extends Controller
                 $converter = new HtmlConverter();
                 $markdown = $converter->convert($request->input('content'));
             }
+            // Fix the contents.
+            $markdown = CopyWritingCorrectService::correct($markdown);
             // Update post.
             $post->updateWithInput([
                 'content' => $markdown

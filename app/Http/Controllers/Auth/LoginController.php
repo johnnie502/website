@@ -81,8 +81,12 @@ class LoginController extends Controller
         // Login attempts.
         if ($type == 'email') {
             if (Auth::attempt(['email' => $username, 'password' => $password], $request->has('remember'))) {
-                // update logon ip.
+                // Is the user was logoff?
                 $user = User:: where('email', $username)->first();
+                if ($user->status == -1) {
+                	   $user->status= 1; 
+                }
+                // update logon ip.
                 $user->lastip = $request->getClientIp();
                 $user->save();
                 Flash::success(Lang::get('global.login_successfully'));
@@ -92,8 +96,12 @@ class LoginController extends Controller
                 return back()->withInput();
             }
         } else if (Auth::attempt(['username' => $username, 'password' => $password], $request->has('remember'))) {
-            // update login ip.
+            // Is the user was logoff?
             $user = User:: where('username', $username)->first();
+            if ($user->status == -1) {
+                $user->status= 1; 
+            }
+            // update login ip.
             $user->lastip = $request->getClientIp();
             $user->save();
             Flash::success(Lang::get('global.login_successfully'));

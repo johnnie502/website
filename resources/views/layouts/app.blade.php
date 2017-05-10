@@ -137,7 +137,7 @@ ______                            _              _                              
         </header>
         <!-- Nav -->
         <div class="container">
-            @if (Auth::check() && $account->status < 0)
+            @if (Auth::check() && $account->status <= -3)
             <div class="alert alert-danger">
                 @lang('global.user_banned')
             </div>

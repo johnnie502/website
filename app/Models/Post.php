@@ -14,6 +14,7 @@ class Post extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = ['content'];
     protected $touches = ['topics'];
+    protected $vote = User::class;
 
     /* 
       * Get post assoc topics.

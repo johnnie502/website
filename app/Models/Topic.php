@@ -14,6 +14,7 @@ class Topic extends Model
     protected $table = 'topics';
     protected $dates = ['deleted_at','replied_at'];
     protected $fillable = ['title'];
+    protected $vote = User::class;
 
     /*
       * Get topic assoc node.

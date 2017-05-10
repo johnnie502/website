@@ -38,7 +38,7 @@
                 @else
                      <form action="{{ route('topics.posts.comments.create', $topic->id, 0, 1) }}" method="POST">
                 @endif
-                     <textarea name="comments" id="comments">{{ if(isset($comment->id)); old($comment->content) }}</textarea>
+                     <textarea name="comments" id="comments">{{ old($comment->content) }}</textarea>
                  </form>
             @endif
         </div>
@@ -75,7 +75,7 @@
                            @else
                                 <form action="{{ route('topics.posts.comments.create', $topic->id, $post->id, $comments->id) }}" method="POST">
                            @endif
-                                <textarea name="comments" id="comments">{{ if(isset($comment->id)); old($comment->content) }}</textarea>
+                                <textarea name="comments" id="comments">{{ old($comment->content) }}</textarea>
                             </form>
                         @endif
                     @endif

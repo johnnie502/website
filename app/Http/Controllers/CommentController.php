@@ -31,7 +31,7 @@ class CommentController extends Controller
 
     public function store(CommentRequest $request)
     {
-        $comment = new Comment()
+        $comment = new Comment();
          // Get user id.
         $user = Auth::user();
         if ($user->can('create', $comment)) {
@@ -46,7 +46,7 @@ class CommentController extends Controller
             $markdown = $converter->convert($request->input('content'));
             // Fix the contents.
             $markdown = CopyWritingCorrectService::correct($markdown);
-            comment = Comment::createWithInput([
+            $comment = Comment::createWithInput([
                 'content' => $markdown,
             ]);
             // User statics

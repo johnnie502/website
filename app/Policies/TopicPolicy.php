@@ -12,7 +12,6 @@ class TopicPolicy extends Policy
 
     public function before(User $user, $ability)
     {
-        var_dump($user->status > 0);
         if ($user->status > 0) {
             return true;
         }

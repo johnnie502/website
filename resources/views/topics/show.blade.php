@@ -25,21 +25,24 @@
                 <a href="{{ route('users.show', $topic->users->username) }}">{{ $topic->users->username }}</a>
             </div>
              @markdown($posts->first()->content)
-             $topic->upvotes
+             {{ $topic->upvotes }}
              <!-- Comments -->
              @foreach ($topic->comments as $comment)
                  <ul class="list-group">
-                     <li class="list-group-item"><a link="{{ route('user.show', $comment->user) }}">{{ $comment->user->username }}</a> . ': ' . {{ $comment->content }}</li>
+                     <li class="list-group-item"><a link="{{ route('user.show', $comment->user) }}">{{ $comment->users->username }}</a> . ': ' . {{ $comment->content }}</li>
                  </ul>
              @endforeach
              @if (Auth::check())
-                 @if (isset($comment->id))
-                     <form action="{{ route('topics.posts.comments.update', $topic->id, 0, $comment->id) }}" method="POST">
-                @else
-                     <form action="{{ route('topics.posts.comments.create', $topic->id, 0, 1) }}" method="POST">
-                @endif
-                     <textarea name="comments" id="comments">{{ old($comment->content) }}</textarea>
-                 </form>
+                 @if (isset($topic->comments->id))
+                     <form action="{{ route('topics.posts.comments.update', [$topic->id, 0, $topic->comments->id]) }}" method="POST">
+                    <textarea name="comments" id="comments">{{ old($topic->comments->content. '') }}</textarea>
+                 @else
+                     <form action="{{ route('topics.posts.comments.store', [$topic->id, 0, 1]) }}" method="POST">
+                    <textarea name="comments" id="comments"></textarea>
+                 @endif
+                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                     <input type="submit" name="submit" value="@lang('global.submit')" />
+                  </form>
             @endif
         </div>
         <!-- Posts -->
@@ -64,18 +67,21 @@
                             </li>
                         </ul>
                         <!-- Comments -->
-                        @foreach ($post->comments as $comment)
+                        @foreach ($posts as $post)
                              <ul class="list-group">
-                                 <li class="list-group-item"><a link="{{ route('user.show', $comment->user) }}">{{ $comment->user->username }}</a> . ': ' . {{ $comment->content }}</li>
+                                 <li class="list-group-item"><a link="{{ route('user.show', $post->comments->users) }}">{{ $post->comments->users->username }}</a> . ': ' . {{ $post->comments->content }}</li>
                              </ul>
                         @endforeach
                         @if (Auth::check())
-                            @if (isset($comment->id))
-                                <form action="{{ route('topics.posts.comments.update', $topic->id, $post->id, $comment->id) }}" method="POST">
+                            @if (isset($post->comments->id))
+                                <form action="{{ route('topics.posts.comments.update', [$topic->id, $post->id, $post->comments->id]) }}" method="POST">
+                                <textarea name="comments" id="comments">{{ old($post->comments->content, '') }}</textarea>
                            @else
-                                <form action="{{ route('topics.posts.comments.create', $topic->id, $post->id, $comments->id) }}" method="POST">
+                                <form action="{{ route('topics.posts.comments.store', [$topic->id, $post->id, $post->comments->id]) }}" method="POST">
+                                <textarea name="comments" id="comments"></textarea>
                            @endif
-                                <textarea name="comments" id="comments">{{ old($comment->content) }}</textarea>
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="submit" name="submit" value="@lang('global.submit')" />
                             </form>
                         @endif
                     @endif

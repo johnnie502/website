@@ -21,4 +21,12 @@ class Comment extends Model
     {
         return $this->morphTo();
     }
+
+    /*
+      * Get comment assoc users.
+      */
+    public function users()
+    {
+        return $this->belongsTo('App\Models\User', 'user');
+    }
 }

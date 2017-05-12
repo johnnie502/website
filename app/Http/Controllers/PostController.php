@@ -52,7 +52,7 @@ class PostController extends Controller
                 $markdown = $converter->convert($request->input('content'));
             }
             // Fix the contents.
-            $markdown = CopyWritingCorrectService::correct($markdown);
+            $markdown = (new CopyWritingCorrectService())->correct($markdown);
             // @ notification.
             $atList = [];
             preg_match_all('/@([a-zA-Z0-9\x80-\xff\-_]{3,20}) /', $markdown, $atList, PREG_PATTERN_ORDER);
@@ -160,7 +160,7 @@ class PostController extends Controller
                 $markdown = $converter->convert($request->input('content'));
             }
             // Fix the contents.
-            $markdown = CopyWritingCorrectService::correct($markdown);
+            $markdown = (new CopyWritingCorrectService())->correct($markdown);
             // Update post.
             $post->updateWithInput([
                 'content' => $markdown
@@ -202,7 +202,7 @@ class PostController extends Controller
     	// Get user id.
         $user = Auth::user();
         if ($user->can('vote', $post)) {
-            if ($user->hasVoted($post) {
+            if ($user->hasVoted($post)) {
                 $user->cancelVote($post);
             }
             // Up vote the post.
@@ -217,7 +217,7 @@ class PostController extends Controller
         // Get user id.
         $user = Auth::user();
         if ($user->can('vote', $post)) {
-            if ($user->hasVoted($post) {
+            if ($user->hasVoted($post)) {
                 $user->cancelVote($post);
             }
             // Down vote the post.

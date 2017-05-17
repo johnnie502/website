@@ -124,7 +124,7 @@ class UserController extends Controller
             return back();
         }
         // Unfollow user.
-        if ($curUser->isFollowing($user->id) {
+        if ($curUser->isFollowing($user->id)) {
             $curUser->unfollow($user->id);
         }
     }

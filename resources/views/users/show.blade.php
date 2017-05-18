@@ -99,10 +99,22 @@
                 @endif
             </div>
             <div class="tab-pane-fade" id="followers">
-                {{ $user->followers() }}
+                <ul class="list-group"> 
+                    @foreach ($user->followers(User::class) as $follower)
+                        <li class="list-group-item">
+                            <a href={{ route('users.show', $follower->username) }}>{{ $follower->username }}</a>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
             <div class="tab-pane-fade" id="following">
-                {{ $user->followings() }}
+                <ul class="list-group"> 
+                    @foreach ($user->followings() as $following)
+                        <li class="list-group-item">
+                            <a href={{ route('users.show', $following->username) }}>{{ $following->username }}</a>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
             <div class="tab-pane fade" id="points">
                 <ul class="list-group">

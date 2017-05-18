@@ -23,7 +23,7 @@ $(document).ready(function(){
             @if(isset($topic->id)&&!isset($node))
                 <form action="{{ route('topics.posts.update', [$topic->id, $post->id]) }}" method="POST">
                     <input type="hidden" name="_method" value="PUT">
-            @elseif($topic->id)
+            @elseif(isset($topic->id))
                 <form action="{{ route('topics.update', $topic->id) }}" method="POST">
                     <input type="hidden" name="_method" value="PUT">
             @else
@@ -33,7 +33,7 @@ $(document).ready(function(){
             @if(!isset($topic->id)||isset($node))
                 <div class="form-group">
                     <label for="node-field">Node</label>
-                    @if($topic->id)
+                    @if(isset($topic->id))
                         {{ $node->name }}
                     @else
                         <select class="form-control" name="node" id="node-field" required placeholder="请选择一个节点">
@@ -45,7 +45,7 @@ $(document).ready(function(){
                 </div> 
                 <div class="form-group">
                 	<label for="title-field">Title</label>
-                	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ old('title', $topic->title) }}" />
+                	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ isset($topic)?old('title', $topic->title):'' }}" />
                 </div>
                 <div class="form-group">
                 	<label for="title-field">Tags</label>

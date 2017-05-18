@@ -12,7 +12,7 @@
                <!-- Tabs -->
                <ul class="nav nav-tabs">
                    <li class="active'"><a data-toggle="pill" href="{{ route('users.show', $user->username) . '#topics' }}">@lang('global.topics')</a></li>
-                   <li><a data-toggle="pill" href="{{ route('users.show', $user->username . '#replies' ) }}">@lang('global.repiles')</a></li>
+                   <li><a data-toggle="pill" href="{{ route('users.show', $user->username . '#replies' ) }}">@lang('global.replies')</a></li>
                    <li><a data-toggle="pill" href="{{ route('users.show', $user->username) . '#created_wiki' }}">@lang('global.created_wiki')</a></li>
                    <li><a data-toggle="pill" href="{{ route('users.show', $user->username) . '#edited_wiki' }}">@lang('global.edited_wiki')</a></li>
                    <li><a data-toggle="pill" href="{{ route('users.show', $user->username) . '#comments' }}">@lang('global.comments')</a></li>
@@ -58,7 +58,8 @@
                         @foreach($user->posts as $reply)
                             @if ($reply->post > 0)
                                 <li class="list-group-item">
-                                    <a href="{{ route('topics.posts', $reply->topic, $reply->id) }}">{{ substr($reply->content. 0, 100) }}</a>
+                                    <a href="{{ route('topics.show', $reply->topics->id) }}">{{ $reply->topics->title }}</a>
+                                    <a href="{{ route('topics.posts.show', [$reply->topic, $reply->id]) }}">{{ substr($reply->content. 0, 100) }}</a>
                                 </li>
                             @endif
                         @endforeach
@@ -81,6 +82,27 @@
                 @else
                     <div>empty!</div> 
                 @endif
+            </div>
+            <div class="tab-pane-fade" id="edited_wiki">
+                @if ($user->wiki_count > 0)
+                    <ul class="list-group">
+                        @foreach ($user->wikis as $wiki)
+                            @if ($wiki->version > 1)
+                            <li class="list-group-item">
+                                <a href="{{ route('wiki.show', $wiki->title) }}">{{ $wiki->title }}</a>
+                            </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                @else
+                    <div>empty!</div> 
+                @endif
+            </div>
+            <div class="tab-pane-fade" id="followers">
+                {{ $user->followers() }}
+            </div>
+            <div class="tab-pane-fade" id="following">
+                {{ $user->followings() }}
             </div>
             <div class="tab-pane fade" id="points">
                 <ul class="list-group">

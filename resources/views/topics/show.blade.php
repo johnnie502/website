@@ -28,9 +28,11 @@
              {{ $topic->upvotes }}
              <!-- Comments -->
              @foreach ($topic->comments as $comment)
-                 <ul class="list-group">
-                     <li class="list-group-item"><a link="{{ route('user.show', $comment->user) }}">{{ $comment->users->username }}</a> . ': ' . {{ $comment->content }}</li>
-                 </ul>
+                 @if (isset($comment->id))
+                     <ul class="list-group">
+                         <li class="list-group-item"><a link="{{ route('user.show', $comment->user) }}">{{ $comment->users->username }}</a> . ': ' . {{ $comment->content }}</li>
+                     </ul>
+                  @endif
              @endforeach
              @if (Auth::check())
                  @if (isset($topic->comments->id))
@@ -62,15 +64,16 @@
                             </div>
                             <li class="list-group-item post-item">
                                 <div><img alt="" src="/avatars/{{ $topic->user}}.png" width="32" height="32" /></div>
-
                                 <div>{{ $reply->content }}<hr/><span>顶&nbsp;({{ $reply->upvotes }})</span><span>踩&nbsp;({{ $reply->downvotes }})</span></div>
                             </li>
                         </ul>
                         <!-- Comments -->
                         @foreach ($posts as $post)
-                             <ul class="list-group">
-                                 <li class="list-group-item"><a link="{{ route('user.show', $post->comments->users) }}">{{ $post->comments->users->username }}</a> . ': ' . {{ $post->comments->content }}</li>
-                             </ul>
+                            @if (isset($post->comments->id))
+                                 <ul class="list-group">
+                                     <li class="list-group-item"><a link="{{ route('user.show', $post->comments->users) }}">{{ $post->comments->users->username }}</a> . ': ' . {{ $post->comments->content }}</li>
+                                 </ul>
+                            @endif
                         @endforeach
                         @if (Auth::check())
                             @if (isset($post->comments->id))
@@ -95,7 +98,7 @@
         @endif
         <!-- reply editor -->
         @if (Auth::check())
-            @if($posts->last()->post < $topic->replies)
+            @if ($posts->last()->post < $topic->replies)
                 <form action="{{ route('topics.posts.update', [$topic->id, $topic->replies + 1]) }}" method="POST">
                     <input type="hidden" name="_method" value="PUT">
             @else

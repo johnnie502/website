@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Hootlex\Moderation\Moderatable;
+use Overtrue\LaravelFollow\Traits\CanBeLiked;
+use Overtrue\LaravelFollow\Traits\CanBeFavorited;
 use Jcc\LaravelVote\CanBeVoted;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use Traits\PostOperation, Moderatable, SoftDeletes, CanBeVoted;
+    use Traits\PostOperation, Moderatable, SoftDeletes, CanBeLiked, CanBeFavorited, CanBeVoted;
 
     protected $table = 'posts';
     protected $dates = ['deleted_at'];

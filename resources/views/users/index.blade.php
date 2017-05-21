@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+    @lang('global.users')
+@stop
 @section('content')
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
@@ -45,4 +48,4 @@
     </div>
 </div>
 
-@endsection
+@stop

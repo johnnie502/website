@@ -23,7 +23,7 @@ ______                            _              _                              
     <meta name="theme-color" content="#689F38">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name') }}</title>
+    <title>@yield('title') - {{ config('app.name') }}</title>
     <!-- Styles -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >
     <link href="https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">

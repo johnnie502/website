@@ -11,7 +11,7 @@
 	    <li class="active">{{ trans('backpack::crud.preview') }}</li>
 	  </ol>
 	</section>
-@endsection
+@stop
 
 @section('content')
 	@if ($crud->hasAccess('list'))
@@ -31,15 +31,15 @@
 	    </div><!-- /.box-body -->
 	  </div><!-- /.box -->
 
-@endsection
+@stop
 
 
 @section('after_styles')
 	<link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/crud.css') }}">
 	<link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/show.css') }}">
-@endsection
+@stop
 
 @section('after_scripts')
 	<script src="{{ asset('vendor/backpack/crud/js/crud.js') }}"></script>
 	<script src="{{ asset('vendor/backpack/crud/js/show.js') }}"></script>
-@endsection
+@stop

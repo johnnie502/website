@@ -70,7 +70,7 @@
       });
   }
   </script>
-@endsection
+@stop
 
 @section('after_styles')
   {{-- Animations for new revisions after ajax calls --}}
@@ -88,4 +88,4 @@
         to {opacity: 1}
     }
   </style>
-@endsection
+@stop

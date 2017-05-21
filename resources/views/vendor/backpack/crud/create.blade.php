@@ -11,7 +11,7 @@
 	    <li class="active">{{ trans('backpack::crud.add') }}</li>
 	  </ol>
 	</section>
-@endsection
+@stop
 
 @section('content')
 <div class="row">
@@ -48,17 +48,17 @@
 	</div>
 </div>
 
-@endsection
+@stop
 
 
 @section('after_styles')
 	<link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/crud.css') }}">
 	<link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/form.css') }}">
 	<link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/create.css') }}">
-@endsection
+@stop
 
 @section('after_scripts')
 	<script src="{{ asset('vendor/backpack/crud/js/crud.js') }}"></script>
 	<script src="{{ asset('vendor/backpack/crud/js/form.js') }}"></script>
 	<script src="{{ asset('vendor/backpack/crud/js/create.js') }}"></script>
-@endsection
+@stop

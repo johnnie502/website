@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+    @lang('global.view_wiki'): {{ $wiki->title }}
+@stop
 @section('content')
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
@@ -25,4 +28,4 @@
         </div>
     </div>
 </div>
-@endsection
+@stop

@@ -36,7 +36,7 @@
             });
         });
     </script>
-@endsection
+@stop
 
 @section('header')
     <section class="content-header">
@@ -48,11 +48,11 @@
         <li class="active">{{ trans('backpack::crud.file_manager') }}</li>
       </ol>
     </section>
-@endsection
+@stop
 
 @section('content')
 
     <!-- Element where elFinder will be created (REQUIRED) -->
     <div id="elfinder"></div>
 
-@endsection
+@stop

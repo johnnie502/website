@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title')
+    @lang('global.about')
 @stop
 @section('content')
     <div class="panel">

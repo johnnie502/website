@@ -14,7 +14,7 @@
 @section('after_styles')
     <!-- CRUD FORM CONTENT - crud_fields_styles stack -->
     @stack('crud_fields_styles')
-@endsection
+@stop
 
 @section('after_scripts')
     <!-- CRUD FORM CONTENT - crud_fields_scripts stack -->
@@ -100,4 +100,4 @@
 
       });
     </script>
-@endsection
+@stop

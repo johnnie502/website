@@ -11,7 +11,7 @@
 	    <li class="active">{{ trans('backpack::crud.edit') }} {{ trans('backpack::langfilemanager.texts') }}</li>
 	  </ol>
 	</section>
-@endsection
+@stop
 
 @section('content')
 <!-- Default box -->
@@ -72,7 +72,7 @@
 	</section>
     </div><!-- /.box-body -->
   </div><!-- /.box -->
-@endsection
+@stop
 
 @section('after_scripts')
 	<script>
@@ -82,4 +82,4 @@
 			})
 		});
 	</script>
-@endsection
+@stop

@@ -11,7 +11,7 @@
       <li class="active">{{ trans('backpack::logmanager.preview') }}</li>
 	  </ol>
 	</section>
-@endsection
+@stop
 
 @section('content')
 
@@ -29,10 +29,10 @@
     </div><!-- /.box-body -->
   </div><!-- /.box -->
 
-@endsection
+@stop
 
 @section('after_scripts')
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-@endsection
+@stop

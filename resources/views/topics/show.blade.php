@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+    @lang('global.view_topic'): {{ $topic->title }}
+@stop
 @section('content')
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
@@ -136,4 +139,4 @@
         @endif
     </div>
 </div>
-@endsection
+@stop

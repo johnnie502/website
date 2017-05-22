@@ -35,8 +35,8 @@
                     <ul class="list-group">
                         @foreach($user->topics as $topic)
                         <li class="list-group-item">
-                            @if ($topic->replies > 0)
-                            <span class="badge">{{ $topic->replies }}</span>
+                            @if ($topic->reply_count > 0)
+                            <span class="badge">{{ $topic->reply_count }}</span>
                             @endif
                             <a href="{{ route('topics.show', $topic->id) }}">{{ $topic->title }}</a><br>
                             <div>

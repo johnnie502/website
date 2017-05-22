@@ -14,12 +14,14 @@ class CreateTopicsTable extends Migration
                 $table->string('title');
                 $table->integer('type')->unsigned()->default(0)->index();
                 $table->integer('status')->default(0)->index();
-                $table->integer('views')->unsigned()->default(0);
-                $table->integer('replies')->unsigned()->default(0);
+                $table->integer('view_count')->unsigned()->default(0);
+                $table->integer('reply_count')->unsigned()->default(0);
                 $table->integer('lastreply')->unsigned()->default(0)->nullable();
+                $table->integer('comment_count')->unsigned()->default(0);
                 $table->timestampTz('replied_at')->nullable();
-                $table->integer('favicons')->unsigned()->default(0);
-                $table->integer('votes')->unsigned()->default(0);
+                $table->integer('favicon_count')->unsigned()->default(0);
+                $table->integer('upvote_count')->unsigned()->default(0);
+                $table->integer('downvote_count')->unsigned()->default(0);
                 $table->timestampTz('moderated_at')->nullable();
                 $table->integer('moderated_by')->nullable();
                 $table->timestampsTz();;

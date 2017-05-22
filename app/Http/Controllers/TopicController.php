@@ -59,7 +59,7 @@ class TopicController extends Controller
                 $markdown = $converter->convert($request->input('content'));
             }
             // Fix the contents.
-            $markdown = CopyWritingCorrectService::correct($markdown);
+            $markdown = (new CopyWritingCorrectService())->correct($markdown);
             // Create topic and post.
             $topic = Topic::createWithInput([
                 'node' => $request->input('node'),
@@ -109,7 +109,8 @@ class TopicController extends Controller
          $posts = Post::where('topic',  $topic->id)
                 ->orderBy('post')
                 ->get();
-        return view('topics.show', compact('node', 'topic', 'posts'));
+        $post = new Post();
+        return view('topics.show', compact('node', 'topic', 'posts', 'post'));
     }
 
     public function tags($slug)
@@ -144,7 +145,7 @@ class TopicController extends Controller
                 $markdown = $converter->convert($request->input('content'));
             }
             // Fix the contents.
-            $markdown = CopyWritingCorrectService::correct($markdown);
+            $markdown = (new CopyWritingCorrectService())->correct($markdown);
             // Update topic.
             $topic->updateWithInput([
                 'title' => $request->input('title'),

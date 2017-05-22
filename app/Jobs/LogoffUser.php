@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -27,8 +28,27 @@ class LogoffUser implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(User $user)
     {
-        //
+         // Logoff this user.
+        if ($user->status >= 0) {
+            // Soft delete all topics, posts, comments and wiki of this user.
+            $user->topics>each(function ($item) {
+                $item->delete();
+            });
+            $user->posts->each(function ($item) {
+                $item->delete();
+            });
+            $user->wikis>each(function ($item) {
+                $item->delete();
+            });
+            $user->comments>each(function ($item) {
+                $item->delete();
+            });
+        }
+    }
+
+    public function failed(Exception $e) {
+        // Send failed notification to admin.
     }
 }

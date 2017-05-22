@@ -82,7 +82,7 @@ class PostController extends Controller
                 'content' => $markdown,
             ]);
             // Topics
-            $topic->replies += 1;
+            $topic->reply_count += 1;
             $topic->lastreply = $user->id;
             $topic->replied_at = Carbon::now ();
             $topic->save();
@@ -90,7 +90,7 @@ class PostController extends Controller
             $post->content = $markdown;
             $post->user = $user->id;
             $post->topic = $topic->id;
-            $post->post = $topic->replies;
+            $post->post = $topic->reply_count;
             $post->type = 1;
             $post->status = 1;
             $post->save();
@@ -165,6 +165,8 @@ class PostController extends Controller
             $post->updateWithInput([
                 'content' => $markdown
             ]);
+            $post->edit_count += 1;
+            $post->save();
             // Show message.
             Flash::success(Lang::get('global.operation_successfully'));
             return redirect()->route('topics.show', $topic->id);
@@ -184,7 +186,7 @@ class PostController extends Controller
             // Soft delete.
             $post->delete();
             // Topic
-            $topic->replies -= 1;
+            $topic->reply_count -= 1;
             $topic->save();
             // User statics.
             $user->reply_count -= 1;

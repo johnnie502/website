@@ -30,7 +30,7 @@ $(document).ready(function(){
                 <form action="{{ route('topics.store') }}" method="POST">
             @endif
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            @if(!isset($topic->id)||isset($node))
+            @if(!isset($topic->id)||isset($node->id))
                 <div class="form-group">
                     <label for="node-field">Node</label>
                     @if(isset($topic->id))
@@ -45,7 +45,7 @@ $(document).ready(function(){
                 </div> 
                 <div class="form-group">
                 	<label for="title-field">Title</label>
-                	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ isset($topic)?old('title', $topic->title):'' }}" />
+                	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ isset($topic->id) ? old('title', $topic->title) : '' }}" />
                 </div>
                 <div class="form-group">
                 	<label for="title-field">Tags</label>

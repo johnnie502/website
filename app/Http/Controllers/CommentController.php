@@ -42,10 +42,9 @@ class CommentController extends Controller
                 return back()->withInput();
             }
             // Convert HTML topic content to markdown.
-            $converter = new HtmlConverter();
             $markdown = $converter->convert($request->input('content'));
             // Fix the contents.
-            $markdown = CopyWritingCorrectService::correct($markdown);
+            $markdown = (new CopyWritingCorrectService())->correct($markdown);
             $comment = Comment::createWithInput([
                 'content' => $markdown,
             ]);
@@ -87,7 +86,7 @@ class CommentController extends Controller
             $converter = new HtmlConverter();
             $markdown = $converter->convert($request->input('content'));
             // Fix the contents.
-            $markdown = CopyWritingCorrectService::correct($markdown);
+            $markdown = (new CopyWritingCorrectService())->correct($markdown);
             $comment->updateWithInput([
                 'content' => $markdown,
             ]);

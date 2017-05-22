@@ -14,8 +14,8 @@
                         <ul class="list-group">
                             @foreach ($topics as $topic)
                                 <li class="list-group-item">
-                            @if ($topic->replies > 0)
-                            <span class="badge">{{ $topic->replies }}</span>
+                            @if ($topic->reply_count > 0)
+                            <span class="badge">{{ $topic->reply_count }}</span>
                             @endif
                             <div class="pull-left">
                                 <img alt="" src="/avatars/{{ $topic->user }}.png" width="32" height="32" /></span>

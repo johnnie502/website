@@ -10,8 +10,10 @@ use Session;
 use Socialite;
 use Storage;
 use URL;
+use App\Jobs\RestoreUser;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -96,10 +98,11 @@ class LoginController extends Controller
                 return back()->withInput($request->all());
             }
         } else if (Auth::attempt(['username' => $username, 'password' => $password], $request->has('remember'))) {
-            // Is the user was logoff?
+            // Is the user was logoff? restore this user.
             $user = User:: where('username', $username)->first();
             if ($user->status == -1) {
-                $user->status= 1; 
+                $UserController = new UserController();
+                $UserController->restore($user);
             }
             // update login ip.
             $user->lastip = $request->getClientIp();

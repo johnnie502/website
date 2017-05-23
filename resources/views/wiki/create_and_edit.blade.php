@@ -28,7 +28,7 @@ $(document).ready(function(){
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                 	<label for="title-field">Title</label>
-                	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ old('title', isset($wiki->id) ? $wiki->title : '') }}" />
+                	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ old('title', isset($wiki->id) ? $wiki->title : '') }}">
                 </div>
                 <div class="form-group">
                     <label for="categories-field">Categories</label>
@@ -36,7 +36,7 @@ $(document).ready(function(){
                 </div>
                 <div class="form-group">
                     <label for="title-field">Redirect</label>
-                    <input class="form-control" type="text" name="redirect" id="redirect-field" placeholder="" value="{{ old('redirect', isset($wiki->id) ? $wiki->redirect : '') }}" />
+                    <input class="form-control" type="text" name="redirect" id="redirect-field" placeholder="" value="{{ old('redirect', isset($wiki->id) ? $wiki->redirect : '') }}">
                 </div>
                 <div class="form-group">
                     <label for="template-field">Template</label>

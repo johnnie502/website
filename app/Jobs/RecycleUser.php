@@ -45,6 +45,7 @@ class RecycleUser implements ShouldQueue
             $user->comments>each(function ($item) {
                 $item->forceDelete();
             });
+            $user->history()->forceDelete();
         }
     }
 

@@ -6,7 +6,10 @@ use Auth;
 use Flash;
 use Image;
 use Lang;
+use App\Jobs\LogoffUser;
+use App\Jobs\SendEmail;
 use App\Models\User;
+use Carbon\Carbon;
 use Md\MDAvatars;
 use Intervention\Image\ImageManager;
 use \Intervention\Image\AbstractFont as Font;
@@ -127,5 +130,19 @@ class UserController extends Controller
         if ($curUser->isFollowing($user->id)) {
             $curUser->unfollow($user->id);
         }
+    }
+
+    public function logoff(User $user)
+    {
+        // Logoff user.
+        $job = (new LogoffUser($user))
+                    ->delay(Carbon::now()->addMonth());
+        dispath($job);
+    }
+
+    public function restore(User $user)
+    {
+        // Restore user.
+        dispatch(new RestoreUser($user));
     }
 }

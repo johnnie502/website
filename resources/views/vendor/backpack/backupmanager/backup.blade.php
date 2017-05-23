@@ -2,7 +2,7 @@
 
 @section('after_styles')
     <!-- Ladda Buttons (loading buttons) -->
-    <link href="{{ asset('vendor/backpack/ladda/ladda-themeless.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('vendor/backpack/ladda/ladda-themeless.min.css') }}" rel="stylesheet" type="text/css">
 @stop
 
 @section('header')

@@ -27,19 +27,19 @@
                 
                 <div class="form-group">
                 	<label for="name-field">Name</label>
-                	<input class="form-control" type="text" name="name" id="name-field" value="{{ old('name', $node->name ) }}" />
+                	<input class="form-control" type="text" name="name" id="name-field" value="{{ old('name', $node->name ) }}">
                 </div> 
                 <div class="form-group">
                 	<label for="slug-field">Slug</label>
-                	<input class="form-control" type="text" name="slug" id="slug-field" value="{{ old('slug', $node->slug ) }}" />
+                	<input class="form-control" type="text" name="slug" id="slug-field" value="{{ old('slug', $node->slug ) }}">
                 </div> 
                 <div class="form-group">
                     <label for="type-field">Type</label>
-                    <input class="form-control" type="text" name="type" id="type-field" value="{{ old('type', $node->type ) }}" />
+                    <input class="form-control" type="text" name="type" id="type-field" value="{{ old('type', $node->type ) }}">
                 </div> 
                 <div class="form-group">
                     <label for="parent-field">Parent</label>
-                    <input class="form-control" type="text" name="parent" id="parent-field" value="{{ old('parent', $node->parent ) }}" />
+                    <input class="form-control" type="text" name="parent" id="parent-field" value="{{ old('parent', $node->parent ) }}">
                 </div> 
                 <div class="form-group">
                 	<label for="description-field">Description</label>
@@ -47,11 +47,11 @@
                 </div> 
                 <div class="form-group">
                     <label for="topics-field">Topics</label>
-                    <input class="form-control" type="text" name="topics" id="topics-field" value="{{ old('topics', $node->topics ) }}" />
+                    <input class="form-control" type="text" name="topics" id="topics-field" value="{{ old('topics', $node->topics ) }}">
                 </div> 
                 <div class="form-group">
                     <label for="-field"></label>
-                    <input class="form-control" type="text" name="" id="-field" value="{{ old('', $node-> ) }}" />
+                    <input class="form-control" type="text" name="" id="-field" value="{{ old('', $node-> ) }}">
                 </div>
 
                 <div class="well well-sm">

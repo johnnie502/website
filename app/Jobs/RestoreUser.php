@@ -30,23 +30,23 @@ class LogoffUser implements ShouldQueue
      */
     public function handle(User $user)
     {
-         // Logoff this user.
-        if ($user->status >= 0) {
-            // Soft delete all topics, posts, comments and wiki of this user.
+         // Restore this user.
+        if ($user->status == -1) {
+            // Restore all topics, posts, comments and wiki of this user.
             $user->topics>each(function ($item) {
-                $item->delete();
+                $item->restore();
             });
             $user->posts->each(function ($item) {
-                $item->delete();
+                $item->restore();
             });
             $user->wikis>each(function ($item) {
-                $item->delete();
+                $item->restore();
             });
             $user->comments>each(function ($item) {
-                $item->delete();
+                $item->restore();
             });
-            $user->history()->delete();
-            $user->status = -1;
+            $user->history()->restore();
+            $user->status = 1;
             $user->save();
         }
     }

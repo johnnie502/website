@@ -110,7 +110,7 @@ ______                            _              _                              
                             <li><a href="{{ url('/login') }}">@lang('global.login')</a></li>
                             <li><a href="{{ url('/register') }}">@lang('global.register')</a></li>
                         @else
-                            <a href="{{ route('users.show', $account->username) }}"><img alt="avatar" src="/avatars/{{ $account->id }}.png" width="32" height="32" /></a>
+                            <a href="{{ route('users.show', $account->username) }}"><img alt="avatar" src="/avatars/{{ $account->id }}.png" width="32" height="32"></a>
                             <a href="{{ route('users.show', $account->username) . '#notifications' }}"><span class="badge">{{ $account->notification_count }}</span></a>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">

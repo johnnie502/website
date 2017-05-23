@@ -18,7 +18,7 @@
                             <span class="badge">{{ $topic->reply_count }}</span>
                             @endif
                             <div class="pull-left">
-                                <img alt="" src="/avatars/{{ $topic->user }}.png" width="32" height="32" /></span>
+                                <img alt="" src="/avatars/{{ $topic->user }}.png" width="32" height="32"></span>
                             </div>
                             <a href="{{ route('topics.show', $topic->id) }}">{{ $topic->title }}</a><br>
                             <div>

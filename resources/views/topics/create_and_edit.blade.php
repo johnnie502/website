@@ -45,7 +45,7 @@ $(document).ready(function(){
                 </div> 
                 <div class="form-group">
                 	<label for="title-field">Title</label>
-                	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ old('title', isset($topic->id) ? $topic->title : '') }}" />
+                	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ old('title', isset($topic->id) ? $topic->title : '') }}">
                 </div>
                 <div class="form-group">
                 	<label for="title-field">Tags</label>

@@ -39,7 +39,7 @@ if (isset($field['value']) && ( $field['value'] instanceof \Carbon\Carbon || $fi
     {{-- FIELD CSS - will be loaded in the after_styles section --}}
     @push('crud_fields_styles')
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/plugins/datepicker/datepicker3.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap.datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap.datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css">
     @endpush
 
     {{-- FIELD JS - will be loaded in the after_scripts section --}}

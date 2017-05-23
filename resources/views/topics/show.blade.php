@@ -30,7 +30,7 @@
             </div>
             {{ $topic->countVoters() }}
             <div class="pull-right">
-                <img alt="" src="/avatars/{{ $topic->user}}.png" width="128" height="128" /><br>
+                <img alt="" src="/avatars/{{ $topic->user}}.png" width="128" height="128"><br>
                 <a href="{{ route('users.show', $topic->users->username) }}">{{ $topic->users->username }}</a>
             </div>
              @markdown($posts->first()->content)
@@ -46,15 +46,15 @@
              @can('create', $comment)
                  @if (isset($topic->comments->first()->id))
                      <form action="{{ route('topics.posts.comments.update', [$topic->id, 0, $topic->comments->id]) }}" method="POST">
-                    <textarea name="comments" id="comments">{{ old($topic->comments->first()->content. '') }}</textarea>
+                         <input type="text" name="comments" id="comments" value="{{ old($topic->comments->first()->content. '') }}">
                  @else
                      <form action="{{ route('topics.posts.comments.store', [$topic->id, 0, 1]) }}" method="POST">
-                    <textarea name="comments" id="comments"></textarea>
+                         <input type="text" name="comments" id="comments">
                  @endif
-                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                     <input type="submit" name="submit" value="@lang('global.submit')" />
-                  </form>
-            @endcan
+                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                         <input type="submit" name="submit" value="@lang('global.submit')">
+                      </form>
+                @endcan
         </div>
         <!-- Posts -->
         @if ($topic->reply_count > 0)
@@ -76,7 +76,7 @@
                                  <a href={{ route('topics.posts.show', [$topic, $reply]) }}><span class="label label-primary">#{{ $reply->post }}</span></a>
                             </div>
                             <li class="list-group-item post-item">
-                                <div><img alt="" src="/avatars/{{ $reply->user}}.png" width="32" height="32" /></div>
+                                <div><img alt="" src="/avatars/{{ $reply->user}}.png" width="32" height="32"></div>
                                 <div>@markdown($reply->content)<hr/><span>顶&nbsp;({{ $reply->upvotes }})</span><span>踩&nbsp;({{ $reply->downvotes }})</span></div>
                             </li>
                         </ul>
@@ -91,14 +91,14 @@
                         @can('create', $comment)
                             @if (isset($reply->comments))
                                  <form action="{{ route('topics.posts.comments.update', [$topic->id, $reply->id, $comment->id]) }}" method="POST">
-                                     <textarea name="comments" id="comments">{{ old('content', '') }}</textarea>
+                                     <input type="text" name="comments" id="comments" value="{{ old('content', '') }}">
                              @else
                                  <form action="{{ route('topics.posts.comments.store', [$topic->id, $reply->id, $comment->id]) }}" method="POST">
-                                 <textarea name="comments" id="comments">{{ old($reply->comments->first()->content, '') }}</textarea>
+                                     <input type="text" name="comments" id="comments" value=" {{ old($reply->comments->first()->content, '') }}">
                              @endif
-                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                 <input type="submit" name="submit" value="@lang('global.submit')" />
-                             </form>
+                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                     <input type="submit" name="submit" value="@lang('global.submit')">
+                                 </form>
                          @endcan
                     @endif
                 @endforeach
@@ -141,7 +141,7 @@
                                   });
                               </script>
                             @endif
-                        <input type="submit" name="submit" value="@lang('global.submit')" />
+                        <input type="submit" name="submit" value="@lang('global.submit')">
                     </div>
                 </form> 
         @else

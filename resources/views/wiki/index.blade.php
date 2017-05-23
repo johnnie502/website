@@ -16,7 +16,7 @@
                     <tbody>
                         @foreach($wikis as $wiki)
                             <tr>
-                                <td><img alt="" src="/avatars/{{ $wiki->users->id }}.png" width="32" height="32" /></td><td><td><a href="{{ route('wiki.show', $wiki->title) }}">{{ $wiki->title }}</a></td> <td><a href="{{ route('users.show', $wiki->users->username) }}">{{ $wiki->users->username }}</a></td>
+                                <td><img alt="" src="/avatars/{{ $wiki->users->id }}.png" width="32" height="32"></td><td><td><a href="{{ route('wiki.show', $wiki->title) }}">{{ $wiki->title }}</a></td> <td><a href="{{ route('users.show', $wiki->users->username) }}">{{ $wiki->users->username }}</a></td>
                                 </td>
                             </tr>
                         @endforeach

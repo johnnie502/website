@@ -89,7 +89,7 @@ class UserController extends Controller
         }
         // Show messgae.
         Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('users.index');
+        return redirect()->route('users.show', $user->username);
     }
 
     public function destroy(User $user)

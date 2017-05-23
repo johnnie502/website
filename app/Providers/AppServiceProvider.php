@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App;
+use URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
             $locale = 'zh';
         }
         \Carbon\Carbon::setLocale($locale);
+        // FORCE USE HTTPS!!!
+        if (App::environment() === 'production') {
+            URL::forceScheme('https');
+        }
     }
 
     /**

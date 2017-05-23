@@ -45,7 +45,7 @@
                         @endif
                     @endforeach
                 </ul>
-                {!! $topics->render() !!}
+                {!! $topics->links() !!}
             @else
                 <div class="empty-block">Empty!</div>
             @endif

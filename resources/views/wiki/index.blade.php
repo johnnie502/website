@@ -22,7 +22,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $wikis->render() !!}
+                {!! $wikis->links() !!}
             @else
                 <h3 class="text-center alert alert-info">Empty!</h3>
             @endif

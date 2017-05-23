@@ -43,10 +43,10 @@
                      </ul>
                   @endif
              @endforeach
-             @if (Auth::check())
-                 @if (isset($topic->comments->id))
+             @can('create', $comment)
+                 @if (isset($topic->comments->first()->id))
                      <form action="{{ route('topics.posts.comments.update', [$topic->id, 0, $topic->comments->id]) }}" method="POST">
-                    <textarea name="comments" id="comments">{{ old($topic->comments->content. '') }}</textarea>
+                    <textarea name="comments" id="comments">{{ old($topic->comments->first()->content. '') }}</textarea>
                  @else
                      <form action="{{ route('topics.posts.comments.store', [$topic->id, 0, 1]) }}" method="POST">
                     <textarea name="comments" id="comments"></textarea>
@@ -54,7 +54,7 @@
                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
                      <input type="submit" name="submit" value="@lang('global.submit')" />
                   </form>
-            @endif
+            @endcan
         </div>
         <!-- Posts -->
         @if ($topic->reply_count > 0)
@@ -87,19 +87,19 @@
                                      <li class="list-group-item"><a link="{{ route('user.show', $comment->users) }}">{{ $comment->users->username }}</a> . ': ' . {{ $comment->content }}</li>
                                  </ul>
                             @endforeach
-                            @can('create', $reply)
-                                @if (isset($comment->id))
-                                     <form action="{{ route('topics.posts.comments.update', [$topic->id, $reply->id, $comment->id]) }}" method="POST">
-                                         <textarea name="comments" id="comments">{{ old($comment->content, '') }}</textarea>
-                                 @else
-                                     <form action="{{ route('topics.posts.comments.store', [$topic->id, $reply->id, $comment->id]) }}" method="POST">
-                                         <textarea name="comments" id="comments">{{ old($comment->content, '') }}</textarea>
-                                 @endif
-                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                     <input type="submit" name="submit" value="@lang('global.submit')" />
-                                 </form>
-                             @endcan
                         @endif
+                        @can('create', $comment)
+                            @if (isset($reply->comments))
+                                 <form action="{{ route('topics.posts.comments.update', [$topic->id, $reply->id, $comment->id]) }}" method="POST">
+                                     <textarea name="comments" id="comments">{{ old('content', '') }}</textarea>
+                             @else
+                                 <form action="{{ route('topics.posts.comments.store', [$topic->id, $reply->id, $comment->id]) }}" method="POST">
+                                 <textarea name="comments" id="comments">{{ old($reply->comments->first()->content, '') }}</textarea>
+                             @endif
+                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                 <input type="submit" name="submit" value="@lang('global.submit')" />
+                             </form>
+                         @endcan
                     @endif
                 @endforeach
            @else

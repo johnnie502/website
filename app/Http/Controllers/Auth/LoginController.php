@@ -93,7 +93,7 @@ class LoginController extends Controller
                 return redirect()->intended();
             } else {
                 Flash::error(Lang::get('auth.failed'));
-                return back()->withInput();
+                return back()->withInput($request->all());
             }
         } else if (Auth::attempt(['username' => $username, 'password' => $password], $request->has('remember'))) {
             // Is the user was logoff?
@@ -108,7 +108,7 @@ class LoginController extends Controller
             return redirect()->intended();
         } else {
             Flash::error(Lang::get('auth.failed'));
-            return back()->withInput();
+            return back()->withInput($request->all());
         }
     }
 

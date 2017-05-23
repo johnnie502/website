@@ -127,7 +127,7 @@ class RegisterController extends Controller
             } else if (!empty(User::where('email', $user->email)->first())) {
                 Flash::error("邮箱已经存在");
                 return redirect(URL::route('login'))
-                            ->withInput();
+                            ->withInput($request->all());
             }
             
             //创建用户

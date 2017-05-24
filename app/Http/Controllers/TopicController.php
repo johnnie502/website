@@ -6,6 +6,8 @@ use Agent;
 use Auth;
 use Flash;
 use Lang;
+use App\Mail\AtYou;
+use App\Mail\ReplyTopic;
 use App\Models\Topic;
 use App\Models\Post;
 use App\Models\Comment;

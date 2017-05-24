@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Auth;
 use Flash;
 use Lang;
+use App\Mail\AtYou;
+use App\Mail\ReplyTopic;
 use App\Models\Comment;
 use App\Models\Point;
 use App\Models\Post;

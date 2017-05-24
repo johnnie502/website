@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class RegisterConfirm extends Mailable implements ShouldQueue
+class AtYou extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -28,6 +28,6 @@ class RegisterConfirm extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('emails.user.registerconfirm');
+        return $this->markdown('emails.topic.at');
     }
 }

@@ -7,6 +7,8 @@ use Auth;
 use Flash;
 use Lang;
 use Markdown;
+use App\Mail\AtYou;
+use App\Mail\ReplyTopic;
 use App\Models\User;
 use App\Models\Wiki;
 use League\HTMLToMarkdown\HtmlConverter;

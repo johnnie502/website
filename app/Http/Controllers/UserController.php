@@ -8,6 +8,7 @@ use Image;
 use Lang;
 use App\Jobs\LogoffUser;
 use App\Jobs\SendEmail;
+use App\Mail\RegisterConfirm;
 use App\Models\User;
 use Carbon\Carbon;
 use Md\MDAvatars;
@@ -65,6 +66,8 @@ class UserController extends Controller
         $avatar->Save(public_path('avatars/' . $user->id . '.png'), 512);
         $avatar->Free();
         // Send email.
+        Mail::to($request->user())
+            ->send(new RegisterConfirm($user));
         // Show message.
         Flash::success(Lang::get('global.register_successfully'));
         return redirect()->intended();

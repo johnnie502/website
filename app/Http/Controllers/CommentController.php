@@ -44,6 +44,7 @@ class CommentController extends Controller
                 return back()->withInput();
             }
             // Convert HTML topic content to markdown.
+            $converter = new HtmlConverter();
             $markdown = $converter->convert($request->input('content'));
             // Fix the contents.
             $markdown = (new CopyWritingCorrectService())->correct($markdown);

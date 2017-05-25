@@ -6,6 +6,7 @@ use Auth;
 use Flash;
 use Image;
 use Lang;
+use Mail;
 use App\Jobs\LogoffUser;
 use App\Jobs\SendEmail;
 use App\Mail\RegisterConfirm;

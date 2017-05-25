@@ -47,6 +47,6 @@ class Topic extends Model
      */
     public function comments()
     {
-        return $this->morphMany('App\Models\Comment', 'model');
+        return $this->morphMany('App\Models\Comment', 'commentable');
     }
 }

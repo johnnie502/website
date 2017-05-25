@@ -46,10 +46,10 @@
              @can('create', $comment)
                  @if (isset($topic->comments->first()->id))
                      <form action="{{ route('topics.posts.comments.update', [$topic->id, 0, $topic->comments->id]) }}" method="POST">
-                         <input type="text" name="comments" id="comments" value="{{ old($topic->comments->first()->content. '') }}">
+                         <input type="text" name="content" value="{{ old($topic->comments->first()->content. '') }}">
                  @else
                      <form action="{{ route('topics.posts.comments.store', [$topic->id, 0, 1]) }}" method="POST">
-                         <input type="text" name="comments" id="comments">
+                         <input type="text" name="content" id="comments">
                  @endif
                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
                          <input type="submit" name="submit" value="@lang('global.submit')">
@@ -91,10 +91,10 @@
                         @can('create', $comment)
                             @if (isset($reply->comments))
                                  <form action="{{ route('topics.posts.comments.update', [$topic->id, $reply->id, $comment->id]) }}" method="POST">
-                                     <input type="text" name="comments" id="comments" value="{{ old('content', '') }}">
+                                     <input type="text" name="content" value="{{ old('content', '') }}">
                              @else
                                  <form action="{{ route('topics.posts.comments.store', [$topic->id, $reply->id, $comment->id]) }}" method="POST">
-                                     <input type="text" name="comments" id="comments" value=" {{ old($reply->comments->first()->content, '') }}">
+                                     <input type="text" name="content" value=" {{ old($reply->comments->first()->content, '') }}">
                              @endif
                                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                      <input type="submit" name="submit" value="@lang('global.submit')">

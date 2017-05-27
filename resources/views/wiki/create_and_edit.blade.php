@@ -31,6 +31,10 @@ $(document).ready(function(){
                 	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ old('title', isset($wiki->id) ? $wiki->title : '') }}">
                 </div>
                 <div class="form-group">
+                    <label for="title-field">Description</label>
+                    <input class="form-control" type="text" name="description" id="description-field" required placeholder="8～80个字符" value="{{ old('description', isset($wiki->id) ? $wiki->description : '') }}">
+                </div>
+                <div class="form-group">
                     <label for="categories-field">Categories</label>
                     <input class="form-control" type="text" name="categories" id="categories" data-role="tagsinput" required placeholder="按Enter添加分类" value="{{ old('categories', isset($wiki->id) ? $wiki->tagList : '') }}">
                 </div>

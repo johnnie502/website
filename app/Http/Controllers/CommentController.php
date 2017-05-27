@@ -44,8 +44,7 @@ class CommentController extends Controller
                 return back()->withInput();
             }
             // Convert HTML topic content to markdown.
-            $converter = new HtmlConverter();
-            $markdown = $converter->convert($request->input('content'));
+            $markdown = (new HtmlConverter())->convert($request->input('content'));
             // Fix the contents.
             $markdown = (new CopyWritingCorrectService())->correct($markdown);
             $comment = Comment::createWithInput([
@@ -86,8 +85,7 @@ class CommentController extends Controller
            // Get user id.
             $user = Auth::user();
             // Convert HTML topic content to markdown.
-            $converter = new HtmlConverter();
-            $markdown = $converter->convert($request->input('content'));
+            $markdown = (new HtmlConverter())->convert($request->input('content'));
             // Fix the contents.
             $markdown = (new CopyWritingCorrectService())->correct($markdown);
             $comment->updateWithInput([

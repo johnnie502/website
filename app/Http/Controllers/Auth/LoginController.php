@@ -101,8 +101,7 @@ class LoginController extends Controller
             // Is the user was logoff? restore this user.
             $user = User:: where('username', $username)->first();
             if ($user->status == -1) {
-                $UserController = new UserController();
-                $UserController->restore($user);
+                (new UserController())->restore($user);
             }
             // update login ip.
             $user->lastip = $request->getClientIp();

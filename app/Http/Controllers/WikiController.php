@@ -52,8 +52,7 @@ class WikiController extends Controller
                 $markdown = $request->input('content');
             } else {
                 // Ueditor
-                $converter = new HtmlConverter();
-                $markdown = $converter->convert($request->input('content'));
+                $markdown = (new HtmlConverter())->convert($request->input('content'));
             }
             // Fix the contents.
             $markdown = (new CopyWritingCorrectService())->correct($markdown);
@@ -139,8 +138,7 @@ class WikiController extends Controller
                 $markdown = $request->input('content');
             } else {
                 // Ueditor
-                $converter = new HtmlConverter();
-                $markdown = $converter->convert($request->input('content'));
+                $markdown = (new HtmlConverter())->convert($request->input('content'));
             }
             // Fix the contents.
             $markdown = (new CopyWritingCorrectService())->correct($markdown);

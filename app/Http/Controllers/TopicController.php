@@ -6,11 +6,14 @@ use Agent;
 use Auth;
 use Flash;
 use Lang;
+use App\Mail\AtYou;
+use App\Mail\ReplyTopic;
 use App\Models\Topic;
-use App\Models\Point;
 use App\Models\Post;
+use App\Models\Comment;
 use App\Models\Node;
 use App\Models\User;
+use App\Models\Point;
 use Carbon\Carbon;
 use League\HTMLToMarkdown\HtmlConverter;
 use Ricoa\CopyWritingCorrect\CopyWritingCorrectService;
@@ -29,7 +32,7 @@ class TopicController extends Controller
 
     public function index()
     {
-        $topics = Topic::paginate(20);
+        $topics = Topic::orderBy('replied_at', 'desc')->paginate(20);
         $topic = new Topic();
         return view('topics.index', compact('topics', 'topic'));
     }
@@ -37,7 +40,7 @@ class TopicController extends Controller
     public function create(Topic $topic)
     {
         // Get nodes list.
-        $nodes = Node::all();
+        $nodes = Node::all()->sortBy('name');
         return view('topics.create_and_edit', compact('nodes'));
     }
 
@@ -59,8 +62,7 @@ class TopicController extends Controller
                 $markdown = $converter->convert($request->input('content'));
             }
             // Fix the contents.
-            $_CopyWritingCorrectService = new CopyWritingCorrectService;
-            $markdown = $_CopyWritingCorrectService->correct($markdown);
+            $markdown = (new CopyWritingCorrectService())->correct($markdown);
             // Create topic and post.
             $topic = Topic::createWithInput([
                 'node' => $request->input('node'),
@@ -110,7 +112,9 @@ class TopicController extends Controller
          $posts = Post::where('topic',  $topic->id)
                 ->orderBy('post')
                 ->get();
-        return view('topics.show', compact('node', 'topic', 'posts'));
+        $post = new Post();
+        $comment = new Comment();
+        return view('topics.show', compact('node', 'topic', 'posts', 'post', 'comment'));
     }
 
     public function tags($slug)
@@ -145,7 +149,7 @@ class TopicController extends Controller
                 $markdown = $converter->convert($request->input('content'));
             }
             // Fix the contents.
-            $markdown = CopyWritingCorrectService::correct($markdown);
+            $markdown = (new CopyWritingCorrectService())->correct($markdown);
             // Update topic.
             $topic->updateWithInput([
                 'title' => $request->input('title'),

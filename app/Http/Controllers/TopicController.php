@@ -59,7 +59,8 @@ class TopicController extends Controller
                 $markdown = $converter->convert($request->input('content'));
             }
             // Fix the contents.
-            $markdown = CopyWritingCorrectService::correct($markdown);
+            $_CopyWritingCorrectService = new CopyWritingCorrectService;
+            $markdown = $_CopyWritingCorrectService->correct($markdown);
             // Create topic and post.
             $topic = Topic::createWithInput([
                 'node' => $request->input('node'),

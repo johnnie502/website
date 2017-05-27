@@ -209,6 +209,7 @@ return [
         Overtrue\LaravelFollow\FollowServiceProvider::class,  // Follow
         Jcc\LaravelVote\VoteServiceProvider::class,  // Votes
         Ghanem\Rating\RatingServiceProvider::class,  // Fivestar rating
+        Just\Amp\Laravel\AmpServiceProvider::class,  // AMP
         
 
     ],
@@ -270,6 +271,7 @@ return [
         'Notifynder' => Fenos\Notifynder\Facades\Notifynder::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'Piwik' => RobBrazier\Piwik\Facades\Piwik::class,
+        'AmpRouter' => Just\Amp\Laravel\AmpRouteFacade::class,
 
     ],
 

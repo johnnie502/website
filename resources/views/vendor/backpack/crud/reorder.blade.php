@@ -12,7 +12,7 @@
         <li class="active">{{ trans('backpack::crud.reorder') }}</li>
     </ol>
 </section>
-@endsection
+@stop
 
 @section('content')
 <?php
@@ -87,14 +87,14 @@ function tree_element($entry, $key, $all_entries, $crud)
         </div><!-- /.box -->
     </div>
 </div>
-@endsection
+@stop
 
 
 @section('after_styles')
 <link rel="stylesheet" href="{{ asset('vendor/backpack/nestedSortable/nestedSortable.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/crud.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/reorder.css') }}">
-@endsection
+@stop
 
 @section('after_scripts')
 <script src="{{ asset('vendor/backpack/crud/js/crud.js') }}"></script>
@@ -173,4 +173,4 @@ function tree_element($entry, $key, $all_entries, $crud)
 
 });
 </script>
-@endsection
+@stop

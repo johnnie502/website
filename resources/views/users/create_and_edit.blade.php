@@ -38,7 +38,7 @@
                 </div> 
                 <div class="form-group">
                     <label for="type-field">Type</label>
-                    <input class="form-control" type="text" name="type" id="type-field" value="{{ old('type', $user->type ) }}" />
+                    <input class="form-control" type="text" name="type" id="type-field" value="{{ old('type', $user->type ) }}">
                 </div> 
                 <div class="well well-sm">
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -48,4 +48,4 @@
         </div>
     </div>
 </div>
-@endsection
+@stop

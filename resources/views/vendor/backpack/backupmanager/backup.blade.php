@@ -2,8 +2,8 @@
 
 @section('after_styles')
     <!-- Ladda Buttons (loading buttons) -->
-    <link href="{{ asset('vendor/backpack/ladda/ladda-themeless.min.css') }}" rel="stylesheet" type="text/css" />
-@endsection
+    <link href="{{ asset('vendor/backpack/ladda/ladda-themeless.min.css') }}" rel="stylesheet" type="text/css">
+@stop
 
 @section('header')
 	<section class="content-header">
@@ -15,7 +15,7 @@
 	    <li class="active">{{ trans('backpack::backup.backup') }}</li>
 	  </ol>
 	</section>
-@endsection
+@stop
 
 @section('content')
 <!-- Default box -->
@@ -55,7 +55,7 @@
     </div><!-- /.box-body -->
   </div><!-- /.box -->
 
-@endsection
+@stop
 
 @section('after_scripts')
     <!-- Ladda Buttons (loading buttons) -->
@@ -164,4 +164,4 @@
 
   });
 </script>
-@endsection
+@stop

@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+    @lang('global.tags'): {{ $topics->first()->tags->first() }}
+@stop
 @section('content')
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
@@ -11,11 +14,11 @@
                         <ul class="list-group">
                             @foreach ($topics as $topic)
                                 <li class="list-group-item">
-                            @if ($topic->replies > 0)
-                            <span class="badge">{{ $topic->replies }}</span>
+                            @if ($topic->reply_count > 0)
+                            <span class="badge">{{ $topic->reply_count }}</span>
                             @endif
                             <div class="pull-left">
-                                <img alt="" src="/avatars/{{ $topic->user }}.png" width="32" height="32" /></span>
+                                <img alt="" src="/avatars/{{ $topic->user }}.png" width="32" height="32"></span>
                             </div>
                             <a href="{{ route('topics.show', $topic->id) }}">{{ $topic->title }}</a><br>
                             <div>
@@ -35,4 +38,4 @@
         </div>
     </div>
 </div>
-@endsection
+@stop

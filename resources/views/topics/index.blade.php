@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+    @lang('global.topics')
+@stop
 @section('content')
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
@@ -15,19 +18,25 @@
                         @if ($topic->nodes->status > 0)
                         <li class="list-group-item">
                             {{ $topic->upVote }}
-                            @if ($topic->replies > 0)
-                            <span class="badge">{{ $topic->replies }}</span>
+                            @if ($topic->reply_count > 0)
+                                <span class="badge">{{ $topic->reply_count }}</span>
                             @endif
                             <div class="pull-left">
-                                <img alt="" src="/avatars/{{ $topic->users->username }}.png" width="32" height="32" /></span>
+                                <img alt="" src="/avatars/{{ $topic->user }}.png" width="32" height="32"></span>
                             </div>
                             <a href="{{ route('topics.show', $topic->id) }}">{{ $topic->title }}</a><br>
                             <div>
                                 <a href="{{ route('nodes.show', $topic->nodes->slug) }}">{{ $topic->nodes->name }}</a>&nbsp;•&nbsp;
                                 <a href="{{ route('users.show', $topic->users->username) }}">{{ $topic->users->username }}</a>&nbsp;•&nbsp;
                             @if (isset($topic->replied_at ))
-                                {{ $topic->replied_at->diffForHumans() }}&nbsp;•&nbsp;
-                                @lang('global.last_reply')
+                                @if ($topic->replied_at->subMonth()->gte(\Carbon\Carbon::now()))
+                                    {{ $topic->replied_at->toDateString() }}&nbsp;*&nbsp;
+                                @else
+                                    {{ $topic->replied_at->diffForHumans() }}&nbsp;•&nbsp;
+                                @endif
+                                @if ($topic->lastreply > 0)
+                                    @lang('global.last_reply'): {{ \App\Models\User::find($topic->lastreply)->username }}
+                                @endif
                             @else
                                 {{ $topic->created_at->diffForHumans() }}
                             @endif
@@ -36,11 +45,11 @@
                         @endif
                     @endforeach
                 </ul>
-                {!! $topics->render() !!}
+                {!! $topics->links() !!}
             @else
                 <div class="empty-block">Empty!</div>
             @endif
         </div>
     </div>
 </div>
-@endsection
+@stop

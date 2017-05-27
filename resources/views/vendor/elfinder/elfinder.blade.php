@@ -2,7 +2,7 @@
 
 @section('after_scripts')
     <!-- jQuery and jQuery UI (REQUIRED) -->
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css">
     <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 
@@ -36,7 +36,7 @@
             });
         });
     </script>
-@endsection
+@stop
 
 @section('header')
     <section class="content-header">
@@ -48,11 +48,11 @@
         <li class="active">{{ trans('backpack::crud.file_manager') }}</li>
       </ol>
     </section>
-@endsection
+@stop
 
 @section('content')
 
     <!-- Element where elFinder will be created (REQUIRED) -->
     <div id="elfinder"></div>
 
-@endsection
+@stop

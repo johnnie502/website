@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+    @lang('global.categories'): {{ $wiki->first()->categories->first() }}
+@stop
 @section('content')
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
@@ -12,7 +15,7 @@
                             @foreach ($wikis as $wiki)
                                 <li class="list-group-item">
                             <div class="pull-left">
-                                <img alt="" src="/avatars/{{ $wiki->user }}.png" width="32" height="32" /></span>
+                                <img alt="" src="/avatars/{{ $wiki->user }}.png" width="32" height="32"></span>
                             </div>
                             <a href="{{ route('wiki.show', $wiki->title) }}">{{ $wiki->title }}</a><br>
                             <div>
@@ -25,4 +28,4 @@
         </div>
     </div>
 </div>
-@endsection
+@stop

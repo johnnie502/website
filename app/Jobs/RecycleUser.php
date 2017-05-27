@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -27,8 +28,28 @@ class RecycleUser implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(User $user)
     {
-        //
+        // Recycle this user.
+        if ($user->status == -1) {
+            // Force delete all topics, posts, comments and wiki of this user.
+            $user->topics>each(function ($item) {
+                $item->forceDelete();
+            });
+            $user->posts->each(function ($item) {
+                $item->forceDelete();
+            });
+            $user->wikis>each(function ($item) {
+                $item->forceDelete();
+            });
+            $user->comments>each(function ($item) {
+                $item->forceDelete();
+            });
+            $user->history()->forceDelete();
+        }
+    }
+
+    public function failed(Exception $e) {
+        // Send failed notification to admin.
     }
 }

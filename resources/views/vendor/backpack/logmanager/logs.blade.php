@@ -11,7 +11,7 @@
         <li class="active">{{ trans('backpack::logmanager.existing_logs') }}</li>
       </ol>
     </section>
-@endsection
+@stop
 
 @section('content')
 <!-- Default box -->
@@ -47,7 +47,7 @@
     </div><!-- /.box-body -->
   </div><!-- /.box -->
 
-@endsection
+@stop
 
 @section('after_scripts')
 <script>
@@ -97,4 +97,4 @@
 
   });
 </script>
-@endsection
+@stop

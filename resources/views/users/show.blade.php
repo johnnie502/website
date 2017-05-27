@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+    @lang('global.view_user'): {{ $user->username }}
+@stop
 @section('content')
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
@@ -7,7 +10,7 @@
         <div class="panel-body">
                 <div class="row">
                     <div>{{ $user->username }}，{{ config('app.name') }}第{{ $user->id }}号会员，注册于{{ $user->created_at }}。</div>
-                    <div class="pull-right"><img alt="{{ $user->username }}" src="/avatars/{{ $user->id }}.png" width="128" height="128" />
+                    <div class="pull-right"><img alt="{{ $user->username }}" src="/avatars/{{ $user->id }}.png" width="128" height="128">
 	           </div>
                <!-- Tabs -->
                <ul class="nav nav-tabs">
@@ -32,8 +35,8 @@
                     <ul class="list-group">
                         @foreach($user->topics as $topic)
                         <li class="list-group-item">
-                            @if ($topic->replies > 0)
-                            <span class="badge">{{ $topic->replies }}</span>
+                            @if ($topic->reply_count > 0)
+                            <span class="badge">{{ $topic->reply_count }}</span>
                             @endif
                             <a href="{{ route('topics.show', $topic->id) }}">{{ $topic->title }}</a><br>
                             <div>
@@ -99,10 +102,22 @@
                 @endif
             </div>
             <div class="tab-pane-fade" id="followers">
-                {{ $user->followers() }}
+                <ul class="list-group"> 
+                    @foreach ($user->followers(User::class) as $follower)
+                        <li class="list-group-item">
+                            <a href={{ route('users.show', $follower->username) }}>{{ $follower->username }}</a>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
             <div class="tab-pane-fade" id="following">
-                {{ $user->followings() }}
+                <ul class="list-group"> 
+                    @foreach ($user->followings() as $following)
+                        <li class="list-group-item">
+                            <a href={{ route('users.show', $following->username) }}>{{ $following->username }}</a>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
             <div class="tab-pane fade" id="points">
                 <ul class="list-group">
@@ -114,4 +129,4 @@
         </div>
     </div>
 </div>
-@endsection
+@stop

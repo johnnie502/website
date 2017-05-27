@@ -28,15 +28,15 @@ $(document).ready(function(){
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                 	<label for="title-field">Title</label>
-                	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ old('title', $wiki->title) }}" />
+                	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ old('title', isset($wiki->id) ? $wiki->title : '') }}">
                 </div>
                 <div class="form-group">
                     <label for="categories-field">Categories</label>
-                    <input class="form-control" type="text" name="categories" id="categories" data-role="tagsinput" required placeholder="按Enter添加分类" value="{{ old('categories', $wiki->tagList) }}">
+                    <input class="form-control" type="text" name="categories" id="categories" data-role="tagsinput" required placeholder="按Enter添加分类" value="{{ old('categories', isset($wiki->id) ? $wiki->tagList : '') }}">
                 </div>
                 <div class="form-group">
                     <label for="title-field">Redirect</label>
-                    <input class="form-control" type="text" name="redirect" id="redirect-field" placeholder="" value="{{ old('redirect', $wiki->redirect) }}" />
+                    <input class="form-control" type="text" name="redirect" id="redirect-field" placeholder="" value="{{ old('redirect', isset($wiki->id) ? $wiki->redirect : '') }}">
                 </div>
                 <div class="form-group">
                     <label for="template-field">Template</label>
@@ -55,11 +55,11 @@ $(document).ready(function(){
                             {!! editor_js() !!}
                             {!! editor_config('mdeditor') !!}
                             <textarea name="content" style="display:none;">
-                            {{ old('content', isset($wiki) ? $wiki->content : '' ) }}
+                            {{ old('content', isset($wiki->id) ? $wiki->content : '' ) }}
                             </textarea>
                         @else
                             @include('UEditor::head')
-                            <script id="ueditor" name="content" type="text/plain">@markdown(old('content', isset($wiki) ? $wiki->content : '' ))</script>
+                            <script id="ueditor" name="content" type="text/plain">@markdown(old('content', isset($wiki->id) ? $wiki->content : '' ))</script>
                             <script type="text/javascript">
                                 var ue = UE.getEditor('ueditor', {
                                     <!-- 定制工具栏按钮 -->
@@ -82,4 +82,4 @@ $(document).ready(function(){
         </div>
     </div>
 </div>
-@endsection
+@stop

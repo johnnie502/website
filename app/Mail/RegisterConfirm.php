@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class RegisterConfirm extends Mailable
+class RegisterConfirm extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -28,6 +28,6 @@ class RegisterConfirm extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.registerconfirm');
+        return $this->markdown('emails.user.registerconfirm');
     }
 }

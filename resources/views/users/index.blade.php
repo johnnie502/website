@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+    @lang('global.users')
+@stop
 @section('content')
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
@@ -37,7 +40,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $users->render() !!}
+                {!! $users->links() !!}
             @else
                 <h3 class="text-center alert alert-info">Empty!</h3>
             @endif
@@ -45,4 +48,4 @@
     </div>
 </div>
 
-@endsection
+@stop

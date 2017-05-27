@@ -17,7 +17,7 @@ class Comment extends Model
     /**
      * Get all of the owning commentable models.
      */
-    public function model()
+    public function commentable()
     {
         return $this->morphTo();
     }

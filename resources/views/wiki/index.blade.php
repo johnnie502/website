@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+    @lang('global.wiki')
+@stop
 @section('content')
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
@@ -13,17 +16,17 @@
                     <tbody>
                         @foreach($wikis as $wiki)
                             <tr>
-                                <td><img alt="" src="/avatars/{{ $wiki->users->id }}.png" width="32" height="32" /></td><td><td><a href="{{ route('wiki.show', $wiki->title) }}">{{ $wiki->title }}</a></td> <td><a href="{{ route('users.show', $wiki->users->username) }}">{{ $wiki->users->username }}</a></td>
+                                <td><img alt="" src="/avatars/{{ $wiki->users->id }}.png" width="32" height="32"></td><td><td><a href="{{ route('wiki.show', $wiki->title) }}">{{ $wiki->title }}</a></td> <td><a href="{{ route('users.show', $wiki->users->username) }}">{{ $wiki->users->username }}</a></td>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                {!! $wikis->render() !!}
+                {!! $wikis->links() !!}
             @else
                 <h3 class="text-center alert alert-info">Empty!</h3>
             @endif
         </div>
     </div>
 </div>
-@endsection
+@stop

@@ -1,9 +1,9 @@
 <?php
 
 return [
-# ---------- General ---------- #
+# ---------- Basic ---------- #
 	'mpcblab' => '数理化生实验室',
-	'topics' => '社区',
+	'topic' => '社区',
 	'wiki' => '百科',
 	'about' => '关于',
 	'search' => '搜索',
@@ -52,6 +52,7 @@ return [
 	'view_all_post' => '查看所有回复',
 	'delete_post' => '删除回复',
 	'last_reply' => '最后回复来自',
+	'tags' => '标签',
 # ---------- Wiki ---------- #
 	'create_wiki' => '创建条目',
 	'edit_wiki' => '编辑条目',

@@ -7,6 +7,8 @@ use Auth;
 use Flash;
 use Lang;
 use Markdown;
+use App\Mail\AtYou;
+use App\Mail\ReplyTopic;
 use App\Models\User;
 use App\Models\Wiki;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -54,10 +56,11 @@ class WikiController extends Controller
                 $markdown = $converter->convert($request->input('content'));
             }
             // Fix the contents.
-            $markdown = CopyWritingCorrectService::correct($markdown);
+            $markdown = (new CopyWritingCorrectService())->correct($markdown);
             // Create wiki.
             $wiki = Wiki::createWithInput([
                 'title' => $request->input('title'),
+                'description' => $request->input('description'),
                 'content' => $markdown,
                 'redirect' => $request->input('redirect'),
                 'template' => $request->input('template'),
@@ -140,10 +143,11 @@ class WikiController extends Controller
                 $markdown = $converter->convert($request->input('content'));
             }
             // Fix the contents.
-            $markdown = CopyWritingCorrectService::correct($markdown);
+            $markdown = (new CopyWritingCorrectService())->correct($markdown);
             // NOT update the wiki! save a new version.
             $wiki = Wiki::createWithInput([
                 'title' => $request->input('title'),
+                'description' => $request->input('description'),
                 'content' => $markdown,
                 'redirect' => $request->input('redirect'),
                 'template' => $request->input('template'),

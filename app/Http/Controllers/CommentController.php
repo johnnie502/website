@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Auth;
 use Flash;
 use Lang;
+use App\Mail\AtYou;
+use App\Mail\ReplyTopic;
 use App\Models\Comment;
 use App\Models\Point;
 use App\Models\Post;
@@ -45,7 +47,7 @@ class CommentController extends Controller
             $converter = new HtmlConverter();
             $markdown = $converter->convert($request->input('content'));
             // Fix the contents.
-            $markdown = CopyWritingCorrectService::correct($markdown);
+            $markdown = (new CopyWritingCorrectService())->correct($markdown);
             $comment = Comment::createWithInput([
                 'content' => $markdown,
             ]);
@@ -87,7 +89,7 @@ class CommentController extends Controller
             $converter = new HtmlConverter();
             $markdown = $converter->convert($request->input('content'));
             // Fix the contents.
-            $markdown = CopyWritingCorrectService::correct($markdown);
+            $markdown = (new CopyWritingCorrectService())->correct($markdown);
             $comment->updateWithInput([
                 'content' => $markdown,
             ]);

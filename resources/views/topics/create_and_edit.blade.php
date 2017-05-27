@@ -45,11 +45,11 @@ $(document).ready(function(){
                 </div> 
                 <div class="form-group">
                 	<label for="title-field">Title</label>
-                	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ isset($topic)?old('title', $topic->title):'' }}" />
+                	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ old('title', isset($topic->id) ? $topic->title : '') }}">
                 </div>
                 <div class="form-group">
                 	<label for="title-field">Tags</label>
-                	<input class="form-control" type="text" name="tags" id="tags" data-role="tagsinput" required placeholder="按Enter添加标签" value="{{ old('tags', $topic->tagList) }}">
+                	<input class="form-control" type="text" name="tags" id="tags" data-role="tagsinput" required placeholder="按Enter添加标签" value="{{ old('tags', isset($topic->id) ? $topic->tagList : '') }}">
                 </div>
             @endif
                 <div class="form-group">
@@ -59,11 +59,11 @@ $(document).ready(function(){
                             {!! editor_js() !!}
                             {!! editor_config('mdeditor') !!}
                             <textarea name="content" style="display:none;">
-                            {{ old('content', isset($post) ? $post->content : '' ) }}
+                            {{ old('content', isset($post->id) ? $post->content : '' ) }}
                             </textarea>
                         @else
                             @include('UEditor::head')
-                            <script id="ueditor" name="content" type="text/plain">@markdown(old('content', isset($post) ? $post->content : '' ))</script>
+                            <script id="ueditor" name="content" type="text/plain">@markdown(old('content', isset($post->id) ? $post->content : '' ))</script>
                             <script type="text/javascript">
                                 var ue = UE.getEditor('ueditor', {
                                     <!-- 定制工具栏按钮 -->
@@ -86,4 +86,4 @@ $(document).ready(function(){
         </div>
     </div>
 </div>
-@endsection
+@stop

@@ -6,7 +6,12 @@ use Auth;
 use Flash;
 use Image;
 use Lang;
+use Mail;
+use App\Jobs\LogoffUser;
+use App\Jobs\SendEmail;
+use App\Mail\RegisterConfirm;
 use App\Models\User;
+use Carbon\Carbon;
 use Md\MDAvatars;
 use Intervention\Image\ImageManager;
 use \Intervention\Image\AbstractFont as Font;
@@ -62,6 +67,8 @@ class UserController extends Controller
         $avatar->Save(public_path('avatars/' . $user->id . '.png'), 512);
         $avatar->Free();
         // Send email.
+        Mail::to($request->user())
+            ->send(new RegisterConfirm($user));
         // Show message.
         Flash::success(Lang::get('global.register_successfully'));
         return redirect()->intended();
@@ -89,7 +96,7 @@ class UserController extends Controller
         }
         // Show messgae.
         Flash::success(Lang::get('global.operation_successfully'));
-        return redirect()->route('users.index');
+        return redirect()->route('users.show', $user->username);
     }
 
     public function destroy(User $user)
@@ -127,5 +134,19 @@ class UserController extends Controller
         if ($curUser->isFollowing($user->id)) {
             $curUser->unfollow($user->id);
         }
+    }
+
+    public function logoff(User $user)
+    {
+        // Logoff user.
+        $job = (new LogoffUser($user))
+                    ->delay(Carbon::now()->addMonth());
+        dispath($job);
+    }
+
+    public function restore(User $user)
+    {
+        // Restore user.
+        dispatch(new RestoreUser($user));
     }
 }

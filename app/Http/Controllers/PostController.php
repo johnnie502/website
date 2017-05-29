@@ -25,110 +25,116 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['create', 'edit', 'getUpvote', 'postUpvote', 'getDownvote', 'postDownvote']]);
+        $this->middleware('auth', [
+            'only' => [
+                'create', 'edit', 'getUpvote', 'postUpvote', 'getDownvote', 'postDownvote'
+            ],
+        ]);
         $this->middleware('admin', ['only' => 'destory']);
+        if (Auth::check()) {
+            // Get user id.
+            $this->user = Auth::user();
+        }
     }
 
     public function create(Topic $topic, Post $post)
     {
+        $this->authorize('create', $this->user, $post);
         return view('topics.create_and_edit', compact('topic', 'post'));
     }
 
-    public function store(PostRequest $request, Topic $topic)
+    public function store(PostRequest $request, Topic $topic, Post $post)
     {
-        $post=new Post();
-        // Get user id.
-        $user = Auth::user();
-        if ($user->can('create',$post)) {
-            if ($user->point_count < 1) {
-                Flash::error('Your points are not enough');
-                return back()->withInput();
-            }
-            // Convert HTML topic content to markdown.
-            if (Agent::isPhone()) {
-                // Editor.md
-                $markdown = $request->input('content');
-            } else {
-                // Ueditor
-                $markdown = (new HtmlConverter())->convert($request->input('content'));
-            }
-            // Fix the contents.
-            $markdown = (new CopyWritingCorrectService())->correct($markdown);
-            // @ notification.
-            $atList = [];
-            preg_match_all('/@([a-zA-Z0-9\x80-\xff\-_]{3,20}) /', $markdown, $atList, PREG_PATTERN_ORDER);
-            $atList = array_unique($atList[1]);
-            // Get user list.
-            $userList = User::whereIn('username', $atList)->get();
-            foreach ($userList as $at) {
-                // Don't at self.
-                if ($at != $user->username) {
-                    // Replace username to markdown links.
-                    $markdown = str_replace($at, '[@' . $at . '](' . route('users.show', $user->id) . ')', $markdown);
-                    // @ notification.
-                    Notifynder::category('user.at')
-                        ->from($user->username)
-                        ->to($at)
-                        ->url(route('topics.show', $topic->id))
-                        ->send();
-                    $atUser = User::where('username', $at)->first();
-                    if ($atUser) {
-                        $atUser->notification_count += 1;
-                        $atUser->save();
-                    }
+        $this->authorize('create', $this->user, $post);
+        if ($this->user->point_count < 1) {
+            Flash::error('Your points are not enough');
+            return back()->withInput();
+        }
+        // Convert HTML topic content to markdown.
+        if (Agent::isPhone()) {
+            // Editor.md
+            $markdown = $request->input('content');
+        } else {
+            // Ueditor
+            $markdown = (new HtmlConverter())->convert($request->input('content'));
+        }
+        // Fix the contents.
+        $markdown = (new CopyWritingCorrectService())->correct($markdown);
+        // @ notification.
+        $atList = [];
+        preg_match_all('/@([a-zA-Z0-9\x80-\xff\-_]{3,20}) /', $markdown, $atList, PREG_PATTERN_ORDER);
+        $atList = array_unique($atList[1]);
+        // Get user list.
+        $this->userList = User::whereIn('username', $atList)->get();
+        foreach ($this->userList as $at) {
+            // Don't at self.
+            if ($at != $this->user->username) {
+                // Replace username to markdown links.
+                $markdown = str_replace($at, '[@' . $at . '](' . route('users.show', $this->user->id) . ')', $markdown);
+                // @ notification.
+                Notifynder::category('user.at')
+                    ->from($this->user->username)
+                    ->to($at)
+                    ->url(route('topics.show', $topic->id))
+                    ->send();
+                $atUser = User::where('username', $at)->first();
+                if ($atUser) {
+                    $atUser->notification_count += 1;
+                    $atUser->save();
                 }
             }
-            // Create post.
-            $post = Post::createWithInput([
-                'content' => $markdown,
-            ]);
-            // Topics
-            $topic->reply_count += 1;
-            $topic->lastreply = $user->id;
-            $topic->replied_at = Carbon::now ();
-            $topic->save();
-            // Save post.
-            $post->content = $markdown;
-            $post->user = $user->id;
-            $post->topic = $topic->id;
-            $post->post = $topic->reply_count;
-            $post->type = 1;
-            $post->status = 1;
-            $post->save();
-            // User statics
-            $user->point_count -= 3;
-            $user->reply_count += 1;
-            $user->save();
-            // Update points.
-            $point=new Point();
-            $point->user = $user->id;
-            $point->type = 3;
-            $point->point = 3;
-            $point->total_points = $user->point_count;
-            $point->got_at = Carbon::now();
-            $point->save();
-            // Send notification.
-            if ($topic->users->id != $user->id) {
-                // Reply notification.
-                $toUser = $topic->users->first();
-                Notifynder::category('user.reply')
-                    ->from($user->username)
-                    ->to($toUser->username)
-                    ->url(route('topics.show', $topic->id))
-                    ->send(); 
-                $toUser->notification_count += 1;
-                $toUser->save();
-            }
-            // Show message.
-            Flash::success(Lang::get('global.operation_successfully'));
-            return redirect()->route('topics.show', $topic->id);
-        } else {
-            return response(view('errors.403'), 403);
         }
+        // Create post.
+        $post = Post::createWithInput([
+            'content' => $markdown,
+        ]);
+        // Topics
+        $topic->reply_count += 1;
+        $topic->lastreply = $this->user->id;
+        $topic->replied_at = Carbon::now ();
+        $topic->save();
+        // Save post.
+        $post->content = $markdown;
+        $post->user = $this->user->id;
+        $post->topic = $topic->id;
+        $post->post = $topic->reply_count;
+        $post->type = 1;
+        $post->status = 1;
+        $post->save();
+        // User statics
+        $this->user->point_count -= 3;
+        $this->user->reply_count += 1;
+        $this->user->save();
+        // Update points.
+        $point=new Point();
+        $point->user = $this->user->id;
+        $point->type = 3;
+        $point->point = 3;
+        $point->total_points = $this->user->point_count;
+        $point->got_at = Carbon::now();
+        $point->save();
+        // Send notification.
+        if ($topic->users->id != $this->user->id) {
+            // Reply notification.
+            $toUser = $topic->users->first();
+            Notifynder::category('user.reply')
+                ->from($this->user->username)
+                ->to($toUser->username)
+                ->url(route('topics.show', $topic->id))
+                ->send(); 
+            $toUser->notification_count += 1;
+            $toUser->save();
+        }
+        // Show message.
+        Flash::success(Lang::get('global.operation_successfully'));
+        return redirect()->route('topics.show', $topic->id);
     }
 
     public function show(Topic $topic, Post $post)
     {
+        if (Auth::check()) {
+            $this->authorize('view', $this->user, $post);
+        }
         if ($post->id > 0) {
             $posts = Post::where('topic', $topic->id)
                 ->whereIn('post', [0, $post->id])
@@ -143,89 +149,70 @@ class PostController extends Controller
 
     public function edit(Topic $topic, Post $post)
     {
+        $this->authorize('update', $this->user, $post);
         return view('topics.create_and_edit', compact('topic', 'post'));
     }
 
     public function update(PostRequest $request, Topic $topic, Post $post)
     {
-     // Get user id.
-        $user = Auth::user();
-        if ($user->can('update', $post)) {
-            // Convert HTML topic content to markdown.
-            if (Agent::isPhone()) {
-                // Editor.md
-                $markdown = $request->input('content');
-            } else {
-                // Ueditor
-                $markdown = (new HtmlConverter())->convert($request->input('content'));
-            }
-            // Fix the contents.
-            $markdown = (new CopyWritingCorrectService())->correct($markdown);
-            // Update post.
-            $post->updateWithInput([
-                'content' => $markdown
-            ]);
-            $post->edit_count += 1;
-            $post->save();
-            // Show message.
-            Flash::success(Lang::get('global.operation_successfully'));
-            return redirect()->route('topics.show', $topic->id);
+        $this->authorize('update', $this->user, $post);
+        // Convert HTML topic content to markdown.
+        if (Agent::isPhone()) {
+            // Editor.md
+            $markdown = $request->input('content');
         } else {
-            return response(view('errors.403'), 403);
+            // Ueditor
+            $markdown = (new HtmlConverter())->convert($request->input('content'));
         }
+        // Fix the contents.
+        $markdown = (new CopyWritingCorrectService())->correct($markdown);
+        // Update post.
+        $post->updateWithInput([
+            'content' => $markdown
+        ]);
+        $post->edit_count += 1;
+        $post->save();
+        // Show message.
+        Flash::success(Lang::get('global.operation_successfully'));
+        return redirect()->route('topics.show', $topic->id);
     }
 
     public function destroy(Topic $topic, Post $post)
     {
-         // Get user id.
-        $user = Auth::user();
-        if ($user->can('delete', $post)) {
-           // Set status = -1 to delete.
-            $post->status = -1;
-            $post->save();
-            // Soft delete.
-            $post->delete();
-            // Topic
-            $topic->reply_count -= 1;
-            $topic->save();
-            // User statics.
-            $user->reply_count -= 1;
-            $user->save();
-            // Show message.
-            Flash::success(Lang::get('global.operation_successfully'));
-            return redirect()->route('topics.show', $topic->id);
-        } else {
-            return response(view('errors.403'), 403);
-        }
+        $this->authorize('delete', $this->user, $post);
+        // Set status = -1 to delete.
+        $post->status = -1;
+        $post->save();
+        // Soft delete.
+        $post->delete();
+        // Topic
+        $topic->reply_count -= 1;
+        $topic->save();
+        // User statics.
+        $this->user->reply_count -= 1;
+        $this->user->save();
+        // Show message.
+        Flash::success(Lang::get('global.operation_successfully'));
+        return redirect()->route('topics.show', $topic->id);
     }
 
-    public function postUpvote(User $user, Post $post)
+    public function postUpvote(Post $post)
     {
-    	// Get user id.
-        $user = Auth::user();
-        if ($user->can('vote', $post)) {
-            if ($user->hasVoted($post)) {
-                $user->cancelVote($post);
-            }
-            // Up vote the post.
-            $user->upVote($post);
-        } else {
-            return response(view('errors.403'), 403);
+    	$this->authorize('vote', $this->user, $post);
+        if ($this->user->hasVoted($post)) {
+            $this->user->cancelVote($post);
         }
+        // Up vote the post.
+        $this->user->upVote($post);
     }
 
-    public function postDownvote(User $user, Post $post)
+    public function postDownvote(Post $post)
     {
-        // Get user id.
-        $user = Auth::user();
-        if ($user->can('vote', $post)) {
-            if ($user->hasVoted($post)) {
-                $user->cancelVote($post);
-            }
-            // Down vote the post.
-            $user->downVote($post);
-        } else {
-            return response(view('errors.403'), 403);
+        $this->authorize('vote', $this->user, $post);
+        if ($this->user->hasVoted($post)) {
+            $this->user->cancelVote($post);
         }
+        // Down vote the post.
+        $this->user->downVote($post);
     }
 }

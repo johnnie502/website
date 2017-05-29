@@ -24,74 +24,81 @@ class WikiController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['create', 'edit']]);
+        $this->middleware('auth', [
+            'only' => [
+                'create', 'edit'
+            ],
+        ]);
+        if (Auth::check()) {
+            // Get user id.
+            $this->user = Auth::user();
+        }
     }
 
     public function index()
     {
+        if (Auth::check()) {
+            $this->authorize('view', $this->user, Wiki::class);
+        }
         $wikis = Wiki::paginate(20);
         return view('wiki.index', compact('wikis'));
     }
 
     public function create(Wiki $wiki)
     {
+        $this->authorize('create', $this->user, $wiki);
         return view('wiki.create_and_edit', compact('wiki'));
     }
 
     public function store(WikiRequest $request)
     {
-        $wiki = new Wiki();
-         // Get user id.
-        $user = Auth::user();
-        if ($user->can('create',$wiki)) {
-           // Get user id.
-            $user = Auth::user();
-            // Convert HTML topic content to markdown.
-            if (Agent::isPhone()) {
-                // Editor.md
-                $markdown = $request->input('content');
-            } else {
-                // Ueditor
-                $markdown = (new HtmlConverter())->convert($request->input('content'));
-            }
-            // Fix the contents.
-            $markdown = (new CopyWritingCorrectService())->correct($markdown);
-            // Create wiki.
-            $wiki = Wiki::createWithInput([
-                'title' => $request->input('title'),
-                'description' => $request->input('description'),
-                'content' => $markdown,
-                'redirect' => $request->input('redirect'),
-                'template' => $request->input('template'),
-            ]);
-            $wiki->user = $user->id;
-            $wiki->type = 1;
-            $wiki->status = 1;
-            $wiki->version += 1;
-            $wiki->save();
-            // User statics
-            $user->point_count += 10;
-            $user->wiki_count += 1;
-            $user->save();
-            // Update points.
-            $point->user = $user->id;
-            $point->type = 4;
-            $point->point = 10;
-            $point->total_points = $user->point_count;
-            $point->got_at = Carbon::now();
-            $point->save();
-            // Add tag.
-            $wiki->tag($request->input('categories'));
-            // Show message.
-            Flash::success(Lang::get('global.operation_successfully'));
-            return redirect()->route('wiki.index');
+        $this->authorize('create', $this->user, Wiki::class);
+        // Convert HTML topic content to markdown.
+        if (Agent::isPhone()) {
+            // Editor.md
+            $markdown = $request->input('content');
         } else {
-            return response(view('errors.403'), 403);
+            // Ueditor
+            $markdown = (new HtmlConverter())->convert($request->input('content'));
         }
+        // Fix the contents.
+        $markdown = (new CopyWritingCorrectService())->correct($markdown);
+        // Create wiki.
+        $wiki = Wiki::createWithInput([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'content' => $markdown,
+            'redirect' => $request->input('redirect'),
+            'template' => $request->input('template'),
+        ]);
+        $wiki->user = $this->user->id;
+        $wiki->type = 1;
+        $wiki->status = 1;
+        $wiki->version += 1;
+        $wiki->save();
+        // User statics
+        $this->user->point_count += 10;
+        $this->user->wiki_count += 1;
+        $this->user->save();
+        // Update points.
+        $point->user = $this->user->id;
+        $point->type = 4;
+        $point->point = 10;
+        $point->total_points = $this->user->point_count;
+        $point->got_at = Carbon::now();
+        $point->save();
+        // Add tag.
+        $wiki->tag($request->input('categories'));
+        // Show message.
+        Flash::success(Lang::get('global.operation_successfully'));
+        return redirect()->route('wiki.index');
     }
 
     public function show(Wiki $wiki, $wikis)
     {
+        if (Auth::check()) {
+            $this->authorize('view', $this->user, $wiki);
+        }
         // Get wiki via title.
         $wiki = Wiki::where('title', $wikis)->orderBy('version', 'desc')->firstOrFail();
         // Rediect
@@ -122,99 +129,99 @@ class WikiController extends Controller
 
     public function edit(Wiki $wiki)
     {
+        $this->authorize('update', $this->user, $wiki);
         return view('wiki.create_and_edit', compact('wiki'));
     }
 
     public function update(WikiRequest $request, Wiki $wiki)
     {
-         // Get user id.
-        $user = Auth::user();
-        if ($user->can('update', $wiki)) {
-           // Get user id.
-            $user = Auth::user();
-            // Convert HTML topic content to markdown.
-            if (Agent::isPhone()) {
-                // Editor.md
-                $markdown = $request->input('content');
-            } else {
-                // Ueditor
-                $markdown = (new HtmlConverter())->convert($request->input('content'));
-            }
-            // Fix the contents.
-            $markdown = (new CopyWritingCorrectService())->correct($markdown);
-            // NOT update the wiki! save a new version.
-            $wiki = Wiki::createWithInput([
-                'title' => $request->input('title'),
-                'description' => $request->input('description'),
-                'content' => $markdown,
-                'redirect' => $request->input('redirect'),
-                'template' => $request->input('template'),
-            ]);
-            $wiki->user = $user->id;
-            $wiki->type = 1;
-            $wiki->status = 1;
-            $wiki->version += 1;
-            $wiki->save();
-            // User statics
-            $user->point_count += 5;
-            $user->save();
-            // Update points.
-            $point->user = $user->id;
-            $point->type = 5;
-            $point->point = 5;
-            $point->total_points = $user->point_count;
-            $point->got_at = Carbon::now();
-            $point->save();
-            // Update tag.
-            $wiki->retag($request->input('categories'));
-            // Show messages.
-            Flash::success(Lang::get('global.operation_successfully'));
-            return redirect()->route('wiki.show', $wiki->title);
+        $this->authorize('update', $this->user, $wiki);
+        // Convert HTML topic content to markdown.
+        if (Agent::isPhone()) {
+            // Editor.md
+            $markdown = $request->input('content');
         } else {
-            return response(view('errors.403'), 403);
+            // Ueditor
+            $markdown = (new HtmlConverter())->convert($request->input('content'));
         }
+        // Fix the contents.
+        $markdown = (new CopyWritingCorrectService())->correct($markdown);
+        // NOT update the wiki! save a new version.
+        $wiki = Wiki::createWithInput([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'content' => $markdown,
+            'redirect' => $request->input('redirect'),
+            'template' => $request->input('template'),
+        ]);
+        $wiki->user = $this->user->id;
+        $wiki->type = 1;
+        $wiki->status = 1;
+        $wiki->version += 1;
+        $wiki->save();
+        // User statics
+        $this->user->point_count += 5;
+        $this->user->save();
+        // Update points.
+        $point->user = $this->user->id;
+        $point->type = 5;
+        $point->point = 5;
+        $point->total_points = $this->user->point_count;
+        $point->got_at = Carbon::now();
+        $point->save();
+        // Update tag.
+        $wiki->retag($request->input('categories'));
+        // Show messages.
+        Flash::success(Lang::get('global.operation_successfully'));
+        return redirect()->route('wiki.show', $wiki->title);
     }
 
     public function destroy(Wiki $wiki)
     {
-         // Get user id.
-        $user = Auth::user();
-        if ($user->can('delete', $wiki)) {
-           $wiki = Wiki::where('title', $wiki->title)->get();
-            // Set status = -1 to delete.
-            $wiki->status = -1;
-            $wiki->save();
-            // Soft delete.
-            $wiki->delete();
-            // User statics.
-            $user =  User::find($wiki->user);
-            $user->topic_count -= 1;
-            $user->save();
-            Flash::success(Lang::get('global.operation_successfully'));
-            return redirect()->route('wiki.index');
-        } else {
-            return response(view('errors.403'), 403);
-        }
+        $this->authorize('delete', $this->user, $wiki);
+        // Get user id.
+        $this->user = Auth::user();
+        $wiki = Wiki::where('title', $wiki->title)->get();
+        // Set status = -1 to delete.
+        $wiki->status = -1;
+        $wiki->save();
+        // Soft delete.
+        $wiki->delete();
+        // User statics.
+        $this->user =  User::find($wiki->user);
+        $this->user->topic_count -= 1;
+        $this->user->save();
+        Flash::success(Lang::get('global.operation_successfully'));
+        return redirect()->route('wiki.index');
     }
 
     public function Category($slug)
     {
+        if (Auth::check()) {
+            $this->authorize('view', $this->user, Wiki::class);
+        }
         // Get category.
         // Display all topic of this slug.
         $wikis = Wiki::withAllTags($slug)->get();
         return view('wiki.categories', compact('wikis'));
     }
 
-    public function history($title)
+    public function history($wiki)
     {
+        if (Auth::check()) {
+            $this->authorize('view', $this->user, $wiki);
+        }
         // Get wiki via title.
-        $wiki = Wiki::where('title', $title)->orderBy('version', 'desc')->get();
+        $wiki = Wiki::where('title', $wiki->title)->orderBy('version', 'desc')->get();
         return view('wiki.history', compact('wiki'));
     }
 
     public function diff(Wiki $wiki, $new, $old)
     {
-    	$newContent = Wiki::where('title', $wiki->first()->title)
+    	if (Auth::check()) {
+            $this->authorize('view', $this->user, $wiki);
+        }
+        $newContent = Wiki::where('title', $wiki->first()->title)
     		->where('version', $new)
     		->firstOrFail();
     	$oldContent = Wiki::where('title', $wiki->first()->title)
@@ -224,27 +231,21 @@ class WikiController extends Controller
     	return view('wiki.diff', compact('wiki', 'diff'));
     }
 
-    public function postStar(User $user, Wiki $wiki, $star)
+    public function postStar(Wiki $wiki, $star)
     {
+        $this->authorize('vote', $this->user, $wiki);
         // Create/Update a wiki rating.
-        // Get user id.
-        $user = Auth::user();
-        if ($user->can('star', $wiki)) {
-            $rating = [1, 2, 3, 4, 5];
-            if (in_array($rating, $star)) {
-                $wiki->rating([
-                    'rating' => $star
-                ], $user);
-            }
+        $rating = [1, 2, 3, 4, 5];
+        if (in_array($rating, $star)) {
+            $wiki->rating([
+                'rating' => $star
+            ], $this->user);
         }
     }
     
-    public function ppstUnstar(User $user, Wiki $wiki)
+    public function postUnstar(Wiki $wiki)
     {
-        // Get user id.
-        $user = Auth::user();
-        if ($user->can('star', $wiki)) {
-            $wiki->deleteRating($user->id);
-        }
+        $this->authorize('vote', $this->user, $wiki);
+        $wiki->deleteRating($this->user->id);
     }
 }

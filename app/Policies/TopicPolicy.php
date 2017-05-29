@@ -65,7 +65,7 @@ class TopicPolicy extends Policy
     }
 
     /**
-     * Determine whether the user can vote the topic.
+     * Determine whether the user can vote the post.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Topic  $topic
@@ -74,4 +74,5 @@ class TopicPolicy extends Policy
     public function vote(User $user, Topic $topic)
     {
         return true;
-    }}
+    }
+}

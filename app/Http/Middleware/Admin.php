@@ -12,12 +12,14 @@ class AdminAuth
     public function handle($request, Closure $next)
     {
         // The user is login?
-        if (!Auth::user()->type < 4) {
-            // Not Admin.
-            Flash::error('You don\'t have permission.');
-            return response('Unauthorized.', 401);
+         if (Auth::check()) {
+            if (Auth::user()->hasRole()) {
+                if (Auth::user()->type >= 4) {
+                    return $next($request);
+                }
+            }
         }
-
-        return $next($request);
+        Auth::logout();
+        return redirect('login');
     }
 }

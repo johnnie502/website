@@ -7,7 +7,7 @@
     <div class="panel panel-default col-md-10 col-md-offset-1">
         <div class="panel-heading">
             <div class="pull-left panel-title">@lang('global.topics')</div>
-            @can('create', $topic)
+            @can('create', \App\Models\Topic::class)
                 <a class="pull-right" href="{{ route('topics.create') }}">@lang('global.create_topic')</a> 
             @endif
         </div>

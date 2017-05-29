@@ -6,7 +6,7 @@
 <div class="container">
     <div class="panel panel-default col-md-10 col-md-offset-1">
         <div class="panel-heading">
-            <h1>{{$topic->title}}</h1>
+            <h1>{{ $topic->title }}</h1>
         </div>
         <div class="panel-body">
                 <div class="row">
@@ -43,7 +43,7 @@
                      </ul>
                   @endif
              @endforeach
-             @can('create', $comment)
+             @can('create', App\Models\Comment::class)
                  @if (isset($topic->comments->first()->id))
                      <form action="{{ route('topics.posts.comments.update', [$topic->id, 0, $topic->comments->id]) }}" method="POST">
                          <input type="text" name="content" value="{{ old($topic->comments->first()->content. '') }}">
@@ -88,7 +88,7 @@
                                  </ul>
                             @endforeach
                         @endif
-                        @can('create', $comment)
+                        @can('create', \App\Models\Comment::class)
                             @if (isset($reply->comments))
                                  <form action="{{ route('topics.posts.comments.update', [$topic->id, $reply->id, $comment->id]) }}" method="POST">
                                      <input type="text" name="content" value="{{ old('content', '') }}">
@@ -110,7 +110,7 @@
             @endif
         @endif
         <!-- reply editor -->
-        @can('create', $post)
+        @can('create', \App\Models\Post::class)
             @if ($posts->last()->post < $topic->reply_count)
                 <form action="{{ route('topics.posts.update', [$topic->id, $topic->reply_count + 1]) }}" method="POST">
                     <input type="hidden" name="_method" value="PUT">

@@ -22,92 +22,85 @@ class CommentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['create', 'edit']]);
+        $this->middleware('auth', [
+            'only' => [
+                'create', 'edit'
+            ],
+        ]);
         $this->middleware('admin', ['only' => 'destory']);
+        if (Auth::check()) {
+            // Get user id.
+            $this->user = Auth::user();
+        }
     }
 
     public function create(Comment $comment)
     {
+        $this->authorize('create', $this->user, $comment);
         return view('comments.create_and_edit', compact('comment'));
     }
 
     public function store(CommentRequest $request)
     {
-        $comment = new Comment();
-         // Get user id.
-        $user = Auth::user();
-        if ($user->can('create', $comment)) {
-           // Get user id.
-            $user = Auth::user();
-            if ($user->point_count < 1) {
-                Flash::error('Your points are not enough');
-                return back()->withInput();
-            }
-            // Convert HTML topic content to markdown.
-            $markdown = (new HtmlConverter())->convert($request->input('content'));
-            // Fix the contents.
-            $markdown = (new CopyWritingCorrectService())->correct($markdown);
-            $comment = Comment::createWithInput([
-                'content' => $markdown,
-            ]);
-            // User statics
-            $user->point_count -= 1;
-            $user->save();
-            // Update points.
-            $point->user = $user->id;
-            $point->type = 6;
-            $point->point = -1;
-            $point->total_points = $user->point_count;
-            $point->got_at = Carbon::now();
-            $point->save();
-            Flash::success(Lang::get('global.operation_successfully'));
-            return redirect()->route('comments.index');
-        } else {
-            return response(view('errors.403'), 403);
+        $this->authorize('create', $this->user, Comment::class);
+        if ($this->user->point_count < 1) {
+            Flash::error('Your points are not enough');
+            return back()->withInput();
         }
+        // Convert HTML topic content to markdown.
+        $markdown = (new HtmlConverter())->convert($request->input('content'));
+        // Fix the contents.
+        $markdown = (new CopyWritingCorrectService())->correct($markdown);
+        $comment = Comment::createWithInput([
+            'content' => $markdown,
+        ]);
+        // User statics
+        $this->user->point_count -= 1;
+        $this->user->save();
+        // Update points.
+        $point->user = $this->user->id;
+        $point->type = 6;
+        $point->point = -1;
+        $point->total_points = $this->user->point_count;
+        $point->got_at = Carbon::now();
+        $point->save();
+        Flash::success(Lang::get('global.operation_successfully'));
+        return redirect()->route('comments.index');
     }
 
     public function show(Comment $comment)
     {
+        if (Auth::check()) {
+            $this->authorize('view', $this->user, $comment);
+        }
         return view('comments.show', compact('comment'));
     }
 
     public function edit(Comment $comment)
     {
+        $this->authorize('update', $this->user, $comment);
         return view('comments.create_and_edit', compact('comment'));
     }
 
     public function update(CommentRequest $request, Comment $comment)
     {
-         // Get user id.
-        $user = Auth::user();
-        if ($user->can('update', $comment)) {
-           // Get user id.
-            $user = Auth::user();
-            // Convert HTML topic content to markdown.
-            $markdown = (new HtmlConverter())->convert($request->input('content'));
-            // Fix the contents.
-            $markdown = (new CopyWritingCorrectService())->correct($markdown);
-            $comment->updateWithInput([
-                'content' => $markdown,
-            ]);
-            Flash::success(Lang::get('global.operation_successfully'));
-            return redirect()->route('comments.index');
-        } else {
-            return response(view('errors.403'), 403);
-        }
+        $this->authorize('update', $this->user, $comment);
+        // Convert HTML topic content to markdown.
+        $markdown = (new HtmlConverter())->convert($request->input('content'));
+        // Fix the contents.
+        $markdown = (new CopyWritingCorrectService())->correct($markdown);
+        $comment->updateWithInput([
+            'content' => $markdown,
+        ]);
+        Flash::success(Lang::get('global.operation_successfully'));
+        return redirect()->route('comments.index');
     }
 
     public function destroy(Comment $comment)
     {
-         // Get user id.
-        $user = Auth::user();
-        if ($user->can('delete', $comment)) {
-            $comment->delete();
-            Flash::success(Lang::get('global.operation_successfully'));
-            return redirect()->route('comments.index');
-        } else {
-            return response(view('errors.403'), 403);
-        }
+        $this->authorize('delete', $this->user, $comment);
+        $comment->delete();
+        Flash::success(Lang::get('global.operation_successfully'));
+        return redirect()->route('comments.index');
     }
 }

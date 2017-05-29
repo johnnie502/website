@@ -26,19 +26,30 @@ class TopicController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['create', 'edit', 'getUpVote', 'postUpvote', 'getDownVote', 'postDownvote']]);
+        $this->middleware('auth', [
+            'only' => [
+                'create', 'edit', 'getUpVote', 'postUpvote', 'getDownVote', 'postDownvote'
+            ],
+        ]);
         $this->middleware('admin', ['only' => 'destory']);
+        if (Auth::check()) {
+            // Get user id.
+            $this->user = Auth::user();
+        }
     }
 
     public function index()
     {
+        if (Auth::check()) {
+            $this->authorize('view', $this->user, Topic::class);
+        }
         $topics = Topic::orderBy('replied_at', 'desc')->paginate(20);
-        $topic = new Topic();
-        return view('topics.index', compact('topics', 'topic'));
+        return view('topics.index', compact('topics'));
     }
 
     public function create(Topic $topic)
     {
+        $this->authorize('create', $this->user, $topic);
         // Get nodes list.
         $nodes = Node::all()->sortBy('name');
         return view('topics.create_and_edit', compact('nodes'));
@@ -46,78 +57,74 @@ class TopicController extends Controller
 
     public function store(TopicRequest $request)
     {
-         // Get user id.
-        $user = Auth::user();
-        $topic = new Topic();
-        if ($user->can('create',$topic)) {
-           // Get user id.
-            $user = Auth::user();
-           // Convert HTML topic content to markdown.
-            if (Agent::isPhone()) {
-                // Editor.md
-                $markdown = $request->input('content');
-            } else {
-                // Ueditor
-                $markdown = (new HtmlConverter())->convert($request->input('content'));
-            }
-            // Fix the contents.
-            $markdown = (new CopyWritingCorrectService())->correct($markdown);
-            // Create topic and post.
-            $topic = Topic::createWithInput([
-                'node' => $request->input('node'),
-                'title' => $request->input('title'),
-            ]);
-            $topic->user = $user->id;
-            $topic->node = $request->input('node');
-            $topic->type = 1;
-            $topic->status = 1;
-            $topic->save();
-            $post = Post::createWithInput([
-                'content' => $markdown,
-            ]);
-            $post->user = $user->id;
-            $post->topic = $topic->id;
-            $post->type = 1;
-            $post->status = 1;
-            $post->save();
-            // User statics
-            $user->point_count -= 5;
-            $user->topic_count += 1;
-            $user->save();
-            // Update points.
-            $point = new Point();
-            $point->user = $user->id;
-            $point->type = 2;
-            $point->point = -5;
-            $point->total_points = $user->point_count;
-            $point->got_at = Carbon::now();
-            $point->save();
-            // Add tag.
-            $topic->tag($request->input('tags'));
-            // Show message.
-            Flash::success(Lang::get('global.operation_successfully'));
-            return redirect()->route('topics.index');
+        $this->authorize('create', $this->user, Topic::class);
+        // Convert HTML topic content to markdown.
+        if (Agent::isPhone()) {
+            // Editor.md
+            $markdown = $request->input('content');
         } else {
-            return response(view('errors.403'), 403);
+            // Ueditor
+            $markdown = (new HtmlConverter())->convert($request->input('content'));
         }
+        // Fix the contents.
+        $markdown = (new CopyWritingCorrectService())->correct($markdown);
+        // Create topic and post.
+        $topic = Topic::createWithInput([
+            'node' => $request->input('node'),
+            'title' => $request->input('title'),
+        ]);
+        $topic->user = $this->user->id;
+        $topic->node = $request->input('node');
+        $topic->type = 1;
+        $topic->status = 1;
+        $topic->save();
+        $post = Post::createWithInput([
+            'content' => $markdown,
+        ]);
+        $post->user = $this->user->id;
+        $post->topic = $topic->id;
+        $post->type = 1;
+        $post->status = 1;
+        $post->save();
+        // User statics
+        $this->user->point_count -= 5;
+        $this->user->topic_count += 1;
+        $this->user->save();
+        // Update points.
+        $point = Point::class;
+        $point->user = $this->user->id;
+        $point->type = 2;
+        $point->point = -5;
+        $point->total_points = $this->user->point_count;
+        $point->got_at = Carbon::now();
+        $point->save();
+        // Add tag.
+        $topic->tag($request->input('tags'));
+        // Show message.
+        Flash::success(Lang::get('global.operation_successfully'));
+        return redirect()->route('topics.index');
     }
 
     public function show(Topic $topic)
     {
-         // Get nodes from topic's node id.
-         // The view will display node's name and a link to slug.
-         $node = Node::findOrFail($topic->node);
-         // Get post content.
-         $posts = Post::where('topic',  $topic->id)
+        if (Auth::check()) {
+            $this->authorize('view', $this->user, $topic);
+        }
+        // Get nodes from topic's node id.
+        // The view will display node's name and a link to slug.
+        $node = Node::findOrFail($topic->node);
+        // Get post content.
+        $posts = Post::where('topic',  $topic->id)
                 ->orderBy('post')
                 ->get();
-        $post = new Post();
-        $comment = new Comment();
-        return view('topics.show', compact('node', 'topic', 'posts', 'post', 'comment'));
+        return view('topics.show', compact('node', 'topic', 'posts'));
     }
 
     public function tags($slug)
     {
+        if (Auth::check()) {
+            $this->authorize('view', $this->user, Topic::class);
+        }
         // Display all topic of this slug.
         $topics = Topic::withAllTags($slug)->get();
         return view('topics.tags', compact('topics'));
@@ -125,6 +132,7 @@ class TopicController extends Controller
 
     public function edit(Topic $topic)
     {
+        $this->authorize('update', $this->user, $topic);
         // Get nodes from topic's node id.
         // The view will display node's name and a link to slug.
         $node = Node::findOrFail($topic->node);
@@ -135,90 +143,70 @@ class TopicController extends Controller
 
     public function update(TopicRequest $request, Topic $topic)
     {
-         // Get user id.
-        $user = Auth::user();
-        if ($user->can('update', $topic)) {
-           // Convert HTML topic content to markdown.
-            if (Agent::isPhone()) {
-                // Editor.md
-                $markdown = $request->input('content');
-            } else {
-                // Ueditor
-                $markdown = (new HtmlConverter())->convert($request->input('content'));
-            }
-            // Fix the contents.
-            $markdown = (new CopyWritingCorrectService())->correct($markdown);
-            // Update topic.
-            $topic->updateWithInput([
-                'title' => $request->input('title'),
-            ]);
-            // Update post.
-            $post = $topic->posts->first();
-            $post->update([
-                'content' => $markdown,
-            ]);
-            // Update tags.
-            $topic->retag($request->input('tags'));
-            // Show messgae.
-            Flash::success(Lang::get('global.operation_successfully'));
-            return redirect()->route('topics.show', $topic->id);
+        $this->authorize('update', $this->user, $topic);
+        // Convert HTML topic content to markdown.
+        if (Agent::isPhone()) {
+            // Editor.md
+            $markdown = $request->input('content');
         } else {
-            return response(view('errors.403'), 403);
+            // Ueditor
+            $markdown = (new HtmlConverter())->convert($request->input('content'));
         }
+        // Fix the contents.
+        $markdown = (new CopyWritingCorrectService())->correct($markdown);
+        // Update topic.
+        $topic->updateWithInput([
+            'title' => $request->input('title'),
+        ]);
+        // Update post.
+        $post = $topic->posts->first();
+        $post->update([
+            'content' => $markdown,
+        ]);
+        // Update tags.
+        $topic->retag($request->input('tags'));
+        // Show messgae.
+        Flash::success(Lang::get('global.operation_successfully'));
+        return redirect()->route('topics.show', $topic->id);
     }
 
     public function destroy(Topic $topic)
     {
-         // Get user id.
-        $user = Auth::user();
-        if ($user->can('delete', $topic)) {
-           // Set status = -1 to delete.
-            $topic->status = -1;
-            $topic->save();
-            // Soft delete.
-            $topic->delete();
-            // User statics.
-            $user->topic_count -= 1;
-            $user->save();
-            // Get node from topic's node id.
-            $node = Node::find($topic->node);
-            $node->topics -= 1;
-            $node->save();
-            // Show message.
-            Flash::success(Lang::get('global.operation_successfully'));
-            return redirect()->route('topics.index');
-        } else {
-            return response(view('errors.403'), 403);
-        }
+        $this->authorize('delete', $this->user, $topic);
+        // Set status = -1 to delete.
+        $topic->status = -1;
+        $topic->save();
+        // Soft delete.
+        $topic->delete();
+        // User statics.
+        $this->user->topic_count -= 1;
+        $this->user->save();
+        // Get node from topic's node id.
+        $node = Node::find($topic->node);
+        $node->topics -= 1;
+        $node->save();
+        // Show message.
+        Flash::success(Lang::get('global.operation_successfully'));
+        return redirect()->route('topics.index');
     }
 
-    public function getUpvote(User $user, Topic $topic)
+    public function postUpvote(Topic $topic)
     {
-    	// Get user id.
-        $user = Auth::user();
-        if ($user->can('vote', $topic)) {
-            if ($user->hasVoted($topic)) {
-                $user->cancelVote($topic);
-            }
-            // Up vote the topic.
-            $user->upVote($topic);
-        } else {
-            return response(view('errors.403'), 403);
+        $this->authorize('vote', $this->user, $topic);
+        if ($this->user->hasVoted($topic)) {
+            $this->user->cancelVote($topic);
         }
+        // Down vote the topic.
+        $this->user->downVote($topic);
     }
 
-    public function postDownvote(User $user, Topic $topic)
+    public function postDownvote(Topic $topic)
     {
-        // Get user id.
-        $user = Auth::user();
-        if ($user->can('vote', $topic)) {
-            if ($user->hasVoted($topic)) {
-                $user->cancelVote($topic);
-            }
-            // Down vote the topic.
-            $user->downVote($topic);
-        } else {
-            return response(view('errors.403'), 403);
+        $this->authorize('vote', $this->user, $topic);
+        if ($this->user->hasVoted($topic)) {
+            $this->user->cancelVote($topic);
         }
+        // Down vote the topic.
+        $this->user->downVote($topic);
     }
 }

@@ -31,14 +31,14 @@ class WikiController extends Controller
         ]);
         if (Auth::check()) {
             // Get user id.
-            $this->user = Auth::user();
+            $user = Auth::user();
         }
     }
 
     public function index()
     {
         if (Auth::check()) {
-            $this->authorize('view', $this->user, Wiki::class);
+            $this->authorize('view', $user, Wiki::class);
         }
         $wikis = Wiki::paginate(20);
         return view('wiki.index', compact('wikis'));
@@ -46,13 +46,13 @@ class WikiController extends Controller
 
     public function create(Wiki $wiki)
     {
-        $this->authorize('create', $this->user, $wiki);
+        $this->authorize('create', $user, $wiki);
         return view('wiki.create_and_edit', compact('wiki'));
     }
 
     public function store(WikiRequest $request)
     {
-        $this->authorize('create', $this->user, Wiki::class);
+        $this->authorize('create', $user, Wiki::class);
         // Convert HTML topic content to markdown.
         if (Agent::isPhone()) {
             // Editor.md
@@ -71,20 +71,20 @@ class WikiController extends Controller
             'redirect' => $request->input('redirect'),
             'template' => $request->input('template'),
         ]);
-        $wiki->user = $this->user->id;
+        $wiki->user = $user->id;
         $wiki->type = 1;
         $wiki->status = 1;
         $wiki->version += 1;
         $wiki->save();
         // User statics
-        $this->user->point_count += 10;
-        $this->user->wiki_count += 1;
-        $this->user->save();
+        $user->point_count += 10;
+        $user->wiki_count += 1;
+        $user->save();
         // Update points.
-        $point->user = $this->user->id;
+        $point->user = $user->id;
         $point->type = 4;
         $point->point = 10;
-        $point->total_points = $this->user->point_count;
+        $point->total_points = $user->point_count;
         $point->got_at = Carbon::now();
         $point->save();
         // Add tag.
@@ -97,7 +97,7 @@ class WikiController extends Controller
     public function show(Wiki $wiki, $wikis)
     {
         if (Auth::check()) {
-            $this->authorize('view', $this->user, $wiki);
+            $this->authorize('view', $user, $wiki);
         }
         // Get wiki via title.
         $wiki = Wiki::where('title', $wikis)->orderBy('version', 'desc')->firstOrFail();
@@ -129,13 +129,13 @@ class WikiController extends Controller
 
     public function edit(Wiki $wiki)
     {
-        $this->authorize('update', $this->user, $wiki);
+        $this->authorize('update', $user, $wiki);
         return view('wiki.create_and_edit', compact('wiki'));
     }
 
     public function update(WikiRequest $request, Wiki $wiki)
     {
-        $this->authorize('update', $this->user, $wiki);
+        $this->authorize('update', $user, $wiki);
         // Convert HTML topic content to markdown.
         if (Agent::isPhone()) {
             // Editor.md
@@ -154,19 +154,19 @@ class WikiController extends Controller
             'redirect' => $request->input('redirect'),
             'template' => $request->input('template'),
         ]);
-        $wiki->user = $this->user->id;
+        $wiki->user = $user->id;
         $wiki->type = 1;
         $wiki->status = 1;
         $wiki->version += 1;
         $wiki->save();
         // User statics
-        $this->user->point_count += 5;
-        $this->user->save();
+        $user->point_count += 5;
+        $user->save();
         // Update points.
-        $point->user = $this->user->id;
+        $point->user = $user->id;
         $point->type = 5;
         $point->point = 5;
-        $point->total_points = $this->user->point_count;
+        $point->total_points = $user->point_count;
         $point->got_at = Carbon::now();
         $point->save();
         // Update tag.
@@ -178,9 +178,9 @@ class WikiController extends Controller
 
     public function destroy(Wiki $wiki)
     {
-        $this->authorize('delete', $this->user, $wiki);
+        $this->authorize('delete', $user, $wiki);
         // Get user id.
-        $this->user = Auth::user();
+        $user = Auth::user();
         $wiki = Wiki::where('title', $wiki->title)->get();
         // Set status = -1 to delete.
         $wiki->status = -1;
@@ -188,9 +188,9 @@ class WikiController extends Controller
         // Soft delete.
         $wiki->delete();
         // User statics.
-        $this->user =  User::find($wiki->user);
-        $this->user->topic_count -= 1;
-        $this->user->save();
+        $user =  User::find($wiki->user);
+        $user->topic_count -= 1;
+        $user->save();
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('wiki.index');
     }
@@ -198,7 +198,7 @@ class WikiController extends Controller
     public function Category($slug)
     {
         if (Auth::check()) {
-            $this->authorize('view', $this->user, Wiki::class);
+            $this->authorize('view', $user, Wiki::class);
         }
         // Get category.
         // Display all topic of this slug.
@@ -209,7 +209,7 @@ class WikiController extends Controller
     public function history($wiki)
     {
         if (Auth::check()) {
-            $this->authorize('view', $this->user, $wiki);
+            $this->authorize('view', $user, $wiki);
         }
         // Get wiki via title.
         $wiki = Wiki::where('title', $wiki->title)->orderBy('version', 'desc')->get();
@@ -219,7 +219,7 @@ class WikiController extends Controller
     public function diff(Wiki $wiki, $new, $old)
     {
     	if (Auth::check()) {
-            $this->authorize('view', $this->user, $wiki);
+            $this->authorize('view', $user, $wiki);
         }
         $newContent = Wiki::where('title', $wiki->first()->title)
     		->where('version', $new)
@@ -233,19 +233,19 @@ class WikiController extends Controller
 
     public function postStar(Wiki $wiki, $star)
     {
-        $this->authorize('vote', $this->user, $wiki);
+        $this->authorize('vote', $user, $wiki);
         // Create/Update a wiki rating.
         $rating = [1, 2, 3, 4, 5];
         if (in_array($rating, $star)) {
             $wiki->rating([
                 'rating' => $star
-            ], $this->user);
+            ], $user);
         }
     }
     
     public function postUnstar(Wiki $wiki)
     {
-        $this->authorize('vote', $this->user, $wiki);
-        $wiki->deleteRating($this->user->id);
+        $this->authorize('vote', $user, $wiki);
+        $wiki->deleteRating($user->id);
     }
 }

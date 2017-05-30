@@ -37,20 +37,20 @@ class UserController extends Controller
         }
         if (Auth::check()) {
             // Get user id.
-            $this->user = Auth::user();
+            $user = Auth::user();
         }
     }
 
     public function index()
     {
-        $this->authorize('view', $this->user, User::class);
+        $this->authorize('view', $user, User::class);
         $users = User::paginate(20);
         return view('users.index', compact('users'));
     }
 
     public function create(User $user)
     {
-        $this->authorize('create', $this->user, $user);
+        $this->authorize('create', $user, $user);
         return view('users.create_and_edit', compact('user'));
     }
 
@@ -88,7 +88,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         if (Auth::check()) {
-            $this->authorize('view', $this->user, $user);
+            $this->authorize('view', $user, $user);
         }
         $user = User::where('username', $user)->firstOrFail();
         return view('users.show', compact('user'));
@@ -96,14 +96,14 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        $this->authorize('update', $this->user, $user);
+        $this->authorize('update', $user, $user);
         $user = User::where('username', $user)->firstOrFail();
         return view('users.create_and_edit', compact('user'));
     }
 
     public function update(UserRequest $request, User $user)
     {
-        $this->authorize('update', $this->user, $user);
+        $this->authorize('update', $user, $user);
         // Update user.
         $user->updateWithInput([
             'username' => $request->input('username'),
@@ -121,7 +121,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $this->authorize('delete', $this->user, $user);
+        $this->authorize('delete', $user, $user);
         // Ban the user.
         $user->status = -1;
         $user->save();
@@ -134,8 +134,8 @@ class UserController extends Controller
 
     public function postFollow(User $user)
     {
-        $this->authorize('follow', $this->user, $user);
-        if ($this->user->id == $user->id) {
+        $this->authorize('follow', $user, $user);
+        if ($user->id == $user->id) {
             Flash::error('不能关注自己');
             return back();
         }
@@ -145,14 +145,14 @@ class UserController extends Controller
 
     public function postUnfollow(User $user)
     {
-        $this->authorize('follow', $this->user, $user);
-        if ($this->user->id == $user->id) {
+        $this->authorize('follow', $user, $user);
+        if ($user->id == $user->id) {
             Flash::error('不能取消关注自己');
             return back();
         }
         // Unfollow user.
-        if ($this->user->isFollowing($user->id)) {
-            $this->user->unfollow($user->id);
+        if ($user->isFollowing($user->id)) {
+            $user->unfollow($user->id);
         }
     }
 

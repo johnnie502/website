@@ -66,7 +66,7 @@ Route::post('unstar', 'WikiController@postUnstar');
 # ------------------ Users ------------------------
 Route::resource('users', 'UserController', [
     'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
-    'parameters' => ['users' => 'username'],
+    'parameters' => ['user' => 'username'],
 ]);
 Route::get('follow', 'UserController@getFollow');
 Route::post('follow', 'UserController@postFollow');

@@ -33,20 +33,20 @@ class PostController extends Controller
         $this->middleware('admin', ['only' => 'destory']);
         if (Auth::check()) {
             // Get user id.
-            $this->user = Auth::user();
+            $user = Auth::user();
         }
     }
 
     public function create(Topic $topic, Post $post)
     {
-        $this->authorize('create', $this->user, $post);
+        $this->authorize('create', $user, $post);
         return view('topics.create_and_edit', compact('topic', 'post'));
     }
 
     public function store(PostRequest $request, Topic $topic, Post $post)
     {
-        $this->authorize('create', $this->user, $post);
-        if ($this->user->point_count < 1) {
+        $this->authorize('create', $user, $post);
+        if ($user->point_count < 3) {
             Flash::error('Your points are not enough');
             return back()->withInput();
         }
@@ -65,15 +65,15 @@ class PostController extends Controller
         preg_match_all('/@([a-zA-Z0-9\x80-\xff\-_]{3,20}) /', $markdown, $atList, PREG_PATTERN_ORDER);
         $atList = array_unique($atList[1]);
         // Get user list.
-        $this->userList = User::whereIn('username', $atList)->get();
-        foreach ($this->userList as $at) {
+        $userList = User::whereIn('username', $atList)->get();
+        foreach ($userList as $at) {
             // Don't at self.
-            if ($at != $this->user->username) {
+            if ($at != $user->username) {
                 // Replace username to markdown links.
-                $markdown = str_replace($at, '[@' . $at . '](' . route('users.show', $this->user->id) . ')', $markdown);
+                $markdown = str_replace($at, '[@' . $at . '](' . route('users.show', $user->id) . ')', $markdown);
                 // @ notification.
                 Notifynder::category('user.at')
-                    ->from($this->user->username)
+                    ->from($user->username)
                     ->to($at)
                     ->url(route('topics.show', $topic->id))
                     ->send();
@@ -90,35 +90,35 @@ class PostController extends Controller
         ]);
         // Topics
         $topic->reply_count += 1;
-        $topic->lastreply = $this->user->id;
+        $topic->lastreply = $user->id;
         $topic->replied_at = Carbon::now ();
         $topic->save();
         // Save post.
         $post->content = $markdown;
-        $post->user = $this->user->id;
+        $post->user = $user->id;
         $post->topic = $topic->id;
         $post->post = $topic->reply_count;
         $post->type = 1;
         $post->status = 1;
         $post->save();
         // User statics
-        $this->user->point_count -= 3;
-        $this->user->reply_count += 1;
-        $this->user->save();
+        $user->point_count -= 3;
+        $user->reply_count += 1;
+        $user->save();
         // Update points.
-        $point=new Point();
-        $point->user = $this->user->id;
+        $point = Point::class;
+        $point->user = $user->id;
         $point->type = 3;
         $point->point = 3;
-        $point->total_points = $this->user->point_count;
+        $point->total_points = $user->point_count;
         $point->got_at = Carbon::now();
         $point->save();
         // Send notification.
-        if ($topic->users->id != $this->user->id) {
+        if ($topic->users->id != $user->id) {
             // Reply notification.
             $toUser = $topic->users->first();
             Notifynder::category('user.reply')
-                ->from($this->user->username)
+                ->from($user->username)
                 ->to($toUser->username)
                 ->url(route('topics.show', $topic->id))
                 ->send(); 
@@ -133,7 +133,7 @@ class PostController extends Controller
     public function show(Topic $topic, Post $post)
     {
         if (Auth::check()) {
-            $this->authorize('view', $this->user, $post);
+            $this->authorize('view', $user, $post);
         }
         if ($post->id > 0) {
             $posts = Post::where('topic', $topic->id)
@@ -149,13 +149,13 @@ class PostController extends Controller
 
     public function edit(Topic $topic, Post $post)
     {
-        $this->authorize('update', $this->user, $post);
+        $this->authorize('update', $user, $post);
         return view('topics.create_and_edit', compact('topic', 'post'));
     }
 
     public function update(PostRequest $request, Topic $topic, Post $post)
     {
-        $this->authorize('update', $this->user, $post);
+        $this->authorize('update', $user, $post);
         // Convert HTML topic content to markdown.
         if (Agent::isPhone()) {
             // Editor.md
@@ -179,7 +179,7 @@ class PostController extends Controller
 
     public function destroy(Topic $topic, Post $post)
     {
-        $this->authorize('delete', $this->user, $post);
+        $this->authorize('delete', $user, $post);
         // Set status = -1 to delete.
         $post->status = -1;
         $post->save();
@@ -189,8 +189,8 @@ class PostController extends Controller
         $topic->reply_count -= 1;
         $topic->save();
         // User statics.
-        $this->user->reply_count -= 1;
-        $this->user->save();
+        $user->reply_count -= 1;
+        $user->save();
         // Show message.
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('topics.show', $topic->id);
@@ -198,21 +198,21 @@ class PostController extends Controller
 
     public function postUpvote(Post $post)
     {
-    	$this->authorize('vote', $this->user, $post);
-        if ($this->user->hasVoted($post)) {
-            $this->user->cancelVote($post);
+    	$this->authorize('vote', $user, $post);
+        if ($user->hasVoted($post)) {
+            $user->cancelVote($post);
         }
         // Up vote the post.
-        $this->user->upVote($post);
+        $user->upVote($post);
     }
 
     public function postDownvote(Post $post)
     {
-        $this->authorize('vote', $this->user, $post);
-        if ($this->user->hasVoted($post)) {
-            $this->user->cancelVote($post);
+        $this->authorize('vote', $user, $post);
+        if ($user->hasVoted($post)) {
+            $user->cancelVote($post);
         }
         // Down vote the post.
-        $this->user->downVote($post);
+        $user->downVote($post);
     }
 }

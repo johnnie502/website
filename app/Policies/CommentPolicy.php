@@ -12,9 +12,11 @@ class CommentPolicy extends Policy
 
     public function before(User $user, $ability)
     {
-        if ($user->status > 0) {
-            return true;
+        // Does this user is loginned?
+        if ($user->status <= 0) {
+            return false;
         }
+        return (Auth::check()) ? true : null;
     }
 
     /**

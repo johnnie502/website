@@ -22,14 +22,14 @@ class NodeController extends Controller
         ]);
         if (Auth::check()) {
             // Get user id.
-            $this->user = Auth::user();
+            $user = Auth::user();
         }
     }
 
     public function index()
     {
         if (Auth::check()) {
-            $this->authorize('view', $this->user, $node);
+            $this->authorize('view', $user, $node);
         }
         $nodes = Node::paginate(20);
         return view('nodes.index', compact('nodes'));
@@ -37,13 +37,13 @@ class NodeController extends Controller
 
     public function create(Node $node)
     {
-        $this->authorize('create', $this->user, $node);
+        $this->authorize('create', $user, $node);
         return view('nodes.create_and_edit', compact('node'));
     }
 
     public function store(NodeRequest $request)
     {
-        $this->authorize('create', $this->user, Node::class);
+        $this->authorize('create', $user, Node::class);
         // Create node.
         Node::createWithInput($request->all());
         // Show message.
@@ -54,20 +54,20 @@ class NodeController extends Controller
     public function show(Node $node)
     {
         if (Auth::check()) {
-            $this->authorize('view', $this->user, $node);
+            $this->authorize('view', $user, $node);
         }
         return view('nodes.show', compact('node'));
     }
 
     public function edit(Node $node)
     {
-        $this->authorize('update', $this->user, $node);
+        $this->authorize('update', $user, $node);
         return view('nodes.create_and_edit', compact('node'));
     }
 
     public function update(NodeRequest $request, Node $node)
     {
-        $this->authorize('update', $this->user, $node);
+        $this->authorize('update', $user, $node);
         // Update node.
         $node->updateWithInput($request->all());
         // Show messgae.
@@ -77,7 +77,7 @@ class NodeController extends Controller
 
     public function destroy(Node $node)
     {
-        $this->authorize('delete', $this->user, $node);
+        $this->authorize('delete', $user, $node);
         // Set status = -1 is deleted.
         $node->status = -1;
         $node->save();

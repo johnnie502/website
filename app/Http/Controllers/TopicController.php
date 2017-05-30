@@ -24,6 +24,8 @@ use App\Http\Requests\TopicRequest;
 
 class TopicController extends Controller
 {
+    private $user;
+    
     public function __construct()
     {
         $this->middleware('auth', [
@@ -32,16 +34,12 @@ class TopicController extends Controller
             ],
         ]);
         $this->middleware('admin', ['only' => 'destory']);
-        if (Auth::check()) {
-            // Get user id.
-            $this->user = Auth::user();
-        }
     }
 
     public function index()
     {
         if (Auth::check()) {
-            $this->authorize('view', $this->user, Topic::class);
+            $this->authorize('view', $user, Topic::class);
         }
         $topics = Topic::orderBy('replied_at', 'desc')->paginate(20);
         return view('topics.index', compact('topics'));
@@ -49,7 +47,7 @@ class TopicController extends Controller
 
     public function create(Topic $topic)
     {
-        $this->authorize('create', $this->user, $topic);
+        $this->authorize('create', $user, $topic);
         // Get nodes list.
         $nodes = Node::all()->sortBy('name');
         return view('topics.create_and_edit', compact('nodes'));
@@ -57,7 +55,11 @@ class TopicController extends Controller
 
     public function store(TopicRequest $request)
     {
-        $this->authorize('create', $this->user, Topic::class);
+        $this->authorize('create', $user, Topic::class);
+        if ($user->point_count < 5) {
+            Flash::error('Your points are not enough');
+            return back()->withInput();
+        }
         // Convert HTML topic content to markdown.
         if (Agent::isPhone()) {
             // Editor.md
@@ -73,7 +75,7 @@ class TopicController extends Controller
             'node' => $request->input('node'),
             'title' => $request->input('title'),
         ]);
-        $topic->user = $this->user->id;
+        $topic->user = $user->id;
         $topic->node = $request->input('node');
         $topic->type = 1;
         $topic->status = 1;
@@ -81,21 +83,29 @@ class TopicController extends Controller
         $post = Post::createWithInput([
             'content' => $markdown,
         ]);
-        $post->user = $this->user->id;
+        $topic->user = $user->id;
+        $topic->node = $request->input('node');
+        $topic->type = 1;
+        $topic->status = 1;
+        $topic->save();
+        $post = Post::createWithInput([
+            'content' => $markdown,
+        ]);
+        $post->user = $user->id;
         $post->topic = $topic->id;
         $post->type = 1;
         $post->status = 1;
         $post->save();
         // User statics
-        $this->user->point_count -= 5;
-        $this->user->topic_count += 1;
-        $this->user->save();
+        $user->point_count -= 5;
+        $user->topic_count += 1;
+        $user->save();
         // Update points.
-        $point = Point::class;
-        $point->user = $this->user->id;
+        $point = new Point();
+        $point->user = $user->id;
         $point->type = 2;
         $point->point = -5;
-        $point->total_points = $this->user->point_count;
+        $point->total_points = $user->point_count;
         $point->got_at = Carbon::now();
         $point->save();
         // Add tag.
@@ -107,8 +117,33 @@ class TopicController extends Controller
 
     public function show(Topic $topic)
     {
-        if (Auth::check()) {
-            $this->authorize('view', $this->user, $topic);
+        // Node controller.
+        switch ($topic->nodes->type) {
+            case 1:
+                // Normal
+                $this->authorize('view', $user, $topic);
+                break;
+            case 2:
+               // Login required.
+               $this->middleware('auth');
+               break;
+            case 3:
+               // Password required.
+               break;
+            case 4:
+               // least point/reg_date required.
+               if ($user->point_count < 1000) {// || $user->regtime) {
+                   Flash::error('Your point or register date is not enough');
+                   return back()->withInput();
+               }
+               break;
+            case 5:
+               // Admin required.
+               $this->authorize('delete', $user, $topic);
+               break;
+            default:
+                // Other.
+                break;
         }
         // Get nodes from topic's node id.
         // The view will display node's name and a link to slug.
@@ -123,7 +158,7 @@ class TopicController extends Controller
     public function tags($slug)
     {
         if (Auth::check()) {
-            $this->authorize('view', $this->user, Topic::class);
+            $this->authorize('view', $user, Topic::class);
         }
         // Display all topic of this slug.
         $topics = Topic::withAllTags($slug)->get();
@@ -132,7 +167,7 @@ class TopicController extends Controller
 
     public function edit(Topic $topic)
     {
-        $this->authorize('update', $this->user, $topic);
+        $this->authorize('update', $user, $topic);
         // Get nodes from topic's node id.
         // The view will display node's name and a link to slug.
         $node = Node::findOrFail($topic->node);
@@ -143,7 +178,7 @@ class TopicController extends Controller
 
     public function update(TopicRequest $request, Topic $topic)
     {
-        $this->authorize('update', $this->user, $topic);
+        $this->authorize('update', $user, $topic);
         // Convert HTML topic content to markdown.
         if (Agent::isPhone()) {
             // Editor.md
@@ -172,15 +207,15 @@ class TopicController extends Controller
 
     public function destroy(Topic $topic)
     {
-        $this->authorize('delete', $this->user, $topic);
+        $this->authorize('delete', $user, $topic);
         // Set status = -1 to delete.
         $topic->status = -1;
         $topic->save();
         // Soft delete.
         $topic->delete();
         // User statics.
-        $this->user->topic_count -= 1;
-        $this->user->save();
+        $user->topic_count -= 1;
+        $user->save();
         // Get node from topic's node id.
         $node = Node::find($topic->node);
         $node->topics -= 1;
@@ -192,21 +227,21 @@ class TopicController extends Controller
 
     public function postUpvote(Topic $topic)
     {
-        $this->authorize('vote', $this->user, $topic);
-        if ($this->user->hasVoted($topic)) {
-            $this->user->cancelVote($topic);
+        $this->authorize('vote', $user, $topic);
+        if ($user->hasVoted($topic)) {
+            $user->cancelVote($topic);
         }
         // Down vote the topic.
-        $this->user->downVote($topic);
+        $user->downVote($topic);
     }
 
     public function postDownvote(Topic $topic)
     {
-        $this->authorize('vote', $this->user, $topic);
-        if ($this->user->hasVoted($topic)) {
-            $this->user->cancelVote($topic);
+        $this->authorize('vote', $user, $topic);
+        if ($user->hasVoted($topic)) {
+            $user->cancelVote($topic);
         }
         // Down vote the topic.
-        $this->user->downVote($topic);
+        $user->downVote($topic);
     }
 }

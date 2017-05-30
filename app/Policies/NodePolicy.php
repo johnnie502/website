@@ -12,9 +12,11 @@ class NodePolicy extends Policy
 
     public function before($user, $ability)
     {
-        if ($user->status > 0) {
-            return true;
+        // Does this user is loginned?
+        if ($user->status <= 0) {
+            return false;
         }
+        return ($user->type >= 4) ? true : false;
     }
 
     /**

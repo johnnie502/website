@@ -17,10 +17,6 @@ class PageController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['only' => 'sign', 'postSign']);
-        if (Auth::check()) {
-            // Get user id.
-            $this->user = Auth::user();
-        }
     }
 
     public function index()
@@ -41,7 +37,7 @@ class PageController extends Controller
     public function postSearch(SearchRequest $request)
     {
         // Use Searchy.
-        $this->users = Searchy::users('username')->query($query)->get();
+        $users = Searchy::users('username')->query($query)->get();
         $topics = Searchy::topics('title')->query($query)->get();
         $posts = Searchy::posts('content')->query($query)->get();
         $wikis = Searchy::wikis(['title', 'content'])->query($query)->get();
@@ -56,41 +52,41 @@ class PageController extends Controller
 
     public function getSign()
     {
-        $points= Point::where('user', $this->user->id)->orderBy('got_at', 'desc')->get();
+        $points= Point::where('user', $user->id)->orderBy('got_at', 'desc')->get();
         return view('sign', compact('points'));
     }
 
     public function postSign(Request $request)
     {
         // Get user.
-        $this->user = Auth::user();
-        $point= Point::where('user', $this->user->id)->orderBy('got_at', 'desc')->first();
+        $user = Auth::user();
+        $point= Point::where('user', $user->id)->orderBy('got_at', 'desc')->first();
         if ($point) {
             if (Carbon::createFromFormat('Y-m-d H:i:s', $point->got_at)->isToday()) {
                 Flash::error('You have already signed at today!');
                 return back();
             } else if (Carbon::createFromFormat('Y-m-d H:i:s', $point->got_at)->isYesterday()) {
-                $this->user->signed += 1;
+                $user->signed += 1;
             } else {
-                $this->user->signed = 1;
+                $user->signed = 1;
             }
         } else {
-            $this->user->signed = 1;
+            $user->signed = 1;
         }
         $point= Point::create();
         // Random points.
         $get_point = random_int(1, 10);
         // Update user points
-        if ($this->user->signed % 10 == 0) {
-            $this->user->point_count += $this->user->signed;
+        if ($user->signed % 10 == 0) {
+            $user->point_count += $user->signed;
         }
-        $this->user->point_count += $get_point;
-        $this->user->save();
+        $user->point_count += $get_point;
+        $user->save();
         // Update points.
-        $point->user = $this->user->id;
+        $point->user = $user->id;
         $point->type = 1;
         $point->point = $get_point;
-        $point->total_points = $this->user->point_count;
+        $point->total_points = $user->point_count;
         $point->got_at = Carbon::now();
         $point->save();
         // Show messages.

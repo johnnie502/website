@@ -10,15 +10,6 @@ class CommentPolicy extends Policy
 {
     use HandlesAuthorization;
 
-    public function before(User $user, $ability)
-    {
-        // Does this user is loginned?
-        if ($user->status <= 0) {
-            return false;
-        }
-        return (Auth::check()) ? true : null;
-    }
-
     /**
      * Determine whether the user can view the comment.
      *
@@ -28,6 +19,9 @@ class CommentPolicy extends Policy
      */
     public function view(User $user, Comment $comment)
     {
+        if (isset($user)) {
+            return $user->status >= 0;
+        }
         return true;
     }
 
@@ -39,7 +33,7 @@ class CommentPolicy extends Policy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->status > 0;
     }
 
     /**
@@ -64,5 +58,17 @@ class CommentPolicy extends Policy
     public function delete(User $user, Comment $comment)
     {
         return $user->type >= 3;
+    }
+
+    /**
+     * Determine whether the user can vote the comment.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Comment  $comment
+     * @return mixed
+     */
+    public function vote(User $user, Comment $comment)
+    {
+        return $user->status > 0;
     }
 }

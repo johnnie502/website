@@ -10,15 +10,6 @@ class PostPolicy extends Policy
 {
     use HandlesAuthorization;
 
-    public function before(User $user, $ability)
-    {
-        // Does this user is loginned?
-        if ($user->status <= 0) {
-            return false;
-        }
-        return (Auth::check()) ? true : null;
-    }
-
     /**
      * Determine whether the user can view the post.
      *
@@ -28,6 +19,9 @@ class PostPolicy extends Policy
      */
     public function view(User $user, Post $post)
     {
+        if (isset($user)) {
+            return $user->status >= 0;
+        }
         return true;
     }
 
@@ -39,7 +33,7 @@ class PostPolicy extends Policy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->status > 0;
     }
 
     /**

@@ -159,7 +159,7 @@ return [
         Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
-        Illuminate\Translation\TranslationServiceProvider::class,
+        // Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
@@ -184,7 +184,11 @@ return [
          */
         Laracasts\Flash\FlashServiceProvider::class,  // Flash messages
         Indal\Markdown\MarkdownServiceProvider::class,  // Markdown parse
-        Stevenyangecho\UEditor\UEditorServiceProvider::class,  // UEditor
+        Overtrue\LaravelFollow\FollowServiceProvider::class,  // Follow
+        Overtrue\LaravelLang\TranslationServiceProvider::class,  // Translation
+        Jcc\LaravelVote\VoteServiceProvider::class,  // Votes
+        Overtrue\LaravelUEditor\UEditorServiceProvider::class,  // UEditor
+        Overtrue\LaravelSocialite\ServiceProvider::class,  //Socialite
         Douyasi\Editor\EditorServiceProvider::class,  // Editor.md
         Hootlex\Moderation\ModerationServiceProvider::class,  // Audit contents
         Zizaco\Entrust\EntrustServiceProvider::class,  // 
@@ -195,7 +199,6 @@ return [
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,  //Breadcrumbs
         TomLingham\Searchy\SearchyServiceProvider::class,  // Search
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,  // reCaptcha
-        Fenos\Notifynder\NotifynderServiceProvider::class,  // Notifynder
         Backpack\Base\BaseServiceProvider::class,  // Admin
         Backpack\CRUD\CrudServiceProvider::class, // CRUD
         Spatie\Backup\BackupServiceProvider::class,  // Backup
@@ -206,8 +209,6 @@ return [
         Cog\Ban\Providers\BanServiceProvider::class,  // Ban and block
         Jenssegers\Agent\AgentServiceProvider::class,  // User-Agent
         RobBrazier\Piwik\PiwikServiceProvider::class,  // Piwik
-        Overtrue\LaravelFollow\FollowServiceProvider::class,  // Follow
-        Jcc\LaravelVote\VoteServiceProvider::class,  // Votes
         Ghanem\Rating\RatingServiceProvider::class,  // Fivestar rating
         Just\Amp\Laravel\AmpServiceProvider::class,  // AMP
         
@@ -263,12 +264,12 @@ return [
         // Third Party
         'Flash' => Laracasts\Flash\Flash::class,
         'Markdown' => Indal\Markdown\Facade::class,
+        'Socialite' => Overtrue\LaravelSocialite\Socialite::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Invite' => Junaidnasir\Larainvite\Facades\Invite::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Searchy' => TomLingham\Searchy\Facades\Searchy::class,
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
-        'Notifynder' => Fenos\Notifynder\Facades\Notifynder::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'Piwik' => RobBrazier\Piwik\Facades\Piwik::class,
         'AmpRouter' => Just\Amp\Laravel\AmpRouteFacade::class,

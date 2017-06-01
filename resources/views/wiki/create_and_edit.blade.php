@@ -62,7 +62,7 @@ $(document).ready(function(){
                             {{ old('content', isset($wiki->id) ? $wiki->content : '' ) }}
                             </textarea>
                         @else
-                            @include('UEditor::head')
+                            @include('vendor.ueditor.assets')
                             <script id="ueditor" name="content" type="text/plain">@markdown(old('content', isset($wiki->id) ? $wiki->content : '' ))</script>
                             <script type="text/javascript">
                                 var ue = UE.getEditor('ueditor', {

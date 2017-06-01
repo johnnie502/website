@@ -19,6 +19,7 @@ class CreateWikisTable extends Migration
             $table->integer('redirect')->unsigned()->default(0)->index();
             $table->integer('view_count')->unsigned()->default(0);
             $table->integer('edit_count')->unsigned()->default(0)->index();
+            $table->integer('comment_count')->unsigned()->default(0);
             $table->integer('lastedit')->unsigned()->default(0);
             $table->integer('favicon_count')->unsigned()->default(0);
             $table->timestampsTz();;

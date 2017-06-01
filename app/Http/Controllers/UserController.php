@@ -22,9 +22,11 @@ use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
+    protected $user;
+
     public function __construct()
     {
-        if (Auth::check()) {
+        if ($request->user()) {
             // Only admin user can create or update users.
             $this->middleware(
                 'admin', ['except' => [
@@ -35,22 +37,23 @@ class UserController extends Controller
             // Register user.
             $this->middleware('guest', ['only' => 'create']);
         }
-        if (Auth::check()) {
-            // Get user id.
-            $user = Auth::user();
-        }
+        // Get user id while the user has logged.
+        $this->middleware(function ($request, $next) {
+            $this->user = $request->user();
+            return $next($request);
+        });
     }
 
     public function index()
     {
-        $this->authorize('view', $user, User::class);
+        if (Auth::check()) $this->authorize('view', $this->user, User::class);
         $users = User::paginate(20);
         return view('users.index', compact('users'));
     }
 
     public function create(User $user)
     {
-        $this->authorize('create', $user, $user);
+        if (Auth::check()) $this->authorize('create', $this->user, $user);
         return view('users.create_and_edit', compact('user'));
     }
 
@@ -61,7 +64,7 @@ class UserController extends Controller
         // To finally create image instances.
         //$img = $manager->canvas(800, 100, '#fff');
         // Create user.
-        $this->authorize('create', $user, User::class);
+        if (Auth::check()) $this->authorize('create', $this->user, User::class);
         $user = User::createWithInput([
             'username' => $request->input('username'),
             'email' => $request->input('email'),
@@ -87,23 +90,21 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        if (Auth::check()) {
-            $this->authorize('view', $user, $user);
-        }
+        if (Auth::check()) $this->authorize('view', $this->user, $user);
         $user = User::where('username', $user)->firstOrFail();
         return view('users.show', compact('user'));
     }
 
     public function edit(User $user)
     {
-        $this->authorize('update', $user, $user);
+        if (Auth::check()) $this->authorize('update', $this->user, $user);
         $user = User::where('username', $user)->firstOrFail();
         return view('users.create_and_edit', compact('user'));
     }
 
     public function update(UserRequest $request, User $user)
     {
-        $this->authorize('update', $user, $user);
+        if (Auth::check()) $this->authorize('update', $this->user, $user);
         // Update user.
         $user->updateWithInput([
             'username' => $request->input('username'),
@@ -121,7 +122,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $this->authorize('delete', $user, $user);
+        if (Auth::check()) $this->authorize('delete', $this->user, $user);
         // Ban the user.
         $user->status = -1;
         $user->save();
@@ -134,8 +135,8 @@ class UserController extends Controller
 
     public function postFollow(User $user)
     {
-        $this->authorize('follow', $user, $user);
-        if ($user->id == $user->id) {
+        if (Auth::check()) $this->authorize('follow', $this->user, $user);
+        if ($this->user->id == $user->id) {
             Flash::error('不能关注自己');
             return back();
         }
@@ -145,14 +146,14 @@ class UserController extends Controller
 
     public function postUnfollow(User $user)
     {
-        $this->authorize('follow', $user, $user);
-        if ($user->id == $user->id) {
+        if (Auth::check()) $this->authorize('follow', $this->user, $user);
+        if ($this->user->id == $user->id) {
             Flash::error('不能取消关注自己');
             return back();
         }
         // Unfollow user.
-        if ($user->isFollowing($user->id)) {
-            $user->unfollow($user->id);
+        if ($this->user->isFollowing($user->id)) {
+            $this->user->unfollow($user->id);
         }
     }
 

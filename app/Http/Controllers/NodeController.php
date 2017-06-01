@@ -13,6 +13,8 @@ use App\Http\Requests\NodeRequest;
 
 class NodeController extends Controller
 {
+    protected $user;
+
     public function __construct()
     {
         $this->middleware('admin', [
@@ -20,30 +22,29 @@ class NodeController extends Controller
                 'index', 'show'
             ],
         ]);
-        if (Auth::check()) {
-            // Get user id.
-            $user = Auth::user();
-        }
+        // Get user id while the user has logged.
+        $this->middleware(function ($request, $next) {
+            $this->user = $request->user();
+            return $next($request);
+        });
     }
 
     public function index()
     {
-        if (Auth::check()) {
-            $this->authorize('view', $user, $node);
-        }
+        if (Auth::check()) $this->authorize('view', $this->user, $node);
         $nodes = Node::paginate(20);
         return view('nodes.index', compact('nodes'));
     }
 
     public function create(Node $node)
     {
-        $this->authorize('create', $user, $node);
+        if (Auth::check()) $this->authorize('create', $this->user, $node);
         return view('nodes.create_and_edit', compact('node'));
     }
 
     public function store(NodeRequest $request)
     {
-        $this->authorize('create', $user, Node::class);
+        if (Auth::check()) $this->authorize('create', $this->user, Node::class);
         // Create node.
         Node::createWithInput($request->all());
         // Show message.
@@ -53,21 +54,19 @@ class NodeController extends Controller
 
     public function show(Node $node)
     {
-        if (Auth::check()) {
-            $this->authorize('view', $user, $node);
-        }
+        if (Auth::check()) $this->authorize('view', $this->user, $node);
         return view('nodes.show', compact('node'));
     }
 
     public function edit(Node $node)
     {
-        $this->authorize('update', $user, $node);
+        if (Auth::check()) $this->authorize('update', $this->user, $node);
         return view('nodes.create_and_edit', compact('node'));
     }
 
     public function update(NodeRequest $request, Node $node)
     {
-        $this->authorize('update', $user, $node);
+        if (Auth::check()) $this->authorize('update', $this->user, $node);
         // Update node.
         $node->updateWithInput($request->all());
         // Show messgae.
@@ -77,7 +76,7 @@ class NodeController extends Controller
 
     public function destroy(Node $node)
     {
-        $this->authorize('delete', $user, $node);
+        if (Auth::check()) $this->authorize('delete', $this->user, $node);
         // Set status = -1 is deleted.
         $node->status = -1;
         $node->save();

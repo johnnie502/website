@@ -40,13 +40,5 @@ class Topic extends Model
     public function posts()
     {
         return $this->hasMany('App\Models\Post', 'topic');
-    }    
-
-    /**
-     * Get all of the topic's comments.
-     */
-    public function comments()
-    {
-        return $this->morphMany('App\Models\Comment', 'commentable');
     }
 }

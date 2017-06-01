@@ -5,6 +5,7 @@ namespace App\Providers;
 use App;
 use Mail;
 use Queue;
+use Session;
 use URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;

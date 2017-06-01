@@ -27,6 +27,7 @@ ______                            _              _                              
     <!-- Styles -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >
     <link href="https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <!-- Scripts -->
@@ -34,6 +35,8 @@ ______                            _              _                              
     <script src="https://cdn.bootcss.com/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+    <script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/jquery.share.min.js"></script>
+    <script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/social-share.min.js"></script>
     {{-- <script src="{{ elixir('/js/app.js') }}"></script> --}}
     <script>
         window.Laravel = {!! json_encode([

@@ -9,15 +9,6 @@ class UserPolicy extends Policy
 {
 	use HandlesAuthorization;
 
-    public function before(User $user, $ability)
-    {
-        // Does this user is loginned?
-        if ($user->status <= 0) {
-            return false;
-        }
-        return (Auth::check()) ? true : null;
-    }
-
     /**
      * Determine whether current user can view the user.
      *
@@ -25,8 +16,11 @@ class UserPolicy extends Policy
      * @param  \App\Models\User  $account
      * @return mixed
      */
-    public function view(User $user, User $account)
+    public function view(User $account, User $user)
     {
+        if (isset($user)) {
+            return $user->status >= 0;
+        }
         return true;
     }
 
@@ -36,18 +30,44 @@ class UserPolicy extends Policy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $account)
+    public function create(User $user)
     {
-        return true;
+        return $user->status > 0;
     }
 
-    public function update(User $user, User $account)
+    /**
+     * Determine whether the user can update self or other user.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $account
+     * @return mixed
+     */
+    public function update(User $account, User $user)
     {
         return $account->id == $user->id or $account->type >= 3;
     }
 
-    public function destroy(User $user, User $account)
+    /**
+     * Determine whether the user can delete other user.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $account
+     * @return mixed
+     */
+    public function destroy(User $account, User $user)
     {
         return $account->type >= 3;
+    }
+
+    /**
+     * Determine whether the user can follow other user.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $follow
+     * @return mixed
+     */
+    public function follow(User $user, User $follow)
+    {
+        return $user->status > 0;
     }
 }

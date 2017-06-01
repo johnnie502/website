@@ -9,52 +9,54 @@
             <h1>{{ $topic->title }}</h1>
         </div>
         <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        @foreach ($topic->tags as $tag)
-                            <a href="{{ route('topics.tags', $tag->name) }}"><span class="label label-primary">{{ $tag->name }}</span></a>
-                        @endforeach
-                    </div>
-                    <div class="col-md-6">
-                        <span class="pull-right">
-                        @if ($topic->created_at->subMonth()->gte(\Carbon\Carbon::now()))
-                            {{ $topic->created_at->toDateString() }}
-                        @else
-                            {{ $topic->created_at->diffForHumans() }} 
-                        @endif
-                        </span>
-                        @can('update', $topic)
-                             <a class="pull-right" href="{{ route('topics.edit', $topic->id) }}">@lang('global.edit')</a>
-                        @endcan
-                    </div>
-            </div>
-            {{ $topic->countVoters() }}
-            <div class="pull-right">
-                <img alt="" src="/avatars/{{ $topic->user}}.png" width="128" height="128"><br>
-                <a href="{{ route('users.show', $topic->users->username) }}">{{ $topic->users->username }}</a>
-            </div>
-             @markdown($posts->first()->content)
-             {{ $topic->upvotes }}
-             <!-- Comments -->
-             @foreach ($topic->comments as $comment)
-                 @if (isset($comment->id))
-                     <ul class="list-group">
-                         <li class="list-group-item"><a link="{{ route('user.show', $comment->user) }}">{{ $comment->users->username }}</a> . ': ' . {{ $comment->content }}</li>
-                     </ul>
-                  @endif
-             @endforeach
-             @can('create', App\Models\Comment::class)
-                 @if (isset($topic->comments->first()->id))
-                     <form action="{{ route('topics.posts.comments.update', [$topic->id, 0, $topic->comments->id]) }}" method="POST">
-                         <input type="text" name="content" value="{{ old($topic->comments->first()->content. '') }}">
-                 @else
-                     <form action="{{ route('topics.posts.comments.store', [$topic->id, 0, 1]) }}" method="POST">
-                         <input type="text" name="content" id="comments">
-                 @endif
-                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                         <input type="submit" name="submit" value="@lang('global.submit')">
-                      </form>
-                @endcan
+            <div class="row">
+                <div class="col-md-6">
+                    @foreach ($topic->tags as $tag)
+                        <a href="{{ route('topics.tags', $tag->name) }}"><span class="label label-primary">{{ $tag->name }}</span></a>
+                    @endforeach
+                </div>
+                <div class="col-md-6">
+                    <span class="pull-right">
+                    @if ($topic->created_at->subMonth()->gte(\Carbon\Carbon::now()))
+                        {{ $topic->created_at->toDateString() }}
+                    @else
+                        {{ $topic->created_at->diffForHumans() }} 
+                    @endif
+                    </span>
+                    @can('update', $topic)
+                         <a class="pull-right" href="{{ route('topics.edit', $topic->id) }}">@lang('global.edit')</a>
+                    @endcan
+                </div>
+        </div>
+        {{ $topic->countVoters() }}
+        <div class="pull-right">
+            <img alt="" src="/avatars/{{ $topic->user}}.png" width="128" height="128"><br>
+            <a href="{{ route('users.show', $topic->users->username) }}">{{ $topic->users->username }}</a>
+        </div>
+        @markdown($posts->first()->content)
+        <!-- Social Share -->
+        <div class="social-share"></div>
+        {{ $topic->upvotes }}
+        <!-- Comments -->
+        @if ($posts->first()->comment_count > 0)
+            @foreach ($posts->first()->comments as $comment)
+                <ul class="list-group">
+                    <li class="list-group-item"><a link="{{ route('user.show', $comment->user) }}">{{ $comment->users->username }}</a> . ': ' . {{ $comment->content }}</li>
+                </ul>
+            @endforeach
+        @endif
+        @can('create', App\Models\Comment::class)
+            @if ($posts->first()->comment_count > 0)
+                <form action="{{ route('topics.posts.comments.update', [$topic->id, 0, $posts->first()->comment_count]) }}" method="POST">
+                    <input type="text" name="content" id="comments" value="{{ old($posts->first()->comments->first()->content, '') }}">
+            @else
+                <form action="{{ route('topics.posts.comments.store', [$topic->id, 0, 1]) }}" method="POST">
+                    <input type="text" name="content" id="comments">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="submit" name="submit" value="@lang('global.submit')">
+                </form>
+            @endif
+        @endcan
         </div>
         <!-- Posts -->
         @if ($topic->reply_count > 0)
@@ -81,7 +83,7 @@
                             </li>
                         </ul>
                         <!-- Comments -->
-                        @if (count($reply->comments) > 0)
+                        @if ($reply->comment_count > 0)
                              @foreach ($reply->comments as $comment)
                                  <ul class="list-group">
                                      <li class="list-group-item"><a link="{{ route('user.show', $comment->users) }}">{{ $comment->users->username }}</a> . ': ' . {{ $comment->content }}</li>
@@ -89,12 +91,12 @@
                             @endforeach
                         @endif
                         @can('create', \App\Models\Comment::class)
-                            @if (isset($reply->comments))
-                                 <form action="{{ route('topics.posts.comments.update', [$topic->id, $reply->id, $comment->id]) }}" method="POST">
+                            @if ($reply->comment_count > 0)
+                                 <form action="{{ route('topics.posts.comments.update', [$topic->id, $reply->id, $reply->comments->last()->id]) }}" method="POST">
                                      <input type="text" name="content" value="{{ old('content', '') }}">
                              @else
-                                 <form action="{{ route('topics.posts.comments.store', [$topic->id, $reply->id, $comment->id]) }}" method="POST">
-                                     <input type="text" name="content" value=" {{ old($reply->comments->first()->content, '') }}">
+                                 <form action="{{ route('topics.posts.comments.store', [$topic->id, $reply->id, 1]) }}" method="POST">
+                                     <input type="text" name="content" value=" {{ old('content', '') }}">
                              @endif
                                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                      <input type="submit" name="submit" value="@lang('global.submit')">
@@ -104,7 +106,7 @@
                 @endforeach
            @else
                 <ul class="list-group"> 
-                    <a href={{ route('topics.posts.show', [$topic, $post]) }}>#{{ $post->post }}</a><li class="list-group-item"> {{ $post->content }}</li>
+                    <a href="{{ route('topics.posts.show', [$topic, $post]) }}">{{ $post->post }}</a><li class="list-group-item"> {{ $post->content }}</li>
                 </ul>
                 <a href="{{ route('topics.show', $topic) }}">@lang('global.view_all_posts')</a>
             @endif
@@ -127,7 +129,7 @@
                                 <textarea name="content" style="display:none;">
                                 </textarea>
                             @else
-                                @include('UEditor::head')
+                                @include('vendor.ueditor.assets')
                                 <script id="ueditor" name="content" type="text/plain"></script>
                                 <script type="text/javascript">
                                 var ue = UE.getEditor('ueditor', {
@@ -145,7 +147,11 @@
                     </div>
                 </form> 
         @else
-            <div>@lang('global.login_request')
+            @if (\Auth::check())
+                <div>You don't have permission</div>
+            @else
+                <div>@lang('global.login_request')
+            @endif
         @endcan
     </div>
 </div>

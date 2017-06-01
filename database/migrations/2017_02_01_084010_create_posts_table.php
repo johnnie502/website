@@ -16,6 +16,7 @@ class CreatePostsTable extends Migration
                 $table->integer('type')->unsigned()->default(0)->index();
                 $table->integer('status')->default(0)->index();
                 $table->integer('edit_count')->unsigned()->default(0);
+                $table->integer('comment_count')->unsigned()->default(0);
                 $table->integer('favicon_count')->unsigned()->default(0);
                 $table->integer('upvote_count')->unsigned()->default(0);
                 $table->integer('downvote_count')->unsigned()->default(0);

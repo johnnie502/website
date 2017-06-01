@@ -39,7 +39,7 @@ class LoginController extends Controller
      * @var string
      */
     //protected $redirectTo = '/home';
-    protected $maxLoginAttempts;
+    protected $maxLoginAttempts = 5;
     protected $lockoutTime = 1800;
 
     /**
@@ -50,9 +50,22 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+        // Limit try to login times.
         if (App::environment() === 'production') {
-            $this->middleware('throttle:5,30');
+            // $this->middleware('throttle:5,30');
         }
+    }
+
+    /**
+    * Determine if the user has too many failed login attempts.
+    *
+    * @param \Illuminate\Http\Request $request
+    * @return bool
+    */
+    protected function hasTooManyLoginAttempts(Request $request) {
+        return $this->limiter()->tooManyAttempts(
+            $this->throttleKey($request), $this->maxLoginAttempts, $this->lockoutTime
+        );
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\User;
 use AmpRouter;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 

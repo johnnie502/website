@@ -48,7 +48,7 @@ $(document).ready(function(){
                 	<input class="form-control" type="text" name="title" id="title-field" required placeholder="8～80个字符" value="{{ old('title', isset($topic->id) ? $topic->title : '') }}">
                 </div>
                 <div class="form-group">
-                	<label for="title-field">Tags</label>
+                    <label for="tags-field"></label>
                 	<input class="form-control" type="text" name="tags" id="tags" data-role="tagsinput" required placeholder="按Enter添加标签" value="{{ old('tags', isset($topic->id) ? $topic->tagList : '') }}">
                 </div>
             @endif
@@ -62,13 +62,13 @@ $(document).ready(function(){
                             {{ old('content', isset($post->id) ? $post->content : '' ) }}
                             </textarea>
                         @else
-                            @include('UEditor::head')
+                            @include('vendor.ueditor.assets')
                             <script id="ueditor" name="content" type="text/plain">@markdown(old('content', isset($post->id) ? $post->content : '' ))</script>
                             <script type="text/javascript">
                                 var ue = UE.getEditor('ueditor', {
                                     <!-- 定制工具栏按钮 -->
                                      toolbars: [
-                                      ['bold', 'italic', 'underline', 'superscript', 'subscript', 'spechars', 'blockquote', 'insertcode', 'link', 'unlink',  'inserttitle', 'paragraph',  'inserttable' , '|', 'undo', 'redo', 'selectall', 'pasteplain', 'removeformat', '|', 'fontfamily', 'fontsize', 'forecolor', '|', 'emotion', 'simpleupload']
+                                      ['source', 'bold', 'italic', 'underline', 'superscript', 'subscript', 'spechars', 'blockquote', 'insertcode', 'link', 'unlink',  'inserttitle', 'paragraph',  'inserttable' , '|', 'undo', 'redo', 'selectall', 'pasteplain', 'removeformat', '|', 'fontfamily', 'fontsize', 'forecolor', '|', 'emotion', 'simpleupload']
                                       ]
                                   });
                                 var preloadContent = $("#ueditor").html();

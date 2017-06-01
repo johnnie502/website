@@ -10,15 +10,6 @@ class WikiPolicy extends Policy
 {
     use HandlesAuthorization;
 
-    public function before(User $user, $ability)
-    {
-        // Does this user is loginned?
-        if ($user->status <= 0) {
-            return false;
-        }
-        return (Auth::check()) ? true : null;
-    }
-
     /**
      * Determine whether the user can view the wiki.
      *
@@ -28,6 +19,9 @@ class WikiPolicy extends Policy
      */
     public function view(User $user, Wiki $wiki)
     {
+        if (isset($user)) {
+            return $user->status >= 0;
+        }
         return true;
     }
 
@@ -39,7 +33,7 @@ class WikiPolicy extends Policy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->status > 0;
     }
 
     /**
@@ -51,7 +45,7 @@ class WikiPolicy extends Policy
      */
     public function update(User $user, Wiki $wiki)
     {
-        return true;
+        return $user->status > 0;
     }
 
     /**
@@ -64,5 +58,17 @@ class WikiPolicy extends Policy
     public function delete(User $user, Wiki $wiki)
     {
         return $user->type >= 3;
+    }
+
+    /**
+     * Determine whether the user can star the wiki.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Wiki  $wiki
+     * @return mixed
+     */
+    public function star(User $user, Wiki $wiki)
+    {
+        return true;
     }
 }

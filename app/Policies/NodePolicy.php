@@ -10,15 +10,6 @@ class NodePolicy extends Policy
 {
     use HandlesAuthorization;
 
-    public function before($user, $ability)
-    {
-        // Does this user is loginned?
-        if ($user->status <= 0) {
-            return false;
-        }
-        return ($user->type >= 4) ? true : false;
-    }
-
     /**
      * Determine whether the user can view the node.
      *
@@ -28,6 +19,9 @@ class NodePolicy extends Policy
      */
     public function view(User $user, Node $node)
     {
+        if (isset($user)) {
+            return $user->status >= 0;
+        }
         return true;
     }
 

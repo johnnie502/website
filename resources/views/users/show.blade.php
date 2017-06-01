@@ -9,7 +9,7 @@
         </div>
         <div class="panel-body">
                 <div class="row">
-                    <div>{{ $user->username }}，{{ config('app.name') }}第{{ $user->id }}号会员，注册于{{ $user->created_at }}。</div>
+                    <div>{{ $user->username . ' - <strong>' . $user->description . '</strong>' }}，{{ config('app.name') }}第{{ $user->id }}号会员，注册于{{ $user->created_at }}。</div>
                     <div class="pull-right"><img alt="{{ $user->username }}" src="/avatars/{{ $user->id }}.png" width="128" height="128">
 	           </div>
                @can('update', $user)

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Auth;
 use Illuminate\Support\ServiceProvider;
 
 class ComposerServiceProvider extends ServiceProvider
@@ -13,10 +14,10 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Get user info.
+        // Share the Auth::user() as $account to all views.
         view()->composer('*', function($view) {
-            $view->with('account', \Auth::user());
-         });
+            $view->with('account', Auth::user());
+        });
     }
 
     /**

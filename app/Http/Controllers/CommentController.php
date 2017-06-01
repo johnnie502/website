@@ -20,6 +20,8 @@ use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
+    protected $user;
+
     public function __construct()
     {
         $this->middleware('auth', [
@@ -28,22 +30,23 @@ class CommentController extends Controller
             ],
         ]);
         $this->middleware('admin', ['only' => 'destory']);
-        if (Auth::check()) {
-            // Get user id.
-            $user = Auth::user();
-        }
+        // Get user id while the user has logged.
+        $this->middleware(function ($request, $next) {
+            $this->user = $request->user();
+            return $next($request);
+        });
     }
 
     public function create(Comment $comment)
     {
-        $this->authorize('create', $user, $comment);
+        if (Auth::check()) $this->authorize('create', $this->user, $comment);
         return view('comments.create_and_edit', compact('comment'));
     }
 
     public function store(CommentRequest $request)
     {
-        $this->authorize('create', $user, Comment::class);
-        if ($user->point_count < 1) {
+        if (Auth::check()) $this->authorize('create', $this->user, Comment::class);
+        if ($this->user->point_count < 1) {
             Flash::error('Your points are not enough');
             return back()->withInput();
         }
@@ -55,13 +58,13 @@ class CommentController extends Controller
             'content' => $markdown,
         ]);
         // User statics
-        $user->point_count -= 1;
-        $user->save();
+        $this->user->point_count -= 1;
+        $this->user->save();
         // Update points.
-        $point->user = $user->id;
+        $point->user = $this->user->id;
         $point->type = 6;
         $point->point = -1;
-        $point->total_points = $user->point_count;
+        $point->total_points = $this->user->point_count;
         $point->got_at = Carbon::now();
         $point->save();
         Flash::success(Lang::get('global.operation_successfully'));
@@ -70,21 +73,19 @@ class CommentController extends Controller
 
     public function show(Comment $comment)
     {
-        if (Auth::check()) {
-            $this->authorize('view', $user, $comment);
-        }
+        if (Auth::check()) $this->authorize('view', $this->user, $comment);
         return view('comments.show', compact('comment'));
     }
 
     public function edit(Comment $comment)
     {
-        $this->authorize('update', $user, $comment);
+        if (Auth::check()) $this->authorize('update', $this->user, $comment);
         return view('comments.create_and_edit', compact('comment'));
     }
 
     public function update(CommentRequest $request, Comment $comment)
     {
-        $this->authorize('update', $user, $comment);
+        if (Auth::check()) $this->authorize('update', $this->user, $comment);
         // Convert HTML topic content to markdown.
         $markdown = (new HtmlConverter())->convert($request->input('content'));
         // Fix the contents.
@@ -98,7 +99,7 @@ class CommentController extends Controller
 
     public function destroy(Comment $comment)
     {
-        $this->authorize('delete', $user, $comment);
+        if (Auth::check()) $this->authorize('delete', $this->user, $comment);
         $comment->delete();
         Flash::success(Lang::get('global.operation_successfully'));
         return redirect()->route('comments.index');

@@ -25,17 +25,15 @@ ______                            _              _                              
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - {{ config('app.name') }}</title>
     <!-- Styles -->
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="https://cdn.bootcss.com/muicss/0.9.16/css/mui.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <!-- Scripts -->
-    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/mithril/1.1.1/mithril.min.js"></script>
+    <script src="https://cdn.bootcss.com/muicss/0.9.16/js/mui.min.js"></script>
     <script src="https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
-    <script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/jquery.share.min.js"></script>
     <script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/social-share.min.js"></script>
     {{-- <script src="{{ elixir('/js/app.js') }}"></script> --}}
     <script>
@@ -43,20 +41,16 @@ ______                            _              _                              
             'csrfToken' => csrf_token(),
         ]) !!};
         // Pjax and progress.
-        $(document).pjax('a', '#pjax-container');
-        $(document).on('pjax:start', function() {
+        document.addEventListener('pjax:start', function() {
             NProgress.start();
         });
-        $(document).on('pjax:end',   function() {
-            NProgress.done(); 
+        document.addEventListener('pjax:end', function() {
+            NProgress.done();
         });
         // Prevent timeout event jump to links.
-        $(document).on("pjax:timeout", function(event) {
+        document.addEventListener("pjax:timeout", function(event) {
             event.preventDefault()
         });
-        // Flash
-        $('#flash-overlay-modal').modal();
-        $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
         // Piwik
         var _paq = _paq || [];
         /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
@@ -79,7 +73,7 @@ ______                            _              _                              
     <div id="app">
         <header>
         <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
+            <div class="container main-container">
                 <div class="navbar-header">
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
@@ -168,9 +162,9 @@ ______                            _              _                              
                     @endif
                     @yield('content')
                     <!-- SideBar -->
-                    <!--<div class="pull-right">
+                    <div class="col-md-3 side-bar">
                         @include('layouts.sidebar')
-                    </div>-->
+                    </div>
                 </div>
         @endif
     </div>

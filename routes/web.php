@@ -72,6 +72,3 @@ Route::get('follow', 'UserController@getFollow');
 Route::post('follow', 'UserController@postFollow');
 Route::get('unfollow', 'UserController@getUnfollow');
 Route::post('unfollow', 'UserController@postUnfollow');
-
-//Fix ueditor server
-Route::any('/laravel-ueditor/server', '\Stevenyangecho\UEditor\Controller@server');

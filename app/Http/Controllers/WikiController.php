@@ -115,12 +115,12 @@ class WikiController extends Controller
         $html = $dom->outerHtml;
         // The toc being generated.
         $tree = [
-            'h1' => $dom->find('h1')->text(),
-            'h2' => $dom->find('h2')->text(),
-            'h3' => $dom->find('h3')->text(),
-            'h4' => $dom->find('h4')->text(),
-            'h5' => $dom->find('h5')->text(),
-            'h6' => $dom->find('h6')->text(),
+        //    'h1' => $dom->find('h1')->text(),
+        //    'h2' => $dom->find('h2')->text(),
+        //    'h3' => $dom->find('h3')->text(),
+        //    'h4' => $dom->find('h4')->text(),
+        //    'h5' => $dom->find('h5')->text(),
+        //    'h6' => $dom->find('h6')->text(),
         ];
         $wiki->toc = $toc;
         return view('wiki.show', compact('wiki'));

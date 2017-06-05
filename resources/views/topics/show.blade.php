@@ -3,8 +3,9 @@
     @lang('global.view_topic'): {{ $topic->title }}
 @stop
 @section('content')
-<div class="container">
-    <div class="panel panel-default col-md-10 col-md-offset-1">
+<div class="col-md-9 main-col">
+    <!-- Topic -->
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h1>{{ $topic->title }}</h1>
         </div>
@@ -58,6 +59,8 @@
             @endif
         @endcan
         </div>
+      </div>
+      <div class="panel panel-default">
         <!-- Posts -->
         @if ($topic->reply_count > 0)
             @if (isset($posts))
@@ -111,6 +114,8 @@
                 <a href="{{ route('topics.show', $topic) }}">@lang('global.view_all_posts')</a>
             @endif
         @endif
+      </div>
+      <div class="panel panel-default">
         <!-- reply editor -->
         @can('create', \App\Models\Post::class)
             @if ($posts->last()->post < $topic->reply_count)

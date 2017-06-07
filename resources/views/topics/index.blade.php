@@ -19,7 +19,9 @@
                         <li class="list-group-item">
                             {{ $topic->upVote }}
                             @if ($topic->reply_count > 0)
-                                <span class="badge">{{ $topic->reply_count }}</span>
+                                <template>
+                                    <badge count="{{ $topic->reply_count }}"></badge>
+                                </template>
                             @endif
                             <div class="pull-left">
                                 <img alt="" src="/avatars/{{ $topic->user }}.png" width="32" height="32"></span>

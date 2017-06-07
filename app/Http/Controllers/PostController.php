@@ -6,7 +6,7 @@ use Agent;
 use Auth;
 use Flash;
 use Lang;
-use Notifynder;
+use Notification;
 use App\Mail\AtYou;
 use App\Mail\ReplyTopic;
 use App\Models\Point;
@@ -75,11 +75,10 @@ class PostController extends Controller
                 // Replace username to markdown links.
                 $markdown = str_replace($at, '[@' . $at . '](' . route('users.show', $this->user->id) . ')', $markdown);
                 // @ notification.
-                Notifynder::category('user.at')
+                Notification::send
                     ->from($this->user->username)
                     ->to($at)
                     ->url(route('topics.show', $topic->id))
-                    ->send();
                 $atUser = User::where('username', $at)->first();
                 if ($atUser) {
                     $atUser->notification_count += 1;

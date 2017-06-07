@@ -25,31 +25,29 @@ ______                            _              _                              
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - {{ config('app.name') }}</title>
     <!-- Styles -->
-    <link href="https://cdn.bootcss.com/muicss/0.9.16/css/mui.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/iview/2.0.0-rc.16/styles/iview.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
-    <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/mint.css" rel="stylesheet">
     <!-- Scripts -->
     <script src="https://cdn.bootcss.com/mithril/1.1.1/mithril.min.js"></script>
-    <script src="https://cdn.bootcss.com/muicss/0.9.16/js/mui.min.js"></script>
-    <script src="https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/iview/2.0.0-rc.16/iview.min.js"></script>
     <script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/social-share.min.js"></script>
-    {{-- <script src="{{ elixir('/js/app.js') }}"></script> --}}
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
         // Pjax and progress.
         document.addEventListener('pjax:start', function() {
-            NProgress.start();
+            this.$Loading.start();
         });
         document.addEventListener('pjax:end', function() {
-            NProgress.done();
+            this.$Loading.finish();
         });
         // Prevent timeout event jump to links.
         document.addEventListener("pjax:timeout", function(event) {
-            event.preventDefault()
+            event.preventDefault();
+            this.$Loading.error();
         });
         // Piwik
         var _paq = _paq || [];
@@ -72,49 +70,34 @@ ______                            _              _                              
 <body>
     <div id="app">
         <header>
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container main-container">
-                <div class="navbar-header">
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name') }}
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        <li><a href="{{ route('topics.index') }}">@lang('global.topics')</a></li>
-                        <li><a href="{{ route('wiki.index') }}">@lang('global.wiki')</a></li>
-                        <li><a href="{{ route('about') }}">@lang('global.about')</a></li>
-                    </ul>
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Search -->
-                        <li>
-                            <form class="nav-form" action="{{ route('search') }}" method="POST" class="form-inline" target="_blank">
-                                <input type="text" name="query" required class="form-control" placeholder="@lang('global.search')">
-                            </form>
-                        </li>
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">@lang('global.login')</a></li>
-                            <li><a href="{{ url('/register') }}">@lang('global.register')</a></li>
-                        @else
-                            <a href="{{ route('users.show', $account->username) }}"><img alt="avatar" src="/avatars/{{ $account->id }}.png" width="32" height="32"></a>
-                            <a href="{{ route('users.show', $account->username) . '#notifications' }}"><span class="badge">{{ $account->notification_count }}</span></a>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <template>
+                <!-- Nav -->
+                <nav>
+                    <!-- Menus -->
+                    <menu mode="horizontal" :theme="light" active-name="index">
+                        <menu-item name="index">{{ config('app.name') }}</menu-item>
+                        <menu-item name="topics"><a href="{{ route('topics.index') }}">@lang('global.topics')</a></menu-item>
+                        <menu-item name="wiki"><a href="{{ route('wiki.index') }}">@lang('global.wiki')</a></menu-item>
+                        <menu-item name="about"><a href="{{ route('about') }}">@lang('global.about')</a></menu-item>
+                    </menu>
+                    <!-- Search -->
+                    <form class="nav-form" action="{{ route('search') }}" method="POST" class="form-inline" target="_blank">
+                        <input type="text" name="query" required class="form-control" placeholder="@lang('global.search')">
+                    </form>
+                    <!-- Authentication Links -->
+                    @if (Auth::guest())
+                        <li><a href="{{ url('/login') }}">@lang('global.login')</a></li>
+                        <li><a href="{{ url('/register') }}">@lang('global.register')</a></li>
+                    @else
+                        <a href="{{ route('users.show', $account->username) }}"><img alt="avatar" src="/avatars/{{ $account->id }}.png" width="32" height="32"></a>
+                        <a href="{{ route('users.show', $account->username) . '#notifications' }}"><span class="badge">{{ $account->notification_count }}</span></a>
+                        <template>
+                            <dropdown>
+                                <a href="#" class="dropdown-toggle">
                                     {{ $account->username }} <span class="caret"></span>
                                 </a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
+                                <dropdown-menu slot="list">
+                                    <dropdown-item>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -123,38 +106,42 @@ ______                            _              _                              
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                                    </dropdown-item>
+                                </dropdown-menu>
+                            </dropdown>
+                        </template>
+                    @endif
+                </nav>
+            </template>
         </header>
-        <!-- Nav -->
         <div class="container">
             @if (Auth::check() && $account->status <= -3)
-            <div class="alert alert-danger">
-                @lang('global.user_banned')
-            </div>
+            <template>
+                <alert type="error" show-icon closeable>
+                    @lang('global.user_banned')
+                </alert>
+            </template>
             @else
                 @if (Auth::check() && $account->status == 0)
-                    <div class="alert alert-warning">
-                        @lang('global.confirm_email_request')
-                    </div>
+                    <template>
+                        <alert type="warning" show-icon closeable>
+                            @lang('global.confirm_email_request')
+                        </alert>
+                    </template>
                 @endif
                 <div class="main-content" id="pjax-container">
                     @include('flash::message')
                     @if (isset($errors) && count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <p>There were some problems with your input.</p>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li><i class="glyphicon glyphicon-remove"></i> {{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+                        <template>
+                            <alert type="error" show-icon closeable>
+                                There were some problems with your input.
+                                <span slot="desc">
+                                    @foreach ($errors->all() as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                </span>
+                            </alert>
+                        </template>
                     @endif
                     <!-- Breadcrumbs -->
                     @if (Breadcrumbs::exists(Route::currentRouteName()))
@@ -166,12 +153,12 @@ ______                            _              _                              
                         @include('layouts.sidebar')
                     </div>
                 </div>
-        @endif
+            @endif
+        </div>
     </div>
-</div>
 <!-- Scripts -->
-<script src="/js/app.js"></script>
 <script src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+<script src="/js/app.js"></script>
 <footer>
     <div class="container small">
         <p class="pull-left">

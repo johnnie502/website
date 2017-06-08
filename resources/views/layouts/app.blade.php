@@ -34,9 +34,17 @@ ______                            _              _                              
     <script src="https://cdn.bootcss.com/iview/2.0.0-rc.16/iview.min.js"></script>
     <script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/social-share.min.js"></script>
     <script>
+        // CSRF token
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
+        // Vue
+        Vue.component('my-component', {
+            template: '<div>A custom component!</div>'
+        });
+        new Vue({
+            el: '#app',
+        });
         // Pjax and progress.
         document.addEventListener('pjax:start', function() {
             this.$Loading.start();

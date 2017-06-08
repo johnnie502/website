@@ -45,7 +45,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $nodes->links() !!}
+                {!! $nodes->links('iview') !!}
             @else
                 <h3 class="text-center alert alert-info">Empty!</h3>
             @endif

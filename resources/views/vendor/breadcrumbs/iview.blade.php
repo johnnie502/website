@@ -1,4 +1,4 @@
-// Breadcrumbs for iView
+{{-- Breadcrumbs for iView --}}
 @if ($breadcrumbs)
     <template>
         <breadcrumb>

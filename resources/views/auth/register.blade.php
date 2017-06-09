@@ -7,8 +7,8 @@
         <card>
             <p slot="title">@lang('global.register')</p>
             <form model="formItem" :label-width="80" method="POST" action="{{ url('/register') }}">
-            {{ csrf_field() }}
-                                <form-ltem label="@lang('validation.attributes.username')">
+                {{ csrf_field() }}
+                <form-ltem label="@lang('validation.attributes.username')">
                     <input type="text" v-model="formitem.username" name="username" value="{{ old('username') }}" required placeholder="3～20个字符" autofocus>
                 </form-ltem>
                 <form-item label="@lang('validation.attributes.email')">

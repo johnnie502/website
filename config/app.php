@@ -191,7 +191,7 @@ return [
         Overtrue\LaravelSocialite\ServiceProvider::class,  //Socialite
         Douyasi\Editor\EditorServiceProvider::class,  // Editor.md
         Hootlex\Moderation\ModerationServiceProvider::class,  // Audit contents
-        Zizaco\Entrust\EntrustServiceProvider::class,  // 
+        Zizaco\Entrust\EntrustServiceProvider::class,  // Audit contents
         \Cviebrock\EloquentTaggable\ServiceProvider::class,  // Tags manage
         Intervention\Image\ImageServiceProvider::class,  // Image
         Junaidnasir\Larainvite\LaraInviteServiceProvider::class,  // Invite register
@@ -199,14 +199,6 @@ return [
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,  //Breadcrumbs
         TomLingham\Searchy\SearchyServiceProvider::class,  // Search
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,  // reCaptcha
-        Backpack\Base\BaseServiceProvider::class,  // Admin
-        Backpack\CRUD\CrudServiceProvider::class, // CRUD
-        Spatie\Backup\BackupServiceProvider::class,  // Backup
-        Backpack\BackupManager\BackupManagerServiceProvider::class,  // Backup Manager
-        Backpack\LangFileManager\LangFileManagerServiceProvider::class,  // Lang File Manager
-        Backpack\LogManager\LogManagerServiceProvider::class,  // Log Manager
-        Backpack\Settings\SettingsServiceProvider::class,  // Settings
-        Cog\Ban\Providers\BanServiceProvider::class,  // Ban and block
         Jenssegers\Agent\AgentServiceProvider::class,  // User-Agent
         RobBrazier\Piwik\PiwikServiceProvider::class,  // Piwik
         Ghanem\Rating\RatingServiceProvider::class,  // Fivestar rating

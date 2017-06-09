@@ -9,17 +9,9 @@
         "ext-redis": "*",
         "RobBrazier/Piwik": "^2.1",
         "andreasindal/laravel-markdown": "^1.1",
-        "backpack/backupmanager": "^1.1",
-        "backpack/base": "^0.7.16",
-        "backpack/crud": "^3.2",
-        "backpack/langfilemanager": "^1.0",
-        "backpack/logmanager": "^2.3",
-        "backpack/settings": "^2.0",
         "cviebrock/eloquent-taggable": "^2.1",
-        "cybercog/laravel-ban": "^2.0",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "douyasi/laravel-editor-md": "dev-master",
-        "fenos/notifynder": "^4.1",
         "ghanem/rating": "^1.4",
         "greggilbert/recaptcha": "dev-master",
         "hootlex/laravel-moderation": "^1.0",
@@ -37,7 +29,6 @@
         "overtrue/laravel-lang": "^3.0",
         "overtrue/laravel-ueditor": "~1.0",
         "overtrue/laravel-socialite": "~1.0",
-        "paquettg/php-html-parser": "^1.7",
         "predis/predis": "^1.1",
         "ricoa/copywriting-correct": "dev-master",
         "schuppo/password-strength": "~1.5",
@@ -48,7 +39,6 @@
         "zizaco/entrust": "^1.7"
     },
     "require-dev": {
-        "backpack/generators": "^1.1",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.0"

@@ -4,14 +4,29 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Config values
+    | Topic config
     |--------------------------------------------------------------------------
     |
-    | This file is for some configuration
+    | This file is for topic configuration
     |
     */
 
-    'user_can_edit_topic' => false,
-    'user_can_delete_topic' => false,
+    'topic' => [
+        'edit_topic' => false,
+        'delete_topic' => false,
+    ],
     
+    /*
+    |--------------------------------------------------------------------------
+    | Site config
+    |--------------------------------------------------------------------------
+    |
+    | This file is for site configuration
+    |
+    */
+   
+   'theme' => 'mint',
+
+   'cdn' => 'bootcss',
+
 ];

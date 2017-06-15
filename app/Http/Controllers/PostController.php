@@ -74,11 +74,8 @@ class PostController extends Controller
             if ($at != $this->user->username) {
                 // Replace username to markdown links.
                 $markdown = str_replace($at, '[@' . $at . '](' . route('users.show', $this->user->id) . ')', $markdown);
-                // @ notification.
-                Notification::send
-                    ->from($this->user->username)
-                    ->to($at)
-                    ->url(route('topics.show', $topic->id))
+                // At notification.
+                Notification::send($at, new At($topic->id, $post->id));
                 $atUser = User::where('username', $at)->first();
                 if ($atUser) {
                     $atUser->notification_count += 1;

@@ -15,7 +15,7 @@
                             @foreach ($wikis as $wiki)
                                 <li class="list-group-item">
                             <div class="pull-left">
-                                <img alt="" src="/avatars/{{ $wiki->user }}.png" width="32" height="32"></span>
+                                <img alt="" src="/images/avatars/{{ $wiki->user }}.png" width="32" height="32"></span>
                             </div>
                             <a href="{{ route('wiki.show', $wiki->title) }}">{{ $wiki->title }}</a><br>
                             <div>

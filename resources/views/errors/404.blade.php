@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+    404 - Not Found
+@stop
 @section('content')
 <div class="container">
     <div class="row">

@@ -31,7 +31,7 @@
         </div>
         {{ $topic->countVoters() }}
         <div class="pull-right">
-            <img alt="" src="/avatars/{{ $topic->user}}.png" width="128" height="128"><br>
+            <img alt="" src="/images/avatars/{{ $topic->user}}.png" width="128" height="128"><br>
             <a href="{{ route('users.show', $topic->users->username) }}">{{ $topic->users->username }}</a>
         </div>
         @markdown($posts->first()->content)
@@ -81,7 +81,7 @@
                                  <a href={{ route('topics.posts.show', [$topic, $reply]) }}><span class="label label-primary">#{{ $reply->post }}</span></a>
                             </div>
                             <li class="list-group-item post-item">
-                                <div><img alt="" src="/avatars/{{ $reply->user}}.png" width="32" height="32"></div>
+                                <div><img alt="" src="/images/avatars/{{ $reply->user}}.png" width="32" height="32"></div>
                                 <div>@markdown($reply->content)<hr/><span>顶&nbsp;({{ $reply->upvotes }})</span><span>踩&nbsp;({{ $reply->downvotes }})</span></div>
                             </li>
                         </ul>

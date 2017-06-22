@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
-    }
+        if (App::environment() === 'production') {
+            exit('你不会是想被开除吧？');
+        }
+   }
 }

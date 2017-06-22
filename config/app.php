@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -172,9 +172,36 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // Custom providers
+        App\Providers\ComposerServiceProvider::class,
+
+        /*
+         * Third-Party Service Providers...
+         */
+        Laracasts\Flash\FlashServiceProvider::class,  // Flash messages
+        Indal\Markdown\MarkdownServiceProvider::class,  // Markdown parse
+        Overtrue\LaravelFollow\FollowServiceProvider::class,  // Follow
+        Overtrue\LaravelLang\TranslationServiceProvider::class,  // Translation
+        Jcc\LaravelVote\VoteServiceProvider::class,  // Votes
+        Overtrue\LaravelUEditor\UEditorServiceProvider::class,  // UEditor
+        Overtrue\LaravelSocialite\ServiceProvider::class,  //Socialite
+        Douyasi\Editor\EditorServiceProvider::class,  // Editor.md
+        Hootlex\Moderation\ModerationServiceProvider::class,  // Audit contents
+        Zizaco\Entrust\EntrustServiceProvider::class,  // Audit contents
+        \Cviebrock\EloquentTaggable\ServiceProvider::class,  // Tags manage
+        Intervention\Image\ImageServiceProvider::class,  // Image
+        Junaidnasir\Larainvite\LaraInviteServiceProvider::class,  // Invite register
+        \Schuppo\PasswordStrength\PasswordStrengthServiceProvider::class,  // Password strength
+        DaveJamesMiller\Breadcrumbs\ServiceProvider::class,  //Breadcrumbs
+        TomLingham\Searchy\SearchyServiceProvider::class,  // Search
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,  // reCaptcha
+        Jenssegers\Agent\AgentServiceProvider::class,  // User-Agent
+        RobBrazier\Piwik\PiwikServiceProvider::class,  // Piwik
+        //Ghanem\Rating\RatingServiceProvider::class,  // Fivestar rating
+        Just\Amp\Laravel\AmpServiceProvider::class,  // AMP        
 
     ],
 
@@ -224,6 +251,18 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        // Third Party
+        'Flash' => Laracasts\Flash\Flash::class,
+        'Markdown' => Indal\Markdown\Facade::class,
+        'Socialite' => Overtrue\LaravelSocialite\Socialite::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Invite' => Junaidnasir\Larainvite\Facades\Invite::class,
+        'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
+        'Searchy' => TomLingham\Searchy\Facades\Searchy::class,
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'Piwik' => RobBrazier\Piwik\Facades\Piwik::class,
+        'AmpRouter' => Just\Amp\Laravel\AmpRouteFacade::class,
 
     ],
 

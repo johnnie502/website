@@ -19,11 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique()->index();
             $table->string('email')->unique();
             $table->string('password');
+            $table->rememberToken();
             $table->string('banner')->nullable();
             $table->string('description')->nullable();
             $table->integer('type')->unsigned()->default(0)->index();
             $table->integer('status')->default(0)->index();
-            $table->rememberToken();
+            $table->integer('weight')->default(1)->index();
+            $table->integer('phone')->nullable();
             $table->integer('point_count')->unsigned()->default(0);
             $table->integer('notification_count')->unsigned()->default(0);
             $table->ipAddress('regip')->nullable();

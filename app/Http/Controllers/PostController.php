@@ -116,11 +116,7 @@ class PostController extends Controller
         if ($topic->users->id != $this->user->id) {
             // Reply notification.
             $toUser = $topic->users->first();
-            Notifynder::category('user.reply')
-                ->from($this->user->username)
-                ->to($toUser->username)
-                ->url(route('topics.show', $topic->id))
-                ->send(); 
+            Notification::send($toUser->username, new Reply(route('topics.show', $topic->id)));
             $toUser->notification_count += 1;
             $toUser->save();
         }

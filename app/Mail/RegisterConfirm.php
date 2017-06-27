@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+use Route;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -16,7 +18,7 @@ class RegisterConfirm extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user, $url)
     {
         //
     }

@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use Auth;
 use Route;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -31,7 +32,7 @@ class Recommand extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**

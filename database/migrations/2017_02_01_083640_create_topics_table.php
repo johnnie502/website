@@ -14,7 +14,7 @@ class CreateTopicsTable extends Migration
             $table->string('title');
             $table->integer('type')->unsigned()->default(0)->index();
             $table->integer('status')->default(0)->index();
-            $table->integer('weight')->default(1)->index();
+            $table->float('weight')->default(1.0)->unsigned()->index();
             $table->integer('view_count')->unsigned()->default(0);
             $table->integer('reply_count')->unsigned()->default(0);
             $table->integer('lastreply')->unsigned()->default(0)->nullable();

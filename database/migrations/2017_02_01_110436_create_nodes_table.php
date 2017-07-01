@@ -13,7 +13,7 @@ class CreateNodesTable extends Migration
             $table->string('slug');
             $table->integer('type')->unsigned()->default(0)->index();
             $table->integer('status')->default(0)->index();
-            $table->integer('weight')->default(1)->index();
+            $table->float('weight')->default(1.0)->unsigned()->index();
             $table->integer('parent')->unsigned()->nullable()->index();
             $table->string('background')->nullable();
             $table->text('description')->nullable();

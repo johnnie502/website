@@ -15,7 +15,7 @@ class CreatePostsTable extends Migration
             $table->longText('content');
             $table->integer('type')->unsigned()->default(0)->index();
             $table->integer('status')->default(0)->index();
-            $table->integer('weight')->default(1)->index();
+            $table->float('weight')->default(1.0)->unsigned()->index();
             $table->integer('edit_count')->unsigned()->default(0);
             $table->integer('comment_count')->unsigned()->default(0);
             $table->integer('favicon_count')->unsigned()->default(0);

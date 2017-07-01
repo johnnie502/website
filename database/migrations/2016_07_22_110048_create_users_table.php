@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('description')->nullable();
             $table->integer('type')->unsigned()->default(0)->index();
             $table->integer('status')->default(0)->index();
-            $table->integer('weight')->default(1)->index();
+            $table->float('weight')->default(1.0)->unsigned()->index();
             $table->integer('phone')->nullable();
             $table->integer('point_count')->unsigned()->default(0);
             $table->integer('notification_count')->unsigned()->default(0);

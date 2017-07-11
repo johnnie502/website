@@ -27,8 +27,8 @@ class WikiRequest extends Request
                     'title' => 'bail|required|min:3|max:20|unique:wikis',
                     'categroies' => 'bail|required',
                     'content' => 'bail|required|min:10',
-                    'redirect' => 'exists:wikis,title'
-                    'template' =>  'exists:wikis,title,type,3'
+                    'redirect' => 'exists:wikis,title',
+                    'template' =>  'exists:wikis,title,type,3',
                 ];
             }
             case 'GET':

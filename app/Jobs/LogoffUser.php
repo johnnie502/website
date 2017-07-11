@@ -33,16 +33,16 @@ class LogoffUser implements ShouldQueue
          // Logoff this user.
         if ($user->status >= 0) {
             // Soft delete all topics, posts, comments and wiki of this user.
-            $user->topics>each(function ($item) {
+            $user->topics->each(function ($item) {
                 $item->delete();
             });
             $user->posts->each(function ($item) {
                 $item->delete();
             });
-            $user->wikis>each(function ($item) {
+            $user->wikis->each(function ($item) {
                 $item->delete();
             });
-            $user->comments>each(function ($item) {
+            $user->comments->each(function ($item) {
                 $item->delete();
             });
             $user->history()->delete();

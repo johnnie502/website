@@ -11,7 +11,7 @@ class AdminAuth
     public function handle($request, Closure $next)
     {
         // The user is login?
-        if (isset($request->user()) || Auth::check()) {
+        if ($request->user() || Auth::check()) {
             if (Auth::user()->hasRole()) {
                 if (Auth::user()->type >= 4) {
                     return $next($request);

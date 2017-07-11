@@ -33,16 +33,16 @@ class RecycleUser implements ShouldQueue
         // Recycle this user.
         if ($user->status == -1) {
             // Force delete all topics, posts, comments and wiki of this user.
-            $user->topics>each(function ($item) {
+            $user->topics->each(function ($item) {
                 $item->forceDelete();
             });
             $user->posts->each(function ($item) {
                 $item->forceDelete();
             });
-            $user->wikis>each(function ($item) {
+            $user->wikis->each(function ($item) {
                 $item->forceDelete();
             });
-            $user->comments>each(function ($item) {
+            $user->comments->each(function ($item) {
                 $item->forceDelete();
             });
             $user->history()->forceDelete();

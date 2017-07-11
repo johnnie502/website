@@ -18,7 +18,6 @@ class User extends Authenticatable
 {
     use Traits\UserOperation, softDeletes, HasApiTokens, Notifiable, InviteTrait, CanFollow, CanBeFollowed, CanLike, CanFavorite, CanSubscribe, Vote;
 
-    protected $table = 'users';
     protected $dates = ['deleted_at'];
     protected $fillable = ['username', 'email', 'password'];
     protected $hidden = ['remember_me'];

@@ -12,7 +12,6 @@ class Post extends Model
 {
     use Traits\PostOperation, Moderatable, SoftDeletes, CanBeLiked, CanBeFavorited, CanBeVoted;
 
-    protected $table = 'posts';
     protected $dates = ['deleted_at'];
     protected $fillable = ['content'];
     protected $touches = ['topics'];
@@ -39,6 +38,6 @@ class Post extends Model
      */
     public function comments()
     {
-        return $this->morphMany('App\Models\Comment', 'commentable_id');
+        return $this->morphMany('App\Models\Comment', 'commentable');
     }
 }

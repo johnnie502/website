@@ -33,16 +33,16 @@ class LogoffUser implements ShouldQueue
          // Restore this user.
         if ($user->status == -1) {
             // Restore all topics, posts, comments and wiki of this user.
-            $user->topics>each(function ($item) {
+            $user->topics->each(function ($item) {
                 $item->restore();
             });
             $user->posts->each(function ($item) {
                 $item->restore();
             });
-            $user->wikis>each(function ($item) {
+            $user->wikis->each(function ($item) {
                 $item->restore();
             });
-            $user->comments>each(function ($item) {
+            $user->comments->each(function ($item) {
                 $item->restore();
             });
             $user->history()->restore();

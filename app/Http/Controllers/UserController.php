@@ -24,7 +24,7 @@ class UserController extends Controller
 {
     protected $user;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
         if ($request->user()) {
             // Only admin user can create or update users.

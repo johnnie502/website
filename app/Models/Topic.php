@@ -13,7 +13,6 @@ class Topic extends Model
 {
     use Traits\TopicOperation, Moderatable, SoftDeletes, CanBeLiked, CanBeFavorited, Taggable, CanBeVoted;
 
-    protected $table = 'topics';
     protected $dates = ['deleted_at','replied_at'];
     protected $fillable = ['title'];
     protected $vote = User::class;
